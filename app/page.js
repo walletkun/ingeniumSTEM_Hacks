@@ -85,6 +85,7 @@ export default function Component() {
             </Button>
           </div>
         </div>
+        {/* CHAT SCREEN GOES HERE*/}
         <div className="flex-1 overflow-auto p-4 md:p-6">
           <div className="mx-auto max-w-2xl space-y-4">
             <div className="flex items-start gap-4">
