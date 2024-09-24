@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/components/ui/button"
 import Link from "next/link"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Textarea } from "@/components/ui/textarea"
+import { Avatar, AvatarImage, AvatarFallback } from "@/app/components/ui/avatar"
+import { Textarea } from "@/app/components/ui/textarea"
 
 export function tutor() {
   return (

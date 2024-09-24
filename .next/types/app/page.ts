@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/page.js
-=======
-// File: /Users/mo/Desktop/Code/gitProjects/ingeniumSTEM_Hacks/app/page.js
->>>>>>> 3b3fda31db08882c14a5804adcbda1888bfe713d
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
