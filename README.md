@@ -1,0 +1,4 @@
+CICERO is an AI-powered chat bot that is designed to tutor students with any subject. Subjects range from simple 4th grade math
+to aerospace engineering. CICERO's most valuable feature is its ability to parse pdfs from any article, textbook, etc. and add it to its RAG
+powered knowledge base. Every time a user uploads a pdf, they are prompted to give it a name and choose to save it to their account. This can then be accessed at any time and CICERO will remember those previous sessions and pick up where the user left off. CICERO can use the
+same knowledge base to create flashcards for the user, generate exam review sessions, and create practice tests. 
