@@ -15,7 +15,7 @@ export default function Component() {
             Your personal AI tutor, here to help you learn and grow.
           </p>
           <Link
-            href="#"
+            href="auth/register"
             className="inline-flex items-center justify-center rounded-full bg-[#6b49c8] px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#5a3ea5] focus:outline-none focus:ring-2 focus:ring-[#6b49c8] focus:ring-offset-2"
             prefetch={false}
           >
