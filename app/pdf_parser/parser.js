@@ -3,9 +3,17 @@ const fs = require('fs');
 const axios = require('axios');
 require('dotenv').config();
 
-// Function to extract text from the PDF
-async function extractTextFromPDF(pdfPath) {
-    const dataBuffer = fs.readFileSync(pdfPath);
+// Function to extract text from the PDF, handling both file paths and binary data
+async function extractTextFromPDF(pdfData, isBinary = false) {
+    let dataBuffer;
+    
+    // Check if the data is binary or a file path
+    if (isBinary) {
+        dataBuffer = pdfData; // Binary data is passed directly
+    } else {
+        dataBuffer = fs.readFileSync(pdfData); // pdfData is a file path
+    }
+
     try {
         const data = await pdf(dataBuffer);
         return data.text;
@@ -31,9 +39,7 @@ async function sendToLLaMA(text) {
 
 // Pinecone vector store setup (mocked for this version)
 async function upsertToPinecone(indexName, text) {
-    // Simulate storing the text as embeddings in Pinecone
     console.log(`Upserting text to Pinecone index: ${indexName}`);
-    // Mocking the vector store response
     return {
         indexName,
         text,
@@ -69,10 +75,10 @@ async function generateResponse(query, context) {
 }
 
 // Process the PDF and handle the RAG process
-async function processPDF(pdfPath) {
+async function processPDF(pdfData, isBinary = false) {
     try {
         // Extract text from the PDF
-        const extractedText = await extractTextFromPDF(pdfPath);
+        const extractedText = await extractTextFromPDF(pdfData, isBinary);
         console.log('Extracted Text:', extractedText);
 
         // Upsert text into Pinecone
@@ -88,6 +94,15 @@ async function processPDF(pdfPath) {
     }
 }
 
-// Test run with the provided PDF
-const pdfFilePath = 'app/test_parsing/deeplearningbook.org_contents_part_basics.html.pdf';
-processPDF(pdfFilePath);
+// Calls the file handler to get the binary data
+const getBinaryData = require('./fileHandler'); 
+const pdfBinaryData = getBinaryData();
+
+// Error handling.
+if (!pdfBinaryData) {
+    console.error("ERROR: No PDF binary data provided.");
+    process.exit(1);
+}
+
+// Process the PDF with binary data
+processPDF(pdfBinaryData, true); // `true` indicates that binary data is being passed
