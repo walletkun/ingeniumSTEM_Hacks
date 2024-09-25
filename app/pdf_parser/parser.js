@@ -1,14 +1,19 @@
-
-// Useful node modules.
+/*
+    Program gets binary data and parses it.
+*/
+const logger = require('../utils/logger');
 const pdf = require('pdf-parse');
 const fs = require('fs');
+const getBinaryData = require('./fileHandler');
 
 // Function to extract text from binary PDF data
 async function extractTextFromPDF(pdfBinaryData) {
     try {
-        const data = await pdf(pdfBinaryData); 
+        const data = await pdf(pdfBinaryData);
+        logger.info('Text extracted from PDF');
         return data.text;
     } catch (error) {
+        logger.error(`Error extracting text from PDF: ${error.message}`);
         throw new Error(`Error extracting text from PDF: ${error.message}`);
     }
 }
@@ -16,30 +21,27 @@ async function extractTextFromPDF(pdfBinaryData) {
 // Function to process the PDF and return the extracted text
 async function processPDF(pdfBinaryData) {
     try {
-        // Extract text from the binary PDF data
         const extractedText = await extractTextFromPDF(pdfBinaryData);
-        console.log('Extracted Text:', extractedText);
-        
-        // Return the extracted text for further processing by other programs
+        logger.info('PDF processing completed successfully');
         return extractedText;
     } catch (error) {
-        console.error('Error processing PDF:', error);
+        logger.error('Error processing PDF:', error.message);
     }
 }
 
-// Calls the file handler to get the binary data
-const getBinaryData = require('./fileHandler'); 
+// Get binary data from fileHandler
 const pdfBinaryData = getBinaryData();
 
 // Error handling
 if (!pdfBinaryData) {
-    console.error("ERROR: No PDF binary data provided.");
+    logger.error('ERROR: No PDF binary data provided.');
     process.exit(1);
 }
 
-// Process the binary data from the PDF
+// Process the binary data from the PDF and save extracted text
 processPDF(pdfBinaryData).then((text) => {
-    // Export or save the extracted text for use by llamaProcessor.js
-    fs.writeFileSync('parsed_text.txt', text);
-    console.log('Parsed text written to file parsed_text.txt');
+    if (text) {
+        fs.writeFileSync('parsed_text.txt', text);
+        logger.info('Parsed text written to file parsed_text.txt');
+    }
 });
