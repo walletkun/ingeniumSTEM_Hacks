@@ -1,9 +1,23 @@
 {
   "pages": {
+<<<<<<< HEAD
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
+=======
+<<<<<<< HEAD
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+=======
+    "/auth/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/login/page.js"
+>>>>>>> ee43a29cd470fc222db6eacc8ebdfe1829ca05c5
+>>>>>>> 5c12a3d0f8d4f8b675f2a530c740847da5c28097
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -11,6 +25,27 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/auth/register/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/register/page.js"
+    ],
+    "/auth/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/layout.js"
+    ],
+>>>>>>> ee43a29cd470fc222db6eacc8ebdfe1829ca05c5
+>>>>>>> 5c12a3d0f8d4f8b675f2a530c740847da5c28097
     "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
