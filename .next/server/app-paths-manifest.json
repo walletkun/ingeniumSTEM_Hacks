@@ -1,11 +1,3 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-<<<<<<< HEAD
   "/page": "app/page.js"
-=======
-  "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/auth/login/page": "app/auth/login/page.js",
-  "/auth/register/page": "app/auth/register/page.js"
->>>>>>> ee43a29cd470fc222db6eacc8ebdfe1829ca05c5
 }
