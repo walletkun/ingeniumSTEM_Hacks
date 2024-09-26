@@ -15,7 +15,7 @@ export default function Component() {
         </Link>
         <div className="flex items-center gap-4">
           <Link
-            href="#"
+            href="auth/login"
             className="rounded-full bg-white px-4 py-2 text-sm font-medium text-[#121212] hover:bg-[#e0e0e0] transition-colors duration-300 ease-in-out"
             prefetch={false}
           >
