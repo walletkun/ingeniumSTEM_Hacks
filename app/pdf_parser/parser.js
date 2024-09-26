@@ -1,93 +1,47 @@
+/*
+    Program gets binary data and parses it.
+*/
+const logger = require('../utils/logger');
 const pdf = require('pdf-parse');
 const fs = require('fs');
-const axios = require('axios');
-require('dotenv').config();
+const getBinaryData = require('./fileHandler');
 
-// Function to extract text from the PDF
-async function extractTextFromPDF(pdfPath) {
-    const dataBuffer = fs.readFileSync(pdfPath);
+// Function to extract text from binary PDF data
+async function extractTextFromPDF(pdfBinaryData) {
     try {
-        const data = await pdf(dataBuffer);
+        const data = await pdf(pdfBinaryData);
+        logger.info('Text extracted from PDF');
         return data.text;
     } catch (error) {
+        logger.error(`Error extracting text from PDF: ${error.message}`);
         throw new Error(`Error extracting text from PDF: ${error.message}`);
     }
 }
 
-// Pinecone and OpenAI API setup
-async function sendToLLaMA(text) {
+// Function to process the PDF and return the extracted text
+async function processPDF(pdfBinaryData) {
     try {
-        const response = await axios.post(
-            'https://llama-api-url/parse', // Adjust this to match your actual LLaMA API
-            { text: text },
-            { headers: { 'Authorization': `Bearer ${process.env.LLAMA_API_KEY}` } }
-        );
-        console.log('LLaMA Response:', response.data);
-        return response.data;
+        const extractedText = await extractTextFromPDF(pdfBinaryData);
+        logger.info('PDF processing completed successfully');
+        return extractedText;
     } catch (error) {
-        console.error('Error with LLaMA API:', error.message);
+        logger.error('Error processing PDF:', error.message);
     }
 }
 
-// Pinecone vector store setup (mocked for this version)
-async function upsertToPinecone(indexName, text) {
-    // Simulate storing the text as embeddings in Pinecone
-    console.log(`Upserting text to Pinecone index: ${indexName}`);
-    // Mocking the vector store response
-    return {
-        indexName,
-        text,
-    };
+// Get binary data from fileHandler
+const pdfBinaryData = getBinaryData();
+
+// Error handling
+if (!pdfBinaryData) {
+    logger.error('ERROR: No PDF binary data provided.');
+    process.exit(1);
 }
 
-// Function to generate a response from OpenAI
-async function generateResponse(query, context) {
-    try {
-        const completion = await axios.post(
-            'https://api.openai.com/v1/chat/completions',
-            {
-                model: 'gpt-4', // Change this if you're using a different model
-                messages: [
-                    {
-                        role: "system",
-                        content: "You are a knowledgeable AI tutor. Use the provided context to answer the question."
-                    },
-                    {
-                        role: "user",
-                        content: `Context:\n${context}\n\nQuestion: ${query}\n\nAnswer:`
-                    }
-                ]
-            },
-            {
-                headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` }
-            }
-        );
-        return completion.data.choices[0].message.content;
-    } catch (error) {
-        console.error('Error with OpenAI API:', error.message);
+// Process the binary data from the PDF and save extracted text
+processPDF(pdfBinaryData).then((text) => {
+    if (text) {
+        fs.writeFileSync('parsed_text.txt', text);
+        logger.info('Parsed text written to file parsed_text.txt');
     }
-}
-
-// Process the PDF and handle the RAG process
-async function processPDF(pdfPath) {
-    try {
-        // Extract text from the PDF
-        const extractedText = await extractTextFromPDF(pdfPath);
-        console.log('Extracted Text:', extractedText);
-
-        // Upsert text into Pinecone
-        const indexName = 'ai-tutor';
-        const upsertedData = await upsertToPinecone(indexName, extractedText);
-
-        // Simulate a query and generate a response using the RAG pipeline
-        const query = "Can you give me a summary of this PDF?";
-        const response = await generateResponse(query, upsertedData.text);
-        console.log('AI Response:', response);
-    } catch (error) {
-        console.error('Error processing PDF:', error);
-    }
-}
-
-// Test run with the provided PDF
-const pdfFilePath = 'app/test_parsing/deeplearningbook.org_contents_part_basics.html.pdf';
-processPDF(pdfFilePath);
+});

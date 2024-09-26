@@ -1,0 +1,22 @@
+2024-09-25T05:37:23.647Z [INFO]: Text extracted from PDF
+2024-09-25T05:37:23.649Z [INFO]: PDF processing completed successfully
+2024-09-25T05:37:23.649Z [INFO]: Parsed text written to file parsed_text.txt
+2024-09-25T05:37:45.844Z [INFO]: Text extracted from PDF
+2024-09-25T05:37:45.845Z [INFO]: PDF processing completed successfully
+2024-09-25T05:37:45.846Z [INFO]: Parsed text written to file parsed_text.txt
+2024-09-25T05:49:52.558Z [INFO]: Attempt 1: Reading binary data from: /Users/mo/Desktop/Code/gitProjects/ingeniumSTEM_Hacks/app/test_parsing/deeplearningbook.org_contents_part_basics.html.pdf
+2024-09-25T05:49:52.563Z [INFO]: File read successfully on attempt 1
+2024-09-25T05:49:52.581Z [ERROR]: Error extracting text from PDF: Invalid parameter object: need either .data, .range or .url
+2024-09-25T05:49:52.581Z [ERROR]: Error processing PDF:
+2024-09-25T05:50:07.189Z [INFO]: Attempt 1: Reading binary data from: /Users/mo/Desktop/Code/gitProjects/ingeniumSTEM_Hacks/app/test_parsing/deeplearningbook.org_contents_part_basics.html.pdf
+2024-09-25T05:50:07.192Z [INFO]: File read successfully on attempt 1
+2024-09-25T05:50:07.205Z [ERROR]: Error extracting text from PDF: Invalid parameter object: need either .data, .range or .url
+2024-09-25T05:50:07.205Z [ERROR]: Error processing PDF:
+2024-09-25T05:50:40.248Z [INFO]: Attempt 1: Reading binary data from: /Users/mo/Desktop/Code/gitProjects/ingeniumSTEM_Hacks/app/test_parsing/deeplearningbook.org_contents_part_basics.html.pdf
+2024-09-25T05:50:40.250Z [INFO]: File read successfully on attempt 1
+2024-09-25T05:50:40.262Z [ERROR]: Error extracting text from PDF: Invalid parameter object: need either .data, .range or .url
+2024-09-25T05:50:40.263Z [ERROR]: Error processing PDF:
+2024-09-25T05:51:41.901Z [INFO]: Reading binary data from: /Users/mo/Desktop/Code/gitProjects/ingeniumSTEM_Hacks/app/test_parsing/deeplearningbook.org_contents_part_basics.html.pdf
+2024-09-25T05:51:41.965Z [INFO]: Text extracted from PDF
+2024-09-25T05:51:41.966Z [INFO]: PDF processing completed successfully
+2024-09-25T05:51:41.966Z [INFO]: Parsed text written to file parsed_text.txt

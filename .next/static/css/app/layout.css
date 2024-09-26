@@ -1004,6 +1004,11 @@ video {
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
+.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
 .overflow-auto {
   overflow: auto;
 }
@@ -1048,9 +1053,15 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(163 163 163 / var(--tw-border-opacity));
 }
+<<<<<<< HEAD
 .bg-\[\#000000\] {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+=======
+.bg-\[\#050708\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 7 8 / var(--tw-bg-opacity));
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
 }
 .bg-\[\#1a1a1a\] {
   --tw-bg-opacity: 1;
@@ -1075,9 +1086,6 @@ video {
 .bg-muted\/50 {
   background-color: hsl(var(--muted) / 0.5);
 }
-.bg-primary {
-  background-color: hsl(var(--primary));
-}
 .bg-secondary {
   background-color: hsl(var(--secondary));
 }
@@ -1094,6 +1102,12 @@ video {
 }
 .p-6 {
   padding: 1.5rem;
+<<<<<<< HEAD
+=======
+}
+.p-8 {
+  padding: 2rem;
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
 }
 .px-3 {
   padding-left: 0.75rem;
@@ -1136,6 +1150,7 @@ video {
 }
 .pt-0 {
   padding-top: 0px;
+<<<<<<< HEAD
 }
 .text-left {
   text-align: left;
@@ -1145,6 +1160,11 @@ video {
 }
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+=======
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
+}
+.text-center {
+  text-align: center;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -1154,9 +1174,15 @@ video {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
+<<<<<<< HEAD
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
+=======
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
 }
 .text-lg {
   font-size: 1.125rem;
@@ -1166,6 +1192,7 @@ video {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+<<<<<<< HEAD
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
@@ -1174,6 +1201,8 @@ video {
   font-size: 2.25rem;
   line-height: 2.5rem;
 }
+=======
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
 .font-bold {
   font-weight: 700;
 }
@@ -1192,6 +1221,7 @@ video {
 .tracking-tight {
   letter-spacing: -0.025em;
 }
+<<<<<<< HEAD
 .text-\[\#121212\] {
   --tw-text-opacity: 1;
   color: rgb(18 18 18 / var(--tw-text-opacity));
@@ -1204,6 +1234,8 @@ video {
   --tw-text-opacity: 1;
   color: rgb(240 240 240 / var(--tw-text-opacity));
 }
+=======
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -1223,13 +1255,14 @@ video {
 .text-primary {
   color: hsl(var(--primary));
 }
-.text-primary-foreground {
-  color: hsl(var(--primary-foreground));
-}
 .text-secondary-foreground {
   color: hsl(var(--secondary-foreground));
 }
+<<<<<<< HEAD
 .text-\[\#ffffff\] {
+=======
+.text-white {
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -1353,7 +1386,15 @@ video {
   color: hsl(var(--muted-foreground));
 }
 
+<<<<<<< HEAD
 .hover\:bg-\[\#5b5b5b\]:hover {
+=======
+.hover\:bg-\[\#050708\]\/90:hover {
+  background-color: rgb(5 7 8 / 0.9);
+}
+
+.hover\:bg-\[\#5a3ea5\]:hover {
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
   --tw-bg-opacity: 1;
   background-color: rgb(91 91 91 / var(--tw-bg-opacity));
 }
@@ -1373,10 +1414,6 @@ video {
 
 .hover\:bg-muted:hover {
   background-color: hsl(var(--muted));
-}
-
-.hover\:bg-primary\/90:hover {
-  background-color: hsl(var(--primary) / 0.9);
 }
 
 .hover\:bg-secondary\/80:hover {
@@ -1443,6 +1480,17 @@ video {
 
 .peer:disabled ~ .peer-disabled\:opacity-70 {
   opacity: 0.7;
+<<<<<<< HEAD
+=======
+}
+
+@media (min-width: 640px) {
+
+  .sm\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
 }
 
 @media (min-width: 768px) {
@@ -1455,8 +1503,13 @@ video {
     width: 50%;
   }
 
+<<<<<<< HEAD
   .md\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+=======
+  .md\:p-12 {
+    padding: 3rem;
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
   }
 
   .md\:p-6 {

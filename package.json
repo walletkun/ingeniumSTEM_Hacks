@@ -27,10 +27,15 @@
     "pinecone-client": "^2.0.0",
     "react": "^18",
     "react-dom": "^18",
+<<<<<<< HEAD
     "react-hook-form": "^7.53.0",
     "react-type-animation": "^3.2.0",
+=======
+    "react-hook-form": "^7.43.0",
+>>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "winston": "^3.14.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

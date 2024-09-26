@@ -1,6 +1,7 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   content: [
     "./components/**/*.{js,ts,jsx,tsx}",
