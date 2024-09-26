@@ -1,3 +1,4 @@
+// Testing Groq with javascript. ignore this.
 require('dotenv').config();
 
 const apiKey = process.env.GROQ_API_KEY;
