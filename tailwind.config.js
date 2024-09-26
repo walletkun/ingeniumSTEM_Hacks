@@ -9,6 +9,15 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        cursorBlink: {
+          '0%, 50%': { opacity: '1' },
+          '51%, 100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        cursorBlink: 'cursorBlink 0.6s step-end infinite',
+      },
       fontFamily: {
         heading: ['var(--font-heading)', ...fontFamily.sans],
         body: ['var(--font-body)', ...fontFamily.sans]
