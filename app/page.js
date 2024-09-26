@@ -97,9 +97,7 @@ export default function Component() {
 
         {/*Video Preview Section */}
         <div className="relative mt-40 w-full max-w-4xl">
-          <h2 className="text-2xl font-bold absolute top-[-40px] left-4 flex mb-4">Video Preview 
-            <PlayButtonIcon className="h-5 w-5 mt-2 ml-3"/>
-          </h2>
+          <h2 className="text-2xl font-bold absolute top-[-40px] left-4 flex mb-4">Video Preview </h2>
           <div className="border border-[#3f3f3f] rounded-lg overflow-hidden">
             <div className="aspect-video">
               <iframe
@@ -270,27 +268,6 @@ function FlashcardsIcon(props) {
           3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 
           1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 
           3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z" 
-      />
-    </svg>
-  )
-}
-
-
-function PlayButtonIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 24 24" 
-      fill="currentColor" 
-      class="size-6"
-      stroke-width="1.5" 
-    >
-      <path 
-        fill-rule="evenodd" 
-        d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 
-        19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" 
-        clip-rule="evenodd" 
       />
     </svg>
   )
