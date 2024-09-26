@@ -15,13 +15,8 @@ export default function Component() {
         </Link>
         <div className="flex items-center gap-4">
           <Link
-<<<<<<< HEAD
             href="#"
             className="rounded-full bg-white px-4 py-2 text-sm font-medium text-[#121212] hover:bg-[#e0e0e0] transition-colors duration-300 ease-in-out"
-=======
-            href="auth/register"
-            className="inline-flex items-center justify-center rounded-full bg-[#6b49c8] px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#5a3ea5] focus:outline-none focus:ring-2 focus:ring-[#6b49c8] focus:ring-offset-2"
->>>>>>> 75c7b6bfa09a3bc74496cd5414ed857365af4422
             prefetch={false}
           >
             Login
