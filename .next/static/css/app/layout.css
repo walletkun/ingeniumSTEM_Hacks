@@ -760,9 +760,6 @@ video {
 .ml-2 {
   margin-left: 0.5rem;
 }
-.ml-3 {
-  margin-left: 0.75rem;
-}
 .ml-5 {
   margin-left: 1.25rem;
 }
@@ -783,9 +780,6 @@ video {
 }
 .mt-8 {
   margin-top: 2rem;
-}
-.mt-3 {
-  margin-top: 0.75rem;
 }
 .inline-block {
   display: inline-block;
