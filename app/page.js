@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 'use client'
 import { Play } from "lucide-react"
->>>>>>> 7895ad9bfb29935677cbed1a7064d0209c53b7c5
 import Link from "next/link"
 import { TypeAnimation } from "react-type-animation"
 

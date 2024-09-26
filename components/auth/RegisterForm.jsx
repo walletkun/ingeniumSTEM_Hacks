@@ -69,7 +69,6 @@ const RegisterForm = () => {
      await new Promise((resolve) => setTimeout(resolve, 1500));
      toast({
       title: "Account Created!",
-      description: "You have successfully created an account.",
       variant: "default",
      });
      form.reset();
@@ -86,8 +85,8 @@ const RegisterForm = () => {
 
   return (
     <CardWrapper
+      title="Welcome To CICERO!"
       label="Create an Account"
-      title="Welcome Aboard!"
       backButtonHref="/auth/login"
       backButtonLabel="Already have an account? Login here."
     >
