@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Textarea } from "@/components/ui/textarea"
 
-export function tutor() {
+export const Tutor = () => {
   return (
     (<div className="flex min-h-screen w-full bg-background">
       <div className="hidden w-[260px] flex-col border-r bg-background p-4 md:flex">

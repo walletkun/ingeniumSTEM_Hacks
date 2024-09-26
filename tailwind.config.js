@@ -22,6 +22,9 @@ export default {
         heading: ['var(--font-heading)', ...fontFamily.sans],
         body: ['var(--font-body)', ...fontFamily.sans]
       },
+      transitionProperty: {
+        'max-height' : 'max-height',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
