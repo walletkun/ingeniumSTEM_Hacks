@@ -1,5 +1,9 @@
 {
   "/page": "app/page.js",
   "/mainScreen/page": "app/mainScreen/page.js",
+<<<<<<< HEAD
+=======
+  "/auth/register/page": "app/auth/register/page.js",
+>>>>>>> db65762eb1cf53364a44633d57cf798be538e8cc
   "/auth/login/page": "app/auth/login/page.js"
 }

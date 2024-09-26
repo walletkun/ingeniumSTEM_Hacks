@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/auth/login/page.jsx
+=======
+// File: /Users/ceo/Desktop/hackathon_2024/ai-tutor/app/auth/login/page.jsx
+>>>>>>> db65762eb1cf53364a44633d57cf798be538e8cc
 import * as entry from '../../../../../app/auth/login/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
