@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
+
 //Components imports
 import * as ReactHookForm from "react-hook-form";
 import { promise, z } from "zod";
@@ -19,6 +20,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "../hooks/use-toast";
+
+//Database imports
+import { db, auth} from "@/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 const formSchema = z
   .object({
@@ -67,56 +73,99 @@ const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     //Clear the forms and prompt a shadcn confirmed message
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      //create user with Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password,
+      );
+      const user = userCredential.user;
 
-      //Check existing User
-      const existingUser = localStorage.getItem("registeredUser");
-      if(existingUser){
-        const existingUserData = JSON.parse(existingUser);
-        if(existingUserData.email === form.getValues("email") || existingUserData.username === form.getValues("username")){
-          toast({
-            title: "User with the same email or username already exists.",
-            timeout: "1000",
-            variant: "destructive",
-          });
-          setIsLoading(false);
-          setTimeout(() => {
-            router.push("/auth/login");
-          }, 1500);
-        }
-      }
-      else{
-      //Saves user information into localData for testing purpose
-      const userData = {
-        email: form.getValues("email"),
-        username: form.getValues("username"),
-        password: form.getValues("password"),
-      };
-
-      localStorage.setItem("registeredUser", JSON.stringify(userData));
+      //Create a new document in the 'users' collection with the uid
+      const userCollection = collection(db, "users");
+      const userDoc = doc(userCollection, user.uid);
+      //Save user data to Firestore
+      await setDoc(userDoc, {
+        email: data.email,
+        username: data.username,
+      });
       toast({
         title: "Account Created!",
+        timeout: 1000,
       });
       form.reset();
       setTimeout(() => {
         router.push("/auth/login");
       }, 2000);
-      }
     } catch (error) {
-      toast({
-        title: "An error occurred.",
-        description:
-          "There was a problem creating your account. Please try again.",
-        variant: "destructive",
-      });
+      if (error.code === 'auth/email-already-in-use') {
+        toast({
+          title: "Email already in use.",
+          timeout: 1000,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "An error occurred.",
+          timeout: 1000,
+          variant: "destructive",
+        });
+      }
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 2000);
     } finally {
       setIsLoading(false);
     }
+    //Testing database ^
 
+    //   //Check existing User
+    //   const existingUser = localStorage.getItem("registeredUser");
+    //   if(existingUser){
+    //     const existingUserData = JSON.parse(existingUser);
+    //     if(existingUserData.email === form.getValues("email") || existingUserData.username === form.getValues("username")){
+    //       toast({
+    //         title: "User with the same email or username already exists.",
+    //         timeout: "1000",
+    //         variant: "destructive",
+    //       });
+    //       setIsLoading(false);
+    //       setTimeout(() => {
+    //         router.push("/auth/login");
+    //       }, 1500);
+    //     }
+    //   }
+    //   else{
+    //   //Saves user information into localData for testing purpose
+    //   const userData = {
+    //     email: form.getValues("email"),
+    //     username: form.getValues("username"),
+    //     password: form.getValues("password"),
+    //   };
+
+    //   localStorage.setItem("registeredUser", JSON.stringify(userData));
+    //   toast({
+    //     title: "Account Created!",
+    //   });
+    //   form.reset();
+    //   setTimeout(() => {
+    //     router.push("/auth/login");
+    //   }, 2000);
+    //   }
+    // } catch (error) {
+    //   toast({
+    //     title: "An error occurred.",
+    //     description:
+    //       "There was a problem creating your account. Please try again.",
+    //     variant: "destructive",
+    //   });
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   return (
