@@ -79,6 +79,7 @@ const LoginForm = () => {
       if(enteredUsername === registeredUser.username && enteredPassword === registeredUser.password){
         toast({
           title: "Login successful",
+          timeout: 1200,
           status: "success",
         });
         form.reset();
@@ -89,12 +90,13 @@ const LoginForm = () => {
         toast({
           title: "Login failed",
           description: "Invalid username or password",
-        });
+        })
       }
       }catch(e){
       toast({
-        title: "Login failed",
+        title: "Login Failed",
         description: e.message,
+        variant: 'destructive',
       });
     }
     setIsLoading(false);

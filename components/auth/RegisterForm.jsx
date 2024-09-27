@@ -75,15 +75,21 @@ const RegisterForm = () => {
 
       //Check existing User
       const existingUser = localStorage.getItem("registeredUser");
-      if (existingUser) {
-        toast({
-          title: "User with that info already exists",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
+      if(existingUser){
+        const existingUserData = JSON.parse(existingUser);
+        if(existingUserData.email === form.getValues("email") || existingUserData.username === form.getValues("username")){
+          toast({
+            title: "User with the same email or username already exists.",
+            timeout: "1000",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          setTimeout(() => {
+            router.push("/auth/login");
+          }, 1500);
+        }
       }
-
+      else{
       //Saves user information into localData for testing purpose
       const userData = {
         email: form.getValues("email"),
@@ -92,7 +98,6 @@ const RegisterForm = () => {
       };
 
       localStorage.setItem("registeredUser", JSON.stringify(userData));
-
       toast({
         title: "Account Created!",
       });
@@ -100,6 +105,7 @@ const RegisterForm = () => {
       setTimeout(() => {
         router.push("/auth/login");
       }, 2000);
+      }
     } catch (error) {
       toast({
         title: "An error occurred.",
@@ -110,6 +116,7 @@ const RegisterForm = () => {
     } finally {
       setIsLoading(false);
     }
+
   };
 
   return (

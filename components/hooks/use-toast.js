@@ -102,6 +102,7 @@ function dispatch(action) {
 }
 
 function toast({
+  timeout = 3000,
   ...props
 }) {
   const id = genId()
@@ -124,6 +125,10 @@ function toast({
       },
     },
   })
+
+  if (timeout) {
+    setTimeout(() => dismiss(), timeout);
+  }
 
   return {
     id: id,
