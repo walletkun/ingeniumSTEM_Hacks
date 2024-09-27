@@ -82,7 +82,8 @@ const LoginForm = () => {
           status: "success",
         });
         form.reset();
-        router.push("/mainScreen");
+        setTimeout(() => {
+          router.push("/mainScreen")}, 1500);
       }
       else{
         toast({
