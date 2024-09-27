@@ -9,15 +9,6 @@ export default {
   ],
   theme: {
     extend: {
-      keyframes: {
-        cursorBlink: {
-          '0%, 50%': { opacity: '1' },
-          '51%, 100%': { opacity: '0' },
-        },
-      },
-      animation: {
-        cursorBlink: 'cursorBlink 0.6s step-end infinite',
-      },
       fontFamily: {
         heading: ['var(--font-heading)', ...fontFamily.sans],
         body: ['var(--font-body)', ...fontFamily.sans]
@@ -26,38 +17,38 @@ export default {
         'max-height' : 'max-height',
       },
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        border: '#2a2a2a',
+        input: '#2a2a2a',
+        ring: '#ffd1dc',
+        background: '#000000',
+        foreground: '#ffffff',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
+          DEFAULT: '#ffd1dc',
+          foreground: '#ffd1dc'
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))'
+          DEFAULT: '#1a1a1a',
+          foreground: '#ffffff'
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))'
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))'
+          DEFAULT: '#2a2a2a',
+          foreground: '#b3b3b3'
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
+          DEFAULT: '#1a1a1a',
+          foreground: '#ffffff'
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))'
+          DEFAULT: '#1a1a1a',
+          foreground: '#ffffff'
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
+          DEFAULT: '#1a1a1a',
+          foreground: '#ffffff'
         },
       },
       borderRadius: {
