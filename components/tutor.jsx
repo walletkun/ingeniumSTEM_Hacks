@@ -6,13 +6,14 @@ import { Textarea } from "@/components/ui/textarea"
 export const Tutor = () => {
   return (
     (<div className="flex min-h-screen w-full bg-background">
-      <div className="hidden w-[260px] flex-col border-r bg-background p-4 md:flex">
+      {/*Subjects Sidebar */}
+      <div className="hidden w-[260px] flex-col bg-black p-4 md:flex">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <BookIcon className="h-6 w-6 text-primary" />
+            <BookIcon className="h-6 w-6 text-white" />
             <h3 className="text-lg font-semibold">Tutoring Subjects</h3>
           </div>
-          <Button size="icon" variant="ghost" className="rounded-full">
+          <Button size="icon" variant="ghost" className="rounded-full hover:bg-primary mt-1">
             <PlusIcon className="h-5 w-5" />
             <span className="sr-only">Add Subject</span>
           </Button>
@@ -57,9 +58,11 @@ export const Tutor = () => {
           </div>
         </div>
       </div>
+
+      {/*Chat Screen Navbar */}
       <div className="flex flex-1 flex-col">
         <div
-          className="flex items-center justify-between border-b bg-background px-4 py-3 md:px-6">
+          className="flex items-center justify-between bg-secondary px-4 py-3 md:px-6">
           <div className="flex items-center gap-2">
             <Avatar>
               <AvatarImage src="/placeholder-user.jpg" alt="Cicero" />
@@ -81,38 +84,14 @@ export const Tutor = () => {
             </Button>
           </div>
         </div>
-        <div className="flex-1 overflow-auto p-4 md:p-6">
-          <div className="mx-auto max-w-2xl space-y-4">
-            <div className="flex items-start gap-4">
-              <Avatar className="w-8 h-8 border">
-                <AvatarImage src="/placeholder-user.jpg" alt="You" />
-                <AvatarFallback>YO</AvatarFallback>
-              </Avatar>
-              <div className="grid gap-1">
-                <div className="font-bold">You</div>
-                <div className="prose text-muted-foreground">
-                  <p>Hello Cicero, I'm struggling with my math homework. Can you help me?</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <Avatar className="w-8 h-8 border">
-                <AvatarImage src="/placeholder-user.jpg" alt="Cicero" />
-                <AvatarFallback>CI</AvatarFallback>
-              </Avatar>
-              <div className="grid gap-1">
-                <div className="font-bold">Cicero</div>
-                <div className="prose text-muted-foreground">
-                  <p>
-                    Of course, I'd be happy to help you with your math homework. What specific topic are you struggling
-                    with?
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+
+        {/*Main Chat Screen */}
+        <div className="flex-1 overflow-auto p-4 md:p-6 bg-secondary">
+          
         </div>
-        <div className="sticky bottom-0 bg-background px-4 py-3 md:px-6">
+
+        {/*Textfield */}
+        <div className="sticky bottom-0 bg-secondary px-4 py-3 md:px-6">
           <div className="relative">
             <Textarea
               placeholder="Type your message..."
@@ -127,7 +106,9 @@ export const Tutor = () => {
           </div>
         </div>
       </div>
-      <div className="hidden w-[260px] flex-col border-l bg-background p-4 md:flex">
+
+      {/*Navigation Sidebar */}
+      <div className="hidden w-[260px] flex-col bg-background p-4 md:flex">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Navigation</h3>
         </div>
@@ -166,6 +147,7 @@ export const Tutor = () => {
   );
 }
 
+{/*Icon Functions */}
 function ActivityIcon(props) {
   return (
     (<svg
