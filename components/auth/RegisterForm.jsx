@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
+import { useFormStatus } from "react-dom";
 //Components imports
-import {Toaster} from '@/components/ui/toaster';
 import * as ReactHookForm from "react-hook-form";
 import { promise, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,36 +18,41 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useToast } from '../hooks/use-toast';
+import { useToast } from "../hooks/use-toast";
 
-const formSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  username: z
-    .string()
-    .min(5, {
-      message: "Username must be at least 5 characters.",
-    })
-    .max(10, {
-      message: "Username must not exceed 10 characters.",
+const formSchema = z
+  .object({
+    email: z.string().email({
+      message: "Please enter a valid email address.",
     }),
-  password: z
-    .string()
-    .min(8, {
-      message: "Password must be at least 8 characters.",
-    })
-    .max(12, {
-      message: "Password must not exceed 12 characters.",
-    }),
-  confirmPassword: z.string()
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords do not match.",
-  path: ["confirmPassword"],
-});
-
+    username: z
+      .string()
+      .min(5, {
+        message: "Username must be at least 5 characters.",
+      })
+      .max(10, {
+        message: "Username must not exceed 10 characters.",
+      }),
+    password: z
+      .string()
+      .min(8, {
+        message: "Password must be at least 8 characters.",
+      })
+      .max(12, {
+        message: "Password must not exceed 12 characters.",
+      }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match.",
+    path: ["confirmPassword"],
+  });
 
 const RegisterForm = () => {
+  //Router intialized
+  const router = useRouter();
+
+  //Form initialization
   const form = ReactHookForm.useForm({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
@@ -58,30 +63,54 @@ const RegisterForm = () => {
       confirmPassword: "",
     },
   });
-  
+
   const [isLoading, setIsLoading] = useState(false);
-  const {toast} = useToast();
+  const { toast } = useToast();
 
   const onSubmit = async () => {
     //Clear the forms and prompt a shadcn confirmed message
     setIsLoading(true);
-   try{
-     await new Promise((resolve) => setTimeout(resolve, 1500));
-     toast({
-      title: "Account Created!",
-      variant: "default",
-     });
-     form.reset();
-   }catch(error){
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      //Check existing User
+      const existingUser = localStorage.getItem("registeredUser");
+      if (existingUser) {
+        toast({
+          title: "User with that info already exists",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      //Saves user information into localData for testing purpose
+      const userData = {
+        email: form.getValues("email"),
+        username: form.getValues("username"),
+        password: form.getValues("password"),
+      };
+
+      localStorage.setItem("registeredUser", JSON.stringify(userData));
+
+      toast({
+        title: "Account Created!",
+      });
+      form.reset();
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 2000);
+    } catch (error) {
       toast({
         title: "An error occurred.",
-        description: 'There was a problem creating your account. Please try again.',
+        description:
+          "There was a problem creating your account. Please try again.",
         variant: "destructive",
       });
-   }finally{
-     setIsLoading(false);
-   }
-  }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <CardWrapper
@@ -152,9 +181,13 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className='w-full' disabled={isLoading}>
-            {isLoading ? "Registering.." : "Register"}
-            <Toaster/>
+            <Button
+              type="submit"
+              variant="primary"
+              className="w-full"
+              disabled={isLoading}
+            >
+              {isLoading ? "Registering.." : "Register"}
             </Button>
           </div>
         </form>

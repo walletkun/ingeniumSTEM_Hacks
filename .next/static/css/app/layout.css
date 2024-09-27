@@ -1,6 +1,6 @@
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.js","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-heading"}],"variableName":"fontHeading"} ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.jsx","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-heading"}],"variableName":"fontHeading"} ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* cyrillic-ext */
 @font-face {
   font-family: '__Manrope_da1155';
@@ -59,9 +59,9 @@
 }.__variable_da1155 {--font-heading: '__Manrope_da1155', '__Manrope_Fallback_da1155'
 }
 
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.js","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-body"}],"variableName":"fontBody"} ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.jsx","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-body"}],"variableName":"fontBody"} ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* cyrillic-ext */
 @font-face {
   font-family: '__Manrope_da1155';
@@ -726,6 +726,9 @@ video {
 .bottom-0 {
   bottom: 0px;
 }
+.left-1\/2 {
+  left: 50%;
+}
 .left-4 {
   left: 1rem;
 }
@@ -734,9 +737,6 @@ video {
 }
 .right-3 {
   right: 0.75rem;
-}
-.top-0 {
-  top: 0px;
 }
 .top-2 {
   top: 0.5rem;
@@ -753,6 +753,10 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 .mb-20 {
   margin-bottom: 5rem;
@@ -787,6 +791,7 @@ video {
 .mt-8 {
   margin-top: 2rem;
 }
+<<<<<<< HEAD
 .ml-1 {
   margin-left: 0.25rem;
 }
@@ -799,6 +804,8 @@ video {
 .ml-3 {
   margin-left: 0.75rem;
 }
+=======
+>>>>>>> c72c29cfbc44862b9f44f438701910535a4a18de
 .inline-block {
   display: inline-block;
 }
@@ -851,9 +858,6 @@ video {
 .h-screen {
   height: 100vh;
 }
-.max-h-screen {
-  max-height: 100vh;
-}
 .min-h-\[100dvh\] {
   min-height: 100dvh;
 }
@@ -887,6 +891,12 @@ video {
 .w-full {
   width: 100%;
 }
+<<<<<<< HEAD
+=======
+.w-screen {
+  width: 100vw;
+}
+>>>>>>> c72c29cfbc44862b9f44f438701910535a4a18de
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -907,6 +917,10 @@ video {
 }
 .shrink-0 {
   flex-shrink: 0;
+}
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .resize-none {
   resize: none;
@@ -940,6 +954,9 @@ video {
 }
 .gap-4 {
   gap: 1rem;
+}
+.gap-5 {
+  gap: 1.25rem;
 }
 .gap-y-4 {
   row-gap: 1rem;
@@ -992,15 +1009,6 @@ video {
 }
 .border {
   border-width: 1px;
-}
-.border-b {
-  border-bottom-width: 1px;
-}
-.border-l {
-  border-left-width: 1px;
-}
-.border-r {
-  border-right-width: 1px;
 }
 .border-\[\#3f3f3f\] {
   --tw-border-opacity: 1;
@@ -1089,6 +1097,33 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.bg-accent {
+  --tw-bg-opacity: 1;
+  background-color: rgb(26 26 26 / var(--tw-bg-opacity));
+}
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+.bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+.bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+.bg-gray-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+.bg-\[\#050708\]\/90 {
+  background-color: rgb(5 7 8 / 0.9);
 }
 .p-1 {
   padding: 0.25rem;
@@ -1236,6 +1271,14 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+.text-accent-foreground {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -1389,6 +1432,28 @@ video {
   background-color: rgb(26 26 26 / 0.8);
 }
 
+<<<<<<< HEAD
+=======
+.hover\:bg-accent\/90:hover {
+  background-color: rgb(26 26 26 / 0.9);
+}
+
+.hover\:bg-gray-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-900:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-\[\#050708\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 7 8 / var(--tw-bg-opacity));
+}
+
+>>>>>>> c72c29cfbc44862b9f44f438701910535a4a18de
 .hover\:text-\[\#f0f0f0\]:hover {
   --tw-text-opacity: 1;
   color: rgb(240 240 240 / var(--tw-text-opacity));
@@ -1446,6 +1511,11 @@ video {
 .focus-visible\:ring-ring:focus-visible {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(255 209 220 / var(--tw-ring-opacity));
+}
+
+.focus-visible\:ring-gray-900:focus-visible {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(17 24 39 / var(--tw-ring-opacity));
 }
 
 .focus-visible\:ring-offset-2:focus-visible {
@@ -1572,26 +1642,31 @@ video {
   --tw-exit-translate-x: 100%;
 }
 
+.data-\[state\=open\]\:slide-in-from-bottom-full[data-state="open"] {
+  --tw-enter-translate-y: 100%;
+}
+
 .data-\[state\=open\]\:slide-in-from-top-full[data-state="open"] {
   --tw-enter-translate-y: -100%;
 }
 
 @media (min-width: 640px) {
 
-  .sm\:bottom-0 {
-    bottom: 0px;
+  .sm\:left-auto {
+    left: auto;
   }
 
   .sm\:right-0 {
     right: 0px;
   }
 
-  .sm\:top-auto {
-    top: auto;
+  .sm\:max-w-\[420px\] {
+    max-width: 420px;
   }
 
-  .sm\:flex-col {
-    flex-direction: column;
+  .sm\:translate-x-0 {
+    --tw-translate-x: 0px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
   .data-\[state\=open\]\:sm\:slide-in-from-bottom-full[data-state="open"] {
@@ -1607,10 +1682,6 @@ video {
 
   .md\:w-1\/2 {
     width: 50%;
-  }
-
-  .md\:max-w-\[420px\] {
-    max-width: 420px;
   }
 
   .md\:grid-cols-4 {

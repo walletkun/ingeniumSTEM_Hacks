@@ -1,8 +1,15 @@
 "use client";
 
+
+import {useFormStatus} from 'react-dom';
 import * as ReactHookForm from 'react-hook-form';
+import { useState } from 'react';
+
+
+//Components imports
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from 'next/navigation';
 import CardWrapper from "@/components/auth/card-wrapper";
 import {
   Form,
@@ -14,23 +21,31 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast, useToast } from '../hooks/use-toast';
 
-const formSchema = z.object({
-  username: z.string().min(5, {
+
+const loginSchema = z.object({
+  username: z.string().min(6, {
     message: "Username must be at least 5 characters.",
-  }).max(10, {
-    message: "Username must not exceed 10 characters.",
   }),
   password: z.string().min(8, {
     message: "Password must be at least 8 characters.",
-  }).max(12, {
-    message: "Password must not exceed 12 characters.",
   }),
 });
 
-const RegisterForm = () => {
+
+const LoginForm = () => {
+  //Loading state
+  const [isLoading, setIsLoading] = useState(false);
+  //Toast hook
+  const {toast} = useToast();
+  //Router to navigate between pages
+  const router = useRouter();
+
+
+  //Form initialization
   const form = ReactHookForm.useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(loginSchema),
     mode: "onBlur",
     defaultValues: {
       username: "",
@@ -38,8 +53,51 @@ const RegisterForm = () => {
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
+  const onSubmit = async() => {
+    setIsLoading(true);
+    try{
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      //Retrieve user data from local storage
+      const registeredUser = JSON.parse(localStorage.getItem("registeredUser"));
+
+      if(!registeredUser){
+        toast({
+          title: "Login failed",
+          description: "User not found, check your usernames and password",
+        });
+
+        setIsLoading(false);
+        return;
+      }
+      
+      //Retrieve username and password
+      const enteredUsername = form.getValues("username");
+      const enteredPassword = form.getValues("password");
+
+      //Check if the username and password match
+      if(enteredUsername === registeredUser.username && enteredPassword === registeredUser.password){
+        toast({
+          title: "Login successful",
+          status: "success",
+        });
+        form.reset();
+        setTimeout(() => {
+          router.push("/mainScreen")}, 1500);
+      }
+      else{
+        toast({
+          title: "Login failed",
+          description: "Invalid username or password",
+        });
+      }
+      }catch(e){
+      toast({
+        title: "Login failed",
+        description: e.message,
+      });
+    }
+    setIsLoading(false);
   }
 
   return (
@@ -77,11 +135,13 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className='w-full' disabled={isLoading}>
+            {isLoading ? "Loading..." : "Login"}
+          </Button>
         </form>
       </Form>
     </CardWrapper>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

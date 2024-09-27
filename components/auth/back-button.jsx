@@ -8,7 +8,7 @@ const BackButton = ({label, href}) => {
   return (
     <Button 
     variant='link'
-    className='font-normal w-full'
+    className='font-normal w-full text-gray-200'
     size='sm'
     asChild>
       <Link href={href}>
