@@ -7,7 +7,7 @@ export const Tutor = () => {
   return (
     (<div className="flex min-h-screen w-full bg-background">
       {/*Subjects Sidebar */}
-      <div className="hidden w-[260px] flex-col bg-black p-4 md:flex">
+      <div className="hidden w-[260px] flex-col bg-black p-4 md:flex border-r border-r-primary">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BookIcon className="h-6 w-6 text-white" />
@@ -62,22 +62,16 @@ export const Tutor = () => {
       {/*Chat Screen Navbar */}
       <div className="flex flex-1 flex-col">
         <div
-          className="flex items-center justify-between bg-secondary px-4 py-3 md:px-6">
+          className="flex items-center justify-between bg-#000000 px-4 py-3 md:px-6 border-b border-b-primary">
           <div className="flex items-center gap-2">
-            <Avatar>
-              <AvatarImage src="/placeholder-user.jpg" alt="Cicero" />
-              <AvatarFallback>CI</AvatarFallback>
-            </Avatar>
             <div>
-              <h3 className="text-lg font-semibold">Cicero</h3>
+              <h3 className="text-lg font-semibold">CICERO</h3>
               <p className="text-sm text-muted-foreground">AI Tutor</p>
             </div>
           </div>
+          <h3 className="text-md font-semibold text-center ml-3">Current Workspace: Operating Systems</h3>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon">
-              <SettingsIcon className="h-5 w-5" />
-              <span className="sr-only">Settings</span>
-            </Button>
+            <p className="text-sm font-semibold">Need Help?</p>
             <Button variant="ghost" size="icon">
               <CircleHelpIcon className="h-5 w-5" />
               <span className="sr-only">Help</span>
@@ -108,7 +102,7 @@ export const Tutor = () => {
       </div>
 
       {/*Navigation Sidebar */}
-      <div className="hidden w-[260px] flex-col bg-background p-4 md:flex">
+      <div className="hidden w-[260px] flex-col bg-background p-4 md:flex border-l border-l-primary">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Navigation</h3>
         </div>
