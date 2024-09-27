@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 //Components imports
 import {Toaster} from '@/components/ui/toaster';
-import * as ReactHookForm from "react-hook-form";
+import * as ReactHookForm from "react-hook-form"; 
 import { promise, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CardWrapper from "@/components/auth/card-wrapper";
@@ -48,6 +49,9 @@ const formSchema = z.object({
 
 
 const RegisterForm = () => {
+  //Router intialized
+  const router = useRouter();
+
   const form = ReactHookForm.useForm({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
@@ -69,9 +73,13 @@ const RegisterForm = () => {
      await new Promise((resolve) => setTimeout(resolve, 1500));
      toast({
       title: "Account Created!",
-      variant: "default",
      });
      form.reset();
+
+     setTimeout(() => {
+        router.push('/auth/login');
+     }, 2000);
+
    }catch(error){
       toast({
         title: "An error occurred.",
@@ -154,7 +162,6 @@ const RegisterForm = () => {
             />
             <Button type="submit" className='w-full' disabled={isLoading}>
             {isLoading ? "Registering.." : "Register"}
-            <Toaster/>
             </Button>
           </div>
         </form>

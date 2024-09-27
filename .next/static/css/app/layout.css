@@ -1,6 +1,6 @@
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.js","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-heading"}],"variableName":"fontHeading"} ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.jsx","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-heading"}],"variableName":"fontHeading"} ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* cyrillic-ext */
 @font-face {
   font-family: '__Manrope_da1155';
@@ -59,9 +59,9 @@
 }.__variable_da1155 {--font-heading: '__Manrope_da1155', '__Manrope_Fallback_da1155'
 }
 
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.js","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-body"}],"variableName":"fontBody"} ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.jsx","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-body"}],"variableName":"fontBody"} ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* cyrillic-ext */
 @font-face {
   font-family: '__Manrope_da1155';
@@ -744,12 +744,110 @@ video {
 .top-\[-40px\] {
   top: -40px;
 }
+.right-0 {
+  right: 0px;
+}
+.bottom-4 {
+  bottom: 1rem;
+}
+.right-4 {
+  right: 1rem;
+}
+.bottom-1 {
+  bottom: 0.25rem;
+}
+.bottom-10 {
+  bottom: 2.5rem;
+}
+.top-4 {
+  top: 1rem;
+}
+.top-40 {
+  top: 10rem;
+}
+.bottom-\[500px\] {
+  bottom: 500px;
+}
+.bottom-\[x\] {
+  bottom: x;
+}
+.bottom-\[\] {
+  bottom: ;
+}
+.bottom-\[1\/2\] {
+  bottom: 1/2;
+}
+.left-40 {
+  left: 10rem;
+}
+.-left-full {
+  left: -100%;
+}
+.-right-4 {
+  right: -1rem;
+}
+.-right-full {
+  right: -100%;
+}
+.-bottom-full {
+  bottom: -100%;
+}
+.-bottom-0 {
+  bottom: -0px;
+}
+.-bottom-4 {
+  bottom: -1rem;
+}
+.-bottom-5 {
+  bottom: -1.25rem;
+}
+.-bottom-48 {
+  bottom: -12rem;
+}
+.-bottom-20 {
+  bottom: -5rem;
+}
+.-bottom-11 {
+  bottom: -2.75rem;
+}
+.-left-10 {
+  left: -2.5rem;
+}
+.left-1\/2 {
+  left: 50%;
+}
+.left-72 {
+  left: 18rem;
+}
+.left-12 {
+  left: 3rem;
+}
+.-left-8 {
+  left: -2rem;
+}
+.right-10 {
+  right: 2.5rem;
+}
 .z-\[100\] {
   z-index: 100;
+}
+.col-end-auto {
+  grid-column-end: auto;
+}
+.m-0 {
+  margin: 0px;
 }
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
 }
 .mb-20 {
   margin-bottom: 5rem;
@@ -759,9 +857,6 @@ video {
 }
 .ml-2 {
   margin-left: 0.5rem;
-}
-.ml-3 {
-  margin-left: 0.75rem;
 }
 .ml-5 {
   margin-left: 1.25rem;
@@ -783,6 +878,9 @@ video {
 }
 .mt-8 {
   margin-top: 2rem;
+}
+.ml-12 {
+  margin-left: 3rem;
 }
 .inline-block {
   display: inline-block;
@@ -872,6 +970,9 @@ video {
 .w-full {
   width: 100%;
 }
+.w-screen {
+  width: 100vw;
+}
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -890,14 +991,27 @@ video {
 .max-w-md {
   max-width: 28rem;
 }
+.max-w-\[420px\] {
+  max-width: 420px;
+}
 .flex-1 {
   flex: 1 1 0%;
 }
 .shrink-0 {
   flex-shrink: 0;
 }
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .resize-none {
   resize: none;
+}
+.list-none {
+  list-style-type: none;
+}
+.columns-9 {
+  columns: 9;
 }
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1038,6 +1152,9 @@ video {
 .bg-muted\/50 {
   background-color: hsl(var(--muted) / 0.5);
 }
+.bg-primary {
+  background-color: hsl(var(--primary));
+}
 .bg-secondary {
   background-color: hsl(var(--secondary));
 }
@@ -1048,8 +1165,8 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
-.bg-primary {
-  background-color: hsl(var(--primary));
+.bg-right-bottom {
+  background-position: right bottom;
 }
 .p-1 {
   padding: 0.25rem;
@@ -1520,6 +1637,10 @@ video {
   --tw-enter-translate-y: -100%;
 }
 
+.data-\[state\=open\]\:slide-in-from-bottom-full[data-state="open"] {
+  --tw-enter-translate-y: 100%;
+}
+
 @media (min-width: 640px) {
 
   .sm\:bottom-0 {
@@ -1532,6 +1653,23 @@ video {
 
   .sm\:top-auto {
     top: auto;
+  }
+
+  .sm\:left-auto {
+    left: auto;
+  }
+
+  .sm\:max-w-\[420px\] {
+    max-width: 420px;
+  }
+
+  .sm\:max-w-\[380px\] {
+    max-width: 380px;
+  }
+
+  .sm\:translate-x-0 {
+    --tw-translate-x: 0px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
   .sm\:flex-col {

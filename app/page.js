@@ -22,7 +22,7 @@ export default function Component() {
             Login
           </Link>
           <Link
-            href="#"
+            href="auth/register"
             className="rounded-full bg-[#000000] px-4 py-2 text-sm font-medium hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out"
             prefetch={false}
           >
@@ -68,7 +68,7 @@ export default function Component() {
               />
             </p>
             <Link
-              href="#"
+              href="auth/login"
               className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-[#121212] hover:bg-[#e0e0e0] shadow-lg transition-colors duration-300 ease-in-out"
               prefetch={false}
             >

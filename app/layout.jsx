@@ -1,0 +1,33 @@
+import { Manrope } from 'next/font/google'
+import { Toaster } from '@/components/ui/toaster'
+import { cn } from '@/lib/utils'
+import './globals.css'
+
+const fontHeading = Manrope({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-heading',
+})
+
+const fontBody = Manrope({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
+})
+
+export default function Layout({ children }) {
+  return (
+    <html lang="en">
+      <body 
+        className={cn(
+          'antialiased',
+          fontHeading.variable,
+          fontBody.variable
+        )}
+      >
+        {children}
+        <Toaster/>
+      </body>
+    </html>
+  )
+}
