@@ -56,6 +56,303 @@ module.exports = require("next/dist/compiled/next-server/app-page.runtime.dev.js
 
 /***/ }),
 
+/***/ "crypto":
+/*!*************************!*\
+  !*** external "crypto" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("crypto");
+
+/***/ }),
+
+/***/ "dns":
+/*!**********************!*\
+  !*** external "dns" ***!
+  \**********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("dns");
+
+/***/ }),
+
+/***/ "events":
+/*!*************************!*\
+  !*** external "events" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("events");
+
+/***/ }),
+
+/***/ "fs":
+/*!*********************!*\
+  !*** external "fs" ***!
+  \*********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs");
+
+/***/ }),
+
+/***/ "http":
+/*!***********************!*\
+  !*** external "http" ***!
+  \***********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("http");
+
+/***/ }),
+
+/***/ "http2":
+/*!************************!*\
+  !*** external "http2" ***!
+  \************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("http2");
+
+/***/ }),
+
+/***/ "net":
+/*!**********************!*\
+  !*** external "net" ***!
+  \**********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("net");
+
+/***/ }),
+
+/***/ "node:assert":
+/*!******************************!*\
+  !*** external "node:assert" ***!
+  \******************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:assert");
+
+/***/ }),
+
+/***/ "node:async_hooks":
+/*!***********************************!*\
+  !*** external "node:async_hooks" ***!
+  \***********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:async_hooks");
+
+/***/ }),
+
+/***/ "node:buffer":
+/*!******************************!*\
+  !*** external "node:buffer" ***!
+  \******************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:buffer");
+
+/***/ }),
+
+/***/ "node:console":
+/*!*******************************!*\
+  !*** external "node:console" ***!
+  \*******************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:console");
+
+/***/ }),
+
+/***/ "node:crypto":
+/*!******************************!*\
+  !*** external "node:crypto" ***!
+  \******************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:crypto");
+
+/***/ }),
+
+/***/ "node:diagnostics_channel":
+/*!*******************************************!*\
+  !*** external "node:diagnostics_channel" ***!
+  \*******************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:diagnostics_channel");
+
+/***/ }),
+
+/***/ "node:events":
+/*!******************************!*\
+  !*** external "node:events" ***!
+  \******************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:events");
+
+/***/ }),
+
+/***/ "node:http":
+/*!****************************!*\
+  !*** external "node:http" ***!
+  \****************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:http");
+
+/***/ }),
+
+/***/ "node:http2":
+/*!*****************************!*\
+  !*** external "node:http2" ***!
+  \*****************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:http2");
+
+/***/ }),
+
+/***/ "node:net":
+/*!***************************!*\
+  !*** external "node:net" ***!
+  \***************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:net");
+
+/***/ }),
+
+/***/ "node:perf_hooks":
+/*!**********************************!*\
+  !*** external "node:perf_hooks" ***!
+  \**********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:perf_hooks");
+
+/***/ }),
+
+/***/ "node:querystring":
+/*!***********************************!*\
+  !*** external "node:querystring" ***!
+  \***********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:querystring");
+
+/***/ }),
+
+/***/ "node:stream":
+/*!******************************!*\
+  !*** external "node:stream" ***!
+  \******************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:stream");
+
+/***/ }),
+
+/***/ "node:tls":
+/*!***************************!*\
+  !*** external "node:tls" ***!
+  \***************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:tls");
+
+/***/ }),
+
+/***/ "node:url":
+/*!***************************!*\
+  !*** external "node:url" ***!
+  \***************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:url");
+
+/***/ }),
+
+/***/ "node:util":
+/*!****************************!*\
+  !*** external "node:util" ***!
+  \****************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:util");
+
+/***/ }),
+
+/***/ "node:util/types":
+/*!**********************************!*\
+  !*** external "node:util/types" ***!
+  \**********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:util/types");
+
+/***/ }),
+
+/***/ "node:worker_threads":
+/*!**************************************!*\
+  !*** external "node:worker_threads" ***!
+  \**************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:worker_threads");
+
+/***/ }),
+
+/***/ "node:zlib":
+/*!****************************!*\
+  !*** external "node:zlib" ***!
+  \****************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:zlib");
+
+/***/ }),
+
+/***/ "os":
+/*!*********************!*\
+  !*** external "os" ***!
+  \*********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("os");
+
+/***/ }),
+
 /***/ "path":
 /*!***********************!*\
   !*** external "path" ***!
@@ -67,6 +364,50 @@ module.exports = require("path");
 
 /***/ }),
 
+/***/ "process":
+/*!**************************!*\
+  !*** external "process" ***!
+  \**************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("process");
+
+/***/ }),
+
+/***/ "stream":
+/*!*************************!*\
+  !*** external "stream" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("stream");
+
+/***/ }),
+
+/***/ "string_decoder":
+/*!*********************************!*\
+  !*** external "string_decoder" ***!
+  \*********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("string_decoder");
+
+/***/ }),
+
+/***/ "tls":
+/*!**********************!*\
+  !*** external "tls" ***!
+  \**********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("tls");
+
+/***/ }),
+
 /***/ "url":
 /*!**********************!*\
   !*** external "url" ***!
@@ -75,6 +416,28 @@ module.exports = require("path");
 
 "use strict";
 module.exports = require("url");
+
+/***/ }),
+
+/***/ "util":
+/*!***********************!*\
+  !*** external "util" ***!
+  \***********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("util");
+
+/***/ }),
+
+/***/ "zlib":
+/*!***********************!*\
+  !*** external "zlib" ***!
+  \***********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("zlib");
 
 /***/ }),
 
@@ -136,7 +499,7 @@ eval("Promise.resolve(/*! import() eager */).then(__webpack_require__.t.bind(__w
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-dev-runtime */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js\");\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-dom.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-hook-form */ \"(ssr)/./node_modules/react-hook-form/dist/index.esm.mjs\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var zod__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! zod */ \"(ssr)/./node_modules/zod/lib/index.mjs\");\n/* harmony import */ var _hookform_resolvers_zod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @hookform/resolvers/zod */ \"(ssr)/./node_modules/@hookform/resolvers/zod/dist/zod.mjs\");\n/* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/navigation */ \"(ssr)/./node_modules/next/dist/api/navigation.js\");\n/* harmony import */ var _components_auth_card_wrapper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/auth/card-wrapper */ \"(ssr)/./components/auth/card-wrapper.jsx\");\n/* harmony import */ var _components_ui_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/ui/form */ \"(ssr)/./components/ui/form.jsx\");\n/* harmony import */ var _components_ui_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/ui/button */ \"(ssr)/./components/ui/button.jsx\");\n/* harmony import */ var _components_ui_input__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/ui/input */ \"(ssr)/./components/ui/input.jsx\");\n/* harmony import */ var _hooks_use_toast__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../hooks/use-toast */ \"(ssr)/./components/hooks/use-toast.js\");\n/* __next_internal_client_entry_do_not_use__ default auto */ \n\n\n\n//Components imports\n\n\n\n\n\n\n\n\nconst loginSchema = zod__WEBPACK_IMPORTED_MODULE_10__.z.object({\n    username: zod__WEBPACK_IMPORTED_MODULE_10__.z.string().min(6, {\n        message: \"Username must be at least 5 characters.\"\n    }),\n    password: zod__WEBPACK_IMPORTED_MODULE_10__.z.string().min(8, {\n        message: \"Password must be at least 8 characters.\"\n    })\n});\nconst LoginForm = ()=>{\n    //Loading state\n    const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);\n    //Toast hook\n    const { toast } = (0,_hooks_use_toast__WEBPACK_IMPORTED_MODULE_9__.useToast)();\n    //Router to navigate between pages\n    const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_4__.useRouter)();\n    //Form initialization\n    const form = react_hook_form__WEBPACK_IMPORTED_MODULE_11__.useForm({\n        resolver: (0,_hookform_resolvers_zod__WEBPACK_IMPORTED_MODULE_3__.zodResolver)(loginSchema),\n        mode: \"onBlur\",\n        defaultValues: {\n            username: \"\",\n            password: \"\"\n        }\n    });\n    const onSubmit = async ()=>{\n        setIsLoading(true);\n        try {\n            await new Promise((resolve)=>setTimeout(resolve, 1500));\n            //Retrieve user data from local storage\n            const registeredUser = JSON.parse(localStorage.getItem(\"registeredUser\"));\n            if (!registeredUser) {\n                toast({\n                    title: \"Login failed\",\n                    description: \"User not found, check your usernames and password\"\n                });\n                setIsLoading(false);\n                return;\n            }\n            //Retrieve username and password\n            const enteredUsername = form.getValues(\"username\");\n            const enteredPassword = form.getValues(\"password\");\n            //Check if the username and password match\n            if (enteredUsername === registeredUser.username && enteredPassword === registeredUser.password) {\n                toast({\n                    title: \"Login successful\",\n                    timeout: 1200,\n                    status: \"success\"\n                });\n                form.reset();\n                setTimeout(()=>{\n                    router.push(\"/mainScreen\");\n                }, 1500);\n            } else {\n                toast({\n                    title: \"Login failed\",\n                    description: \"Invalid username or password\"\n                });\n            }\n        } catch (e) {\n            toast({\n                title: \"Login Failed\",\n                description: e.message,\n                variant: \"destructive\"\n            });\n        }\n        setIsLoading(false);\n    };\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_auth_card_wrapper__WEBPACK_IMPORTED_MODULE_5__[\"default\"], {\n        label: \"Login\",\n        title: \"Welcome Back!\",\n        backButtonHref: \"/auth/register\",\n        backButtonLabel: \"Don't have an account? Sign up Here.\",\n        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.Form, {\n            ...form,\n            children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(\"form\", {\n                onSubmit: form.handleSubmit(onSubmit),\n                className: \"space-y-6 flex flex-col\",\n                children: [\n                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormField, {\n                        control: form.control,\n                        name: \"username\",\n                        render: ({ field })=>/*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormItem, {\n                                children: [\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormLabel, {\n                                        children: \"Username\"\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 119,\n                                        columnNumber: 17\n                                    }, void 0),\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormControl, {\n                                        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_input__WEBPACK_IMPORTED_MODULE_8__.Input, {\n                                            placeholder: \"Enter your username\",\n                                            ...field\n                                        }, void 0, false, {\n                                            fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                            lineNumber: 121,\n                                            columnNumber: 19\n                                        }, void 0)\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 120,\n                                        columnNumber: 17\n                                    }, void 0),\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormMessage, {\n                                        className: \"error-message\"\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 123,\n                                        columnNumber: 17\n                                    }, void 0)\n                                ]\n                            }, void 0, true, {\n                                fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                lineNumber: 118,\n                                columnNumber: 15\n                            }, void 0)\n                    }, void 0, false, {\n                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                        lineNumber: 114,\n                        columnNumber: 11\n                    }, undefined),\n                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormField, {\n                        control: form.control,\n                        name: \"password\",\n                        render: ({ field })=>/*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormItem, {\n                                children: [\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormLabel, {\n                                        children: \"Password\"\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 132,\n                                        columnNumber: 17\n                                    }, void 0),\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormControl, {\n                                        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_input__WEBPACK_IMPORTED_MODULE_8__.Input, {\n                                            type: \"password\",\n                                            placeholder: \"Enter your password\",\n                                            ...field\n                                        }, void 0, false, {\n                                            fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                            lineNumber: 134,\n                                            columnNumber: 19\n                                        }, void 0)\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 133,\n                                        columnNumber: 17\n                                    }, void 0),\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_6__.FormMessage, {\n                                        className: \"error-message\"\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 136,\n                                        columnNumber: 17\n                                    }, void 0)\n                                ]\n                            }, void 0, true, {\n                                fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                lineNumber: 131,\n                                columnNumber: 15\n                            }, void 0)\n                    }, void 0, false, {\n                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                        lineNumber: 127,\n                        columnNumber: 11\n                    }, undefined),\n                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_button__WEBPACK_IMPORTED_MODULE_7__.Button, {\n                        type: \"submit\",\n                        className: \"w-full\",\n                        disabled: isLoading,\n                        children: isLoading ? \"Loading...\" : \"Login\"\n                    }, void 0, false, {\n                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                        lineNumber: 140,\n                        columnNumber: 11\n                    }, undefined)\n                ]\n            }, void 0, true, {\n                fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                lineNumber: 113,\n                columnNumber: 9\n            }, undefined)\n        }, void 0, false, {\n            fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n            lineNumber: 112,\n            columnNumber: 7\n        }, undefined)\n    }, void 0, false, {\n        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n        lineNumber: 106,\n        columnNumber: 5\n    }, undefined);\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoginForm);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,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Qiw4REFBQzdDLDBEQUFTQTt3QkFDUjhDLFNBQVM5QixLQUFLOEIsT0FBTzt3QkFDckJDLE1BQUs7d0JBQ0xDLFFBQVEsQ0FBQyxFQUFFQyxLQUFLLEVBQUUsaUJBQ2hCLDhEQUFDckQseURBQVFBOztrREFDUCw4REFBQ0MsMERBQVNBO2tEQUFDOzs7Ozs7a0RBQ1gsOERBQUNDLDREQUFXQTtrREFDViw0RUFBQ0ksdURBQUtBOzRDQUFDaUQsTUFBSzs0Q0FBV0QsYUFBWTs0Q0FBdUIsR0FBR0QsS0FBSzs7Ozs7Ozs7Ozs7a0RBRXBFLDhEQUFDbEQsNERBQVdBO3dDQUFDOEMsV0FBVTs7Ozs7Ozs7Ozs7Ozs7Ozs7a0NBSTdCLDhEQUFDNUMseURBQU1BO3dCQUFDa0QsTUFBSzt3QkFBU04sV0FBVTt3QkFBU08sVUFBVXZDO2tDQUNoREEsWUFBWSxlQUFlOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBTXhDO0FBRUEsaUVBQWVELFNBQVNBLEVBQUMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9haV90dXRvci8uL2NvbXBvbmVudHMvYXV0aC9Mb2dpbkZvcm0uanN4PzYxZmIiXSwic291cmNlc0NvbnRlbnQiOlsiXCJ1c2UgY2xpZW50XCI7XG5cblxuaW1wb3J0IHt1c2VGb3JtU3RhdHVzfSBmcm9tICdyZWFjdC1kb20nO1xuaW1wb3J0ICogYXMgUmVhY3RIb29rRm9ybSBmcm9tICdyZWFjdC1ob29rLWZvcm0nO1xuaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICdyZWFjdCc7XG5cblxuLy9Db21wb25lbnRzIGltcG9ydHNcbmltcG9ydCB7IHogfSBmcm9tIFwiem9kXCI7XG5pbXBvcnQgeyB6b2RSZXNvbHZlciB9IGZyb20gXCJAaG9va2Zvcm0vcmVzb2x2ZXJzL3pvZFwiO1xuaW1wb3J0IHsgdXNlUm91dGVyIH0gZnJvbSAnbmV4dC9uYXZpZ2F0aW9uJztcbmltcG9ydCBDYXJkV3JhcHBlciBmcm9tIFwiQC9jb21wb25lbnRzL2F1dGgvY2FyZC13cmFwcGVyXCI7XG5pbXBvcnQge1xuICBGb3JtLFxuICBGb3JtSXRlbSxcbiAgRm9ybUxhYmVsLFxuICBGb3JtQ29udHJvbCxcbiAgRm9ybU1lc3NhZ2UsXG4gIEZvcm1GaWVsZCxcbn0gZnJvbSBcIkAvY29tcG9uZW50cy91aS9mb3JtXCI7XG5pbXBvcnQgeyBCdXR0b24gfSBmcm9tIFwiQC9jb21wb25lbnRzL3VpL2J1dHRvblwiO1xuaW1wb3J0IHsgSW5wdXQgfSBmcm9tIFwiQC9jb21wb25lbnRzL3VpL2lucHV0XCI7XG5pbXBvcnQgeyB0b2FzdCwgdXNlVG9hc3QgfSBmcm9tICcuLi9ob29rcy91c2UtdG9hc3QnO1xuXG5cbmNvbnN0IGxvZ2luU2NoZW1hID0gei5vYmplY3Qoe1xuICB1c2VybmFtZTogei5zdHJpbmcoKS5taW4oNiwge1xuICAgIG1lc3NhZ2U6IFwiVXNlcm5hbWUgbXVzdCBiZSBhdCBsZWFzdCA1IGNoYXJhY3RlcnMuXCIsXG4gIH0pLFxuICBwYXNzd29yZDogei5zdHJpbmcoKS5taW4oOCwge1xuICAgIG1lc3NhZ2U6IFwiUGFzc3dvcmQgbXVzdCBiZSBhdCBsZWFzdCA4IGNoYXJhY3RlcnMuXCIsXG4gIH0pLFxufSk7XG5cblxuY29uc3QgTG9naW5Gb3JtID0gKCkgPT4ge1xuICAvL0xvYWRpbmcgc3RhdGVcbiAgY29uc3QgW2lzTG9hZGluZywgc2V0SXNMb2FkaW5nXSA9IHVzZVN0YXRlKGZhbHNlKTtcbiAgLy9Ub2FzdCBob29rXG4gIGNvbnN0IHt0b2FzdH0gPSB1c2VUb2FzdCgpO1xuICAvL1JvdXRlciB0byBuYXZpZ2F0ZSBiZXR3ZWVuIHBhZ2VzXG4gIGNvbnN0IHJvdXRlciA9IHVzZVJvdXRlcigpO1xuXG5cbiAgLy9Gb3JtIGluaXRpYWxpemF0aW9uXG4gIGNvbnN0IGZvcm0gPSBSZWFjdEhvb2tGb3JtLnVzZUZvcm0oe1xuICAgIHJlc29sdmVyOiB6b2RSZXNvbHZlcihsb2dpblNjaGVtYSksXG4gICAgbW9kZTogXCJvbkJsdXJcIixcbiAgICBkZWZhdWx0VmFsdWVzOiB7XG4gICAgICB1c2VybmFtZTogXCJcIixcbiAgICAgIHBhc3N3b3JkOiBcIlwiLFxuICAgIH0sXG4gIH0pO1xuXG4gIGNvbnN0IG9uU3VibWl0ID0gYXN5bmMoKSA9PiB7XG4gICAgc2V0SXNMb2FkaW5nKHRydWUpO1xuICAgIHRyeXtcbiAgICAgIGF3YWl0IG5ldyBQcm9taXNlKChyZXNvbHZlKSA9PiBzZXRUaW1lb3V0KHJlc29sdmUsIDE1MDApKTtcblxuICAgICAgLy9SZXRyaWV2ZSB1c2VyIGRhdGEgZnJvbSBsb2NhbCBzdG9yYWdlXG4gICAgICBjb25zdCByZWdpc3RlcmVkVXNlciA9IEpTT04ucGFyc2UobG9jYWxTdG9yYWdlLmdldEl0ZW0oXCJyZWdpc3RlcmVkVXNlclwiKSk7XG5cbiAgICAgIGlmKCFyZWdpc3RlcmVkVXNlcil7XG4gICAgICAgIHRvYXN0KHtcbiAgICAgICAgICB0aXRsZTogXCJMb2dpbiBmYWlsZWRcIixcbiAgICAgICAgICBkZXNjcmlwdGlvbjogXCJVc2VyIG5vdCBmb3VuZCwgY2hlY2sgeW91ciB1c2VybmFtZXMgYW5kIHBhc3N3b3JkXCIsXG4gICAgICAgIH0pO1xuXG4gICAgICAgIHNldElzTG9hZGluZyhmYWxzZSk7XG4gICAgICAgIHJldHVybjtcbiAgICAgIH1cbiAgICAgIFxuICAgICAgLy9SZXRyaWV2ZSB1c2VybmFtZSBhbmQgcGFzc3dvcmRcbiAgICAgIGNvbnN0IGVudGVyZWRVc2VybmFtZSA9IGZvcm0uZ2V0VmFsdWVzKFwidXNlcm5hbWVcIik7XG4gICAgICBjb25zdCBlbnRlcmVkUGFzc3dvcmQgPSBmb3JtLmdldFZhbHVlcyhcInBhc3N3b3JkXCIpO1xuXG4gICAgICAvL0NoZWNrIGlmIHRoZSB1c2VybmFtZSBhbmQgcGFzc3dvcmQgbWF0Y2hcbiAgICAgIGlmKGVudGVyZWRVc2VybmFtZSA9PT0gcmVnaXN0ZXJlZFVzZXIudXNlcm5hbWUgJiYgZW50ZXJlZFBhc3N3b3JkID09PSByZWdpc3RlcmVkVXNlci5wYXNzd29yZCl7XG4gICAgICAgIHRvYXN0KHtcbiAgICAgICAgICB0aXRsZTogXCJMb2dpbiBzdWNjZXNzZnVsXCIsXG4gICAgICAgICAgdGltZW91dDogMTIwMCxcbiAgICAgICAgICBzdGF0dXM6IFwic3VjY2Vzc1wiLFxuICAgICAgICB9KTtcbiAgICAgICAgZm9ybS5yZXNldCgpO1xuICAgICAgICBzZXRUaW1lb3V0KCgpID0+IHtcbiAgICAgICAgICByb3V0ZXIucHVzaChcIi9tYWluU2NyZWVuXCIpfSwgMTUwMCk7XG4gICAgICB9XG4gICAgICBlbHNle1xuICAgICAgICB0b2FzdCh7XG4gICAgICAgICAgdGl0bGU6IFwiTG9naW4gZmFpbGVkXCIsXG4gICAgICAgICAgZGVzY3JpcHRpb246IFwiSW52YWxpZCB1c2VybmFtZSBvciBwYXNzd29yZFwiLFxuICAgICAgICB9KVxuICAgICAgfVxuICAgICAgfWNhdGNoKGUpe1xuICAgICAgdG9hc3Qoe1xuICAgICAgICB0aXRsZTogXCJMb2dpbiBGYWlsZWRcIixcbiAgICAgICAgZGVzY3JpcHRpb246IGUubWVzc2FnZSxcbiAgICAgICAgdmFyaWFudDogJ2Rlc3RydWN0aXZlJyxcbiAgICAgIH0pO1xuICAgIH1cbiAgICBzZXRJc0xvYWRpbmcoZmFsc2UpO1xuICB9XG5cbiAgcmV0dXJuIChcbiAgICA8Q2FyZFdyYXBwZXJcbiAgICAgIGxhYmVsPVwiTG9naW5cIlxuICAgICAgdGl0bGU9XCJXZWxjb21lIEJhY2shXCJcbiAgICAgIGJhY2tCdXR0b25IcmVmPVwiL2F1dGgvcmVnaXN0ZXJcIlxuICAgICAgYmFja0J1dHRvbkxhYmVsPVwiRG9uJ3QgaGF2ZSBhbiBhY2NvdW50PyBTaWduIHVwIEhlcmUuXCJcbiAgICA+XG4gICAgICA8Rm9ybSB7Li4uZm9ybX0+XG4gICAgICAgIDxmb3JtIG9uU3VibWl0PXtmb3JtLmhhbmRsZVN1Ym1pdChvblN1Ym1pdCl9IGNsYXNzTmFtZT1cInNwYWNlLXktNiBmbGV4IGZsZXgtY29sXCI+XG4gICAgICAgICAgPEZvcm1GaWVsZFxuICAgICAgICAgICAgY29udHJvbD17Zm9ybS5jb250cm9sfVxuICAgICAgICAgICAgbmFtZT1cInVzZXJuYW1lXCJcbiAgICAgICAgICAgIHJlbmRlcj17KHsgZmllbGQgfSkgPT4gKFxuICAgICAgICAgICAgICA8Rm9ybUl0ZW0+XG4gICAgICAgICAgICAgICAgPEZvcm1MYWJlbD5Vc2VybmFtZTwvRm9ybUxhYmVsPlxuICAgICAgICAgICAgICAgIDxGb3JtQ29udHJvbD5cbiAgICAgICAgICAgICAgICAgIDxJbnB1dCBwbGFjZWhvbGRlcj1cIkVudGVyIHlvdXIgdXNlcm5hbWVcIiB7Li4uZmllbGR9IC8+XG4gICAgICAgICAgICAgICAgPC9Gb3JtQ29udHJvbD5cbiAgICAgICAgICAgICAgICA8Rm9ybU1lc3NhZ2UgY2xhc3NOYW1lPSdlcnJvci1tZXNzYWdlJy8+XG4gICAgICAgICAgICAgIDwvRm9ybUl0ZW0+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIC8+XG4gICAgICAgICAgPEZvcm1GaWVsZFxuICAgICAgICAgICAgY29udHJvbD17Zm9ybS5jb250cm9sfVxuICAgICAgICAgICAgbmFtZT1cInBhc3N3b3JkXCJcbiAgICAgICAgICAgIHJlbmRlcj17KHsgZmllbGQgfSkgPT4gKFxuICAgICAgICAgICAgICA8Rm9ybUl0ZW0+XG4gICAgICAgICAgICAgICAgPEZvcm1MYWJlbD5QYXNzd29yZDwvRm9ybUxhYmVsPlxuICAgICAgICAgICAgICAgIDxGb3JtQ29udHJvbD5cbiAgICAgICAgICAgICAgICAgIDxJbnB1dCB0eXBlPVwicGFzc3dvcmRcIiBwbGFjZWhvbGRlcj1cIkVudGVyIHlvdXIgcGFzc3dvcmRcIiB7Li4uZmllbGR9IC8+XG4gICAgICAgICAgICAgICAgPC9Gb3JtQ29udHJvbD5cbiAgICAgICAgICAgICAgICA8Rm9ybU1lc3NhZ2UgY2xhc3NOYW1lPSdlcnJvci1tZXNzYWdlJy8+XG4gICAgICAgICAgICAgIDwvRm9ybUl0ZW0+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIC8+XG4gICAgICAgICAgPEJ1dHRvbiB0eXBlPVwic3VibWl0XCIgY2xhc3NOYW1lPSd3LWZ1bGwnIGRpc2FibGVkPXtpc0xvYWRpbmd9PlxuICAgICAgICAgICAge2lzTG9hZGluZyA/IFwiTG9hZGluZy4uLlwiIDogXCJMb2dpblwifVxuICAgICAgICAgIDwvQnV0dG9uPlxuICAgICAgICA8L2Zvcm0+XG4gICAgICA8L0Zvcm0+XG4gICAgPC9DYXJkV3JhcHBlcj5cbiAgKTtcbn07XG5cbmV4cG9ydCBkZWZhdWx0IExvZ2luRm9ybTsiXSwibmFtZXMiOlsidXNlRm9ybVN0YXR1cyIsIlJlYWN0SG9va0Zvcm0iLCJ1c2VTdGF0ZSIsInoiLCJ6b2RSZXNvbHZlciIsInVzZVJvdXRlciIsIkNhcmRXcmFwcGVyIiwiRm9ybSIsIkZvcm1JdGVtIiwiRm9ybUxhYmVsIiwiRm9ybUNvbnRyb2wiLCJGb3JtTWVzc2FnZSIsIkZvcm1GaWVsZCIsIkJ1dHRvbiIsIklucHV0IiwidG9hc3QiLCJ1c2VUb2FzdCIsImxvZ2luU2NoZW1hIiwib2JqZWN0IiwidXNlcm5hbWUiLCJzdHJpbmciLCJtaW4iLCJtZXNzYWdlIiwicGFzc3dvcmQiLCJMb2dpbkZvcm0iLCJpc0xvYWRpbmciLCJzZXRJc0xvYWRpbmciLCJyb3V0ZXIiLCJmb3JtIiwidXNlRm9ybSIsInJlc29sdmVyIiwibW9kZSIsImRlZmF1bHRWYWx1ZXMiLCJvblN1Ym1pdCIsIlByb21pc2UiLCJyZXNvbHZlIiwic2V0VGltZW91dCIsInJlZ2lzdGVyZWRVc2VyIiwiSlNPTiIsInBhcnNlIiwibG9jYWxTdG9yYWdlIiwiZ2V0SXRlbSIsInRpdGxlIiwiZGVzY3JpcHRpb24iLCJlbnRlcmVkVXNlcm5hbWUiLCJnZXRWYWx1ZXMiLCJlbnRlcmVkUGFzc3dvcmQiLCJ0aW1lb3V0Iiwic3RhdHVzIiwicmVzZXQiLCJwdXNoIiwiZSIsInZhcmlhbnQiLCJsYWJlbCIsImJhY2tCdXR0b25IcmVmIiwiYmFja0J1dHRvbkxhYmVsIiwiaGFuZGxlU3VibWl0IiwiY2xhc3NOYW1lIiwiY29udHJvbCIsIm5hbWUiLCJyZW5kZXIiLCJmaWVsZCIsInBsYWNlaG9sZGVyIiwidHlwZSIsImRpc2FibGVkIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///(ssr)/./components/auth/LoginForm.jsx\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-dev-runtime */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js\");\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-hook-form */ \"(ssr)/./node_modules/react-hook-form/dist/index.esm.mjs\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var zod__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! zod */ \"(ssr)/./node_modules/zod/lib/index.mjs\");\n/* harmony import */ var _hookform_resolvers_zod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @hookform/resolvers/zod */ \"(ssr)/./node_modules/@hookform/resolvers/zod/dist/zod.mjs\");\n/* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/navigation */ \"(ssr)/./node_modules/next/dist/api/navigation.js\");\n/* harmony import */ var _components_auth_card_wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/auth/card-wrapper */ \"(ssr)/./components/auth/card-wrapper.jsx\");\n/* harmony import */ var _components_ui_form__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/ui/form */ \"(ssr)/./components/ui/form.jsx\");\n/* harmony import */ var _components_ui_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/ui/button */ \"(ssr)/./components/ui/button.jsx\");\n/* harmony import */ var _components_ui_input__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/ui/input */ \"(ssr)/./components/ui/input.jsx\");\n/* harmony import */ var _hooks_use_toast__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../hooks/use-toast */ \"(ssr)/./components/hooks/use-toast.js\");\n/* harmony import */ var _firebase__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/firebase */ \"(ssr)/./firebase.js\");\n/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! firebase/auth */ \"(ssr)/./node_modules/firebase/auth/dist/index.mjs\");\n/* __next_internal_client_entry_do_not_use__ default auto */ \n\n\n//Components imports\n\n\n\n\n\n\n\n\n//Firebase imports\n\n\nconst loginSchema = zod__WEBPACK_IMPORTED_MODULE_11__.z.object({\n    email: zod__WEBPACK_IMPORTED_MODULE_11__.z.string().email({\n        message: \"Please enter a valid email address.\"\n    }),\n    password: zod__WEBPACK_IMPORTED_MODULE_11__.z.string().min(8, {\n        message: \"Password must be at least 8 characters.\"\n    })\n});\nconst LoginForm = ()=>{\n    //Loading state\n    const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);\n    //Toast hook\n    const { toast } = (0,_hooks_use_toast__WEBPACK_IMPORTED_MODULE_8__.useToast)();\n    //Router to navigate between pages\n    const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_3__.useRouter)();\n    //Form initialization\n    const form = react_hook_form__WEBPACK_IMPORTED_MODULE_12__.useForm({\n        resolver: (0,_hookform_resolvers_zod__WEBPACK_IMPORTED_MODULE_2__.zodResolver)(loginSchema),\n        mode: \"onBlur\",\n        defaultValues: {\n            email: \"\",\n            password: \"\"\n        }\n    });\n    const onSubmit = async (data)=>{\n        setIsLoading(true);\n        try {\n            //Simulate a login delay \n            await new Promise((resolve)=>setTimeout(resolve, 1500));\n            //Retrieve user data from firebase auth\n            const user = await (0,firebase_auth__WEBPACK_IMPORTED_MODULE_10__.signInWithEmailAndPassword)(_firebase__WEBPACK_IMPORTED_MODULE_9__.auth, data.email, data.password);\n            toast({\n                title: \"Login successful\",\n                timeout: 1200\n            });\n            form.reset();\n            setTimeout(()=>{\n                router.push(\"/mainScreen\");\n            }, 1500);\n        } catch (error) {\n            if (error.code === \"auth/user-not-found\") {\n                toast({\n                    title: \"User not found, check your usernames and password\",\n                    timeout: 1000\n                });\n            } else if (error.code === \"auth/wrong-password\") {\n                toast({\n                    title: \"Invalid username or password\",\n                    timeout: 1000\n                });\n            } else {\n                console.log(error.message);\n                toast({\n                    title: \"Login failed\",\n                    description: error.message,\n                    variant: \"destructive\"\n                });\n            }\n        } finally{\n            setIsLoading(false);\n        }\n    //   try{\n    //     await new Promise((resolve) => setTimeout(resolve, 1500));\n    //     //Retrieve user data from local storage\n    //     const registeredUser = JSON.parse(localStorage.getItem(\"registeredUser\"));\n    //     if(!registeredUser){\n    //       toast({\n    //         title: \"Login failed\",\n    //         description: \"User not found, check your usernames and password\",\n    //       });\n    //       setIsLoading(false);\n    //       return;\n    //     }\n    //     //Retrieve username and password\n    //     const enteredUsername = form.getValues(\"username\");\n    //     const enteredPassword = form.getValues(\"password\");\n    //     //Check if the username and password match\n    //     if(enteredUsername === registeredUser.username && enteredPassword === registeredUser.password){\n    //       toast({\n    //         title: \"Login successful\",\n    //         timeout: 1200,\n    //         status: \"success\",\n    //       });\n    //       form.reset();\n    //       setTimeout(() => {\n    //         router.push(\"/mainScreen\")}, 1500);\n    //     }\n    //     else{\n    //       toast({\n    //         title: \"Login failed\",\n    //         description: \"Invalid username or password\",\n    //       })\n    //     }\n    //     }catch(e){\n    //     toast({\n    //       title: \"Login Failed\",\n    //       description: e.message,\n    //       variant: 'destructive',\n    //     });\n    //   }\n    //   setIsLoading(false);\n    // }\n    };\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_auth_card_wrapper__WEBPACK_IMPORTED_MODULE_4__[\"default\"], {\n        label: \"Login\",\n        title: \"Welcome Back!\",\n        backButtonHref: \"/auth/register\",\n        backButtonLabel: \"Don't have an account? Sign up Here.\",\n        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.Form, {\n            ...form,\n            children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(\"form\", {\n                onSubmit: form.handleSubmit(onSubmit),\n                className: \"space-y-6 flex flex-col\",\n                children: [\n                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormField, {\n                        control: form.control,\n                        name: \"email\",\n                        render: ({ field })=>/*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormItem, {\n                                children: [\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormLabel, {\n                                        children: \"Email\"\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 161,\n                                        columnNumber: 17\n                                    }, void 0),\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormControl, {\n                                        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_input__WEBPACK_IMPORTED_MODULE_7__.Input, {\n                                            placeholder: \"Enter your email\",\n                                            ...field\n                                        }, void 0, false, {\n                                            fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                            lineNumber: 163,\n                                            columnNumber: 19\n                                        }, void 0)\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 162,\n                                        columnNumber: 17\n                                    }, void 0),\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormMessage, {\n                                        className: \"error-message\"\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 165,\n                                        columnNumber: 17\n                                    }, void 0)\n                                ]\n                            }, void 0, true, {\n                                fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                lineNumber: 160,\n                                columnNumber: 15\n                            }, void 0)\n                    }, void 0, false, {\n                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                        lineNumber: 156,\n                        columnNumber: 11\n                    }, undefined),\n                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormField, {\n                        control: form.control,\n                        name: \"password\",\n                        render: ({ field })=>/*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormItem, {\n                                children: [\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormLabel, {\n                                        children: \"Password\"\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 174,\n                                        columnNumber: 17\n                                    }, void 0),\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormControl, {\n                                        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_input__WEBPACK_IMPORTED_MODULE_7__.Input, {\n                                            type: \"password\",\n                                            placeholder: \"Enter your password\",\n                                            ...field\n                                        }, void 0, false, {\n                                            fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                            lineNumber: 176,\n                                            columnNumber: 19\n                                        }, void 0)\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 175,\n                                        columnNumber: 17\n                                    }, void 0),\n                                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_form__WEBPACK_IMPORTED_MODULE_5__.FormMessage, {\n                                        className: \"error-message\"\n                                    }, void 0, false, {\n                                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                        lineNumber: 178,\n                                        columnNumber: 17\n                                    }, void 0)\n                                ]\n                            }, void 0, true, {\n                                fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                                lineNumber: 173,\n                                columnNumber: 15\n                            }, void 0)\n                    }, void 0, false, {\n                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                        lineNumber: 169,\n                        columnNumber: 11\n                    }, undefined),\n                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_button__WEBPACK_IMPORTED_MODULE_6__.Button, {\n                        type: \"submit\",\n                        className: \"w-full\",\n                        disabled: isLoading,\n                        children: isLoading ? \"Loading...\" : \"Login\"\n                    }, void 0, false, {\n                        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                        lineNumber: 182,\n                        columnNumber: 11\n                    }, undefined)\n                ]\n            }, void 0, true, {\n                fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n                lineNumber: 155,\n                columnNumber: 9\n            }, undefined)\n        }, void 0, false, {\n            fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n            lineNumber: 154,\n            columnNumber: 7\n        }, undefined)\n    }, void 0, false, {\n        fileName: \"/Users/ceo/Desktop/hackathon_2024/ai-tutor/components/auth/LoginForm.jsx\",\n        lineNumber: 148,\n        columnNumber: 5\n    }, undefined);\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoginForm);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,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bXBvbmVudHMvYXV0aC9Mb2dpbkZvcm0uanN4PzYxZmIiXSwic291cmNlc0NvbnRlbnQiOlsiXCJ1c2UgY2xpZW50XCI7XG5cbmltcG9ydCAqIGFzIFJlYWN0SG9va0Zvcm0gZnJvbSAncmVhY3QtaG9vay1mb3JtJztcbmltcG9ydCB7IHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnO1xuXG5cbi8vQ29tcG9uZW50cyBpbXBvcnRzXG5pbXBvcnQge3ogfSBmcm9tIFwiem9kXCI7XG5pbXBvcnQgeyB6b2RSZXNvbHZlciB9IGZyb20gXCJAaG9va2Zvcm0vcmVzb2x2ZXJzL3pvZFwiO1xuaW1wb3J0IHsgdXNlUm91dGVyIH0gZnJvbSAnbmV4dC9uYXZpZ2F0aW9uJztcbmltcG9ydCBDYXJkV3JhcHBlciBmcm9tIFwiQC9jb21wb25lbnRzL2F1dGgvY2FyZC13cmFwcGVyXCI7XG5pbXBvcnQge1xuICBGb3JtLFxuICBGb3JtSXRlbSxcbiAgRm9ybUxhYmVsLFxuICBGb3JtQ29udHJvbCxcbiAgRm9ybU1lc3NhZ2UsXG4gIEZvcm1GaWVsZCxcbn0gZnJvbSBcIkAvY29tcG9uZW50cy91aS9mb3JtXCI7XG5pbXBvcnQgeyBCdXR0b24gfSBmcm9tIFwiQC9jb21wb25lbnRzL3VpL2J1dHRvblwiO1xuaW1wb3J0IHsgSW5wdXQgfSBmcm9tIFwiQC9jb21wb25lbnRzL3VpL2lucHV0XCI7XG5pbXBvcnQge3VzZVRvYXN0IH0gZnJvbSAnLi4vaG9va3MvdXNlLXRvYXN0JztcblxuLy9GaXJlYmFzZSBpbXBvcnRzXG5pbXBvcnQge2F1dGh9IGZyb20gJ0AvZmlyZWJhc2UnO1xuaW1wb3J0IHtzaWduSW5XaXRoRW1haWxBbmRQYXNzd29yZH0gZnJvbSAnZmlyZWJhc2UvYXV0aCc7XG5cblxuY29uc3QgbG9naW5TY2hlbWEgPSB6Lm9iamVjdCh7XG4gIGVtYWlsOiB6LnN0cmluZygpLmVtYWlsKHtcbiAgICBtZXNzYWdlOiBcIlBsZWFzZSBlbnRlciBhIHZhbGlkIGVtYWlsIGFkZHJlc3MuXCIsXG4gIH0pLFxuICBwYXNzd29yZDogei5zdHJpbmcoKS5taW4oOCwge1xuICAgIG1lc3NhZ2U6IFwiUGFzc3dvcmQgbXVzdCBiZSBhdCBsZWFzdCA4IGNoYXJhY3RlcnMuXCIsXG4gIH0pLFxufSk7XG5cblxuY29uc3QgTG9naW5Gb3JtID0gKCkgPT4ge1xuICAvL0xvYWRpbmcgc3RhdGVcbiAgY29uc3QgW2lzTG9hZGluZywgc2V0SXNMb2FkaW5nXSA9IHVzZVN0YXRlKGZhbHNlKTtcbiAgLy9Ub2FzdCBob29rXG4gIGNvbnN0IHt0b2FzdH0gPSB1c2VUb2FzdCgpO1xuICAvL1JvdXRlciB0byBuYXZpZ2F0ZSBiZXR3ZWVuIHBhZ2VzXG4gIGNvbnN0IHJvdXRlciA9IHVzZVJvdXRlcigpO1xuXG5cbiAgLy9Gb3JtIGluaXRpYWxpemF0aW9uXG4gIGNvbnN0IGZvcm0gPSBSZWFjdEhvb2tGb3JtLnVzZUZvcm0oe1xuICAgIHJlc29sdmVyOiB6b2RSZXNvbHZlcihsb2dpblNjaGVtYSksXG4gICAgbW9kZTogXCJvbkJsdXJcIixcbiAgICBkZWZhdWx0VmFsdWVzOiB7XG4gICAgICBlbWFpbDogXCJcIixcbiAgICAgIHBhc3N3b3JkOiBcIlwiLFxuICAgIH0sXG4gIH0pO1xuXG4gIGNvbnN0IG9uU3VibWl0ID0gYXN5bmMoZGF0YSkgPT4ge1xuICAgIHNldElzTG9hZGluZyh0cnVlKTtcbiAgICB0cnl7XG4gICAgICAvL1NpbXVsYXRlIGEgbG9naW4gZGVsYXkgXG4gICAgICBhd2FpdCBuZXcgUHJvbWlzZSgocmVzb2x2ZSkgPT4gc2V0VGltZW91dChyZXNvbHZlLCAxNTAwKSk7XG5cbiAgICAgIC8vUmV0cmlldmUgdXNlciBkYXRhIGZyb20gZmlyZWJhc2UgYXV0aFxuICAgICAgY29uc3QgdXNlciA9IGF3YWl0IHNpZ25JbldpdGhFbWFpbEFuZFBhc3N3b3JkKGF1dGgsIGRhdGEuZW1haWwsIGRhdGEucGFzc3dvcmQpO1xuICAgICAgdG9hc3Qoe1xuICAgICAgICB0aXRsZTogXCJMb2dpbiBzdWNjZXNzZnVsXCIsXG4gICAgICAgIHRpbWVvdXQ6IDEyMDAsXG4gICAgICB9KTtcbiAgICAgIGZvcm0ucmVzZXQoKTtcbiAgICAgIHNldFRpbWVvdXQoKCkgPT4ge1xuICAgICAgICByb3V0ZXIucHVzaChcIi9tYWluU2NyZWVuXCIpO1xuICAgICAgfSwxNTAwKTtcbiAgICB9Y2F0Y2goZXJyb3Ipe1xuICAgICAgaWYoZXJyb3IuY29kZSA9PT0gJ2F1dGgvdXNlci1ub3QtZm91bmQnKXtcbiAgICAgICAgdG9hc3Qoe1xuICAgICAgICAgIHRpdGxlOiBcIlVzZXIgbm90IGZvdW5kLCBjaGVjayB5b3VyIHVzZXJuYW1lcyBhbmQgcGFzc3dvcmRcIixcbiAgICAgICAgICB0aW1lb3V0OiAxMDAwLFxuICAgICAgICB9KTtcbiAgICAgIH1cbiAgICAgIGVsc2UgaWYoZXJyb3IuY29kZSA9PT0gJ2F1dGgvd3JvbmctcGFzc3dvcmQnKXtcbiAgICAgICAgdG9hc3Qoe1xuICAgICAgICAgIHRpdGxlOiBcIkludmFsaWQgdXNlcm5hbWUgb3IgcGFzc3dvcmRcIixcbiAgICAgICAgICB0aW1lb3V0OiAxMDAwLFxuICAgICAgICB9KTtcbiAgICAgIH1cbiAgICAgIGVsc2V7XG4gICAgICAgIGNvbnNvbGUubG9nKGVycm9yLm1lc3NhZ2UpXG4gICAgICAgIHRvYXN0KHtcbiAgICAgICAgICB0aXRsZTogXCJMb2dpbiBmYWlsZWRcIixcbiAgICAgICAgICBkZXNjcmlwdGlvbjogZXJyb3IubWVzc2FnZSxcbiAgICAgICAgICB2YXJpYW50OiAnZGVzdHJ1Y3RpdmUnLFxuICAgICAgICB9KTtcbiAgICAgIH1cbiAgICB9ZmluYWxseXtcbiAgICAgIHNldElzTG9hZGluZyhmYWxzZSk7XG4gICAgfVxuICAvLyAgIHRyeXtcbiAgLy8gICAgIGF3YWl0IG5ldyBQcm9taXNlKChyZXNvbHZlKSA9PiBzZXRUaW1lb3V0KHJlc29sdmUsIDE1MDApKTtcblxuICAvLyAgICAgLy9SZXRyaWV2ZSB1c2VyIGRhdGEgZnJvbSBsb2NhbCBzdG9yYWdlXG4gIC8vICAgICBjb25zdCByZWdpc3RlcmVkVXNlciA9IEpTT04ucGFyc2UobG9jYWxTdG9yYWdlLmdldEl0ZW0oXCJyZWdpc3RlcmVkVXNlclwiKSk7XG5cbiAgLy8gICAgIGlmKCFyZWdpc3RlcmVkVXNlcil7XG4gIC8vICAgICAgIHRvYXN0KHtcbiAgLy8gICAgICAgICB0aXRsZTogXCJMb2dpbiBmYWlsZWRcIixcbiAgLy8gICAgICAgICBkZXNjcmlwdGlvbjogXCJVc2VyIG5vdCBmb3VuZCwgY2hlY2sgeW91ciB1c2VybmFtZXMgYW5kIHBhc3N3b3JkXCIsXG4gIC8vICAgICAgIH0pO1xuXG4gIC8vICAgICAgIHNldElzTG9hZGluZyhmYWxzZSk7XG4gIC8vICAgICAgIHJldHVybjtcbiAgLy8gICAgIH1cbiAgICAgIFxuICAvLyAgICAgLy9SZXRyaWV2ZSB1c2VybmFtZSBhbmQgcGFzc3dvcmRcbiAgLy8gICAgIGNvbnN0IGVudGVyZWRVc2VybmFtZSA9IGZvcm0uZ2V0VmFsdWVzKFwidXNlcm5hbWVcIik7XG4gIC8vICAgICBjb25zdCBlbnRlcmVkUGFzc3dvcmQgPSBmb3JtLmdldFZhbHVlcyhcInBhc3N3b3JkXCIpO1xuXG4gIC8vICAgICAvL0NoZWNrIGlmIHRoZSB1c2VybmFtZSBhbmQgcGFzc3dvcmQgbWF0Y2hcbiAgLy8gICAgIGlmKGVudGVyZWRVc2VybmFtZSA9PT0gcmVnaXN0ZXJlZFVzZXIudXNlcm5hbWUgJiYgZW50ZXJlZFBhc3N3b3JkID09PSByZWdpc3RlcmVkVXNlci5wYXNzd29yZCl7XG4gIC8vICAgICAgIHRvYXN0KHtcbiAgLy8gICAgICAgICB0aXRsZTogXCJMb2dpbiBzdWNjZXNzZnVsXCIsXG4gIC8vICAgICAgICAgdGltZW91dDogMTIwMCxcbiAgLy8gICAgICAgICBzdGF0dXM6IFwic3VjY2Vzc1wiLFxuICAvLyAgICAgICB9KTtcbiAgLy8gICAgICAgZm9ybS5yZXNldCgpO1xuICAvLyAgICAgICBzZXRUaW1lb3V0KCgpID0+IHtcbiAgLy8gICAgICAgICByb3V0ZXIucHVzaChcIi9tYWluU2NyZWVuXCIpfSwgMTUwMCk7XG4gIC8vICAgICB9XG4gIC8vICAgICBlbHNle1xuICAvLyAgICAgICB0b2FzdCh7XG4gIC8vICAgICAgICAgdGl0bGU6IFwiTG9naW4gZmFpbGVkXCIsXG4gIC8vICAgICAgICAgZGVzY3JpcHRpb246IFwiSW52YWxpZCB1c2VybmFtZSBvciBwYXNzd29yZFwiLFxuICAvLyAgICAgICB9KVxuICAvLyAgICAgfVxuICAvLyAgICAgfWNhdGNoKGUpe1xuICAvLyAgICAgdG9hc3Qoe1xuICAvLyAgICAgICB0aXRsZTogXCJMb2dpbiBGYWlsZWRcIixcbiAgLy8gICAgICAgZGVzY3JpcHRpb246IGUubWVzc2FnZSxcbiAgLy8gICAgICAgdmFyaWFudDogJ2Rlc3RydWN0aXZlJyxcbiAgLy8gICAgIH0pO1xuICAvLyAgIH1cbiAgLy8gICBzZXRJc0xvYWRpbmcoZmFsc2UpO1xuICAvLyB9XG4gIH1cblxuXG4gIHJldHVybiAoXG4gICAgPENhcmRXcmFwcGVyXG4gICAgICBsYWJlbD1cIkxvZ2luXCJcbiAgICAgIHRpdGxlPVwiV2VsY29tZSBCYWNrIVwiXG4gICAgICBiYWNrQnV0dG9uSHJlZj1cIi9hdXRoL3JlZ2lzdGVyXCJcbiAgICAgIGJhY2tCdXR0b25MYWJlbD1cIkRvbid0IGhhdmUgYW4gYWNjb3VudD8gU2lnbiB1cCBIZXJlLlwiXG4gICAgPlxuICAgICAgPEZvcm0gey4uLmZvcm19PlxuICAgICAgICA8Zm9ybSBvblN1Ym1pdD17Zm9ybS5oYW5kbGVTdWJtaXQob25TdWJtaXQpfSBjbGFzc05hbWU9XCJzcGFjZS15LTYgZmxleCBmbGV4LWNvbFwiPlxuICAgICAgICAgIDxGb3JtRmllbGRcbiAgICAgICAgICAgIGNvbnRyb2w9e2Zvcm0uY29udHJvbH1cbiAgICAgICAgICAgIG5hbWU9XCJlbWFpbFwiXG4gICAgICAgICAgICByZW5kZXI9eyh7IGZpZWxkIH0pID0+IChcbiAgICAgICAgICAgICAgPEZvcm1JdGVtPlxuICAgICAgICAgICAgICAgIDxGb3JtTGFiZWw+RW1haWw8L0Zvcm1MYWJlbD5cbiAgICAgICAgICAgICAgICA8Rm9ybUNvbnRyb2w+XG4gICAgICAgICAgICAgICAgICA8SW5wdXQgcGxhY2Vob2xkZXI9XCJFbnRlciB5b3VyIGVtYWlsXCIgey4uLmZpZWxkfSAvPlxuICAgICAgICAgICAgICAgIDwvRm9ybUNvbnRyb2w+XG4gICAgICAgICAgICAgICAgPEZvcm1NZXNzYWdlIGNsYXNzTmFtZT0nZXJyb3ItbWVzc2FnZScvPlxuICAgICAgICAgICAgICA8L0Zvcm1JdGVtPlxuICAgICAgICAgICAgKX1cbiAgICAgICAgICAvPlxuICAgICAgICAgIDxGb3JtRmllbGRcbiAgICAgICAgICAgIGNvbnRyb2w9e2Zvcm0uY29udHJvbH1cbiAgICAgICAgICAgIG5hbWU9XCJwYXNzd29yZFwiXG4gICAgICAgICAgICByZW5kZXI9eyh7IGZpZWxkIH0pID0+IChcbiAgICAgICAgICAgICAgPEZvcm1JdGVtPlxuICAgICAgICAgICAgICAgIDxGb3JtTGFiZWw+UGFzc3dvcmQ8L0Zvcm1MYWJlbD5cbiAgICAgICAgICAgICAgICA8Rm9ybUNvbnRyb2w+XG4gICAgICAgICAgICAgICAgICA8SW5wdXQgdHlwZT1cInBhc3N3b3JkXCIgcGxhY2Vob2xkZXI9XCJFbnRlciB5b3VyIHBhc3N3b3JkXCIgey4uLmZpZWxkfSAvPlxuICAgICAgICAgICAgICAgIDwvRm9ybUNvbnRyb2w+XG4gICAgICAgICAgICAgICAgPEZvcm1NZXNzYWdlIGNsYXNzTmFtZT0nZXJyb3ItbWVzc2FnZScvPlxuICAgICAgICAgICAgICA8L0Zvcm1JdGVtPlxuICAgICAgICAgICAgKX1cbiAgICAgICAgICAvPlxuICAgICAgICAgIDxCdXR0b24gdHlwZT1cInN1Ym1pdFwiIGNsYXNzTmFtZT0ndy1mdWxsJyBkaXNhYmxlZD17aXNMb2FkaW5nfT5cbiAgICAgICAgICAgIHtpc0xvYWRpbmcgPyBcIkxvYWRpbmcuLi5cIiA6IFwiTG9naW5cIn1cbiAgICAgICAgICA8L0J1dHRvbj5cbiAgICAgICAgPC9mb3JtPlxuICAgICAgPC9Gb3JtPlxuICAgIDwvQ2FyZFdyYXBwZXI+XG4gICk7XG59O1xuXG5leHBvcnQgZGVmYXVsdCBMb2dpbkZvcm07Il0sIm5hbWVzIjpbIlJlYWN0SG9va0Zvcm0iLCJ1c2VTdGF0ZSIsInoiLCJ6b2RSZXNvbHZlciIsInVzZVJvdXRlciIsIkNhcmRXcmFwcGVyIiwiRm9ybSIsIkZvcm1JdGVtIiwiRm9ybUxhYmVsIiwiRm9ybUNvbnRyb2wiLCJGb3JtTWVzc2FnZSIsIkZvcm1GaWVsZCIsIkJ1dHRvbiIsIklucHV0IiwidXNlVG9hc3QiLCJhdXRoIiwic2lnbkluV2l0aEVtYWlsQW5kUGFzc3dvcmQiLCJsb2dpblNjaGVtYSIsIm9iamVjdCIsImVtYWlsIiwic3RyaW5nIiwibWVzc2FnZSIsInBhc3N3b3JkIiwibWluIiwiTG9naW5Gb3JtIiwiaXNMb2FkaW5nIiwic2V0SXNMb2FkaW5nIiwidG9hc3QiLCJyb3V0ZXIiLCJmb3JtIiwidXNlRm9ybSIsInJlc29sdmVyIiwibW9kZSIsImRlZmF1bHRWYWx1ZXMiLCJvblN1Ym1pdCIsImRhdGEiLCJQcm9taXNlIiwicmVzb2x2ZSIsInNldFRpbWVvdXQiLCJ1c2VyIiwidGl0bGUiLCJ0aW1lb3V0IiwicmVzZXQiLCJwdXNoIiwiZXJyb3IiLCJjb2RlIiwiY29uc29sZSIsImxvZyIsImRlc2NyaXB0aW9uIiwidmFyaWFudCIsImxhYmVsIiwiYmFja0J1dHRvbkhyZWYiLCJiYWNrQnV0dG9uTGFiZWwiLCJoYW5kbGVTdWJtaXQiLCJjbGFzc05hbWUiLCJjb250cm9sIiwibmFtZSIsInJlbmRlciIsImZpZWxkIiwicGxhY2Vob2xkZXIiLCJ0eXBlIiwiZGlzYWJsZWQiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(ssr)/./components/auth/LoginForm.jsx\n");
 
 /***/ }),
 
@@ -261,6 +624,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "(ssr)/./firebase.js":
+/*!*********************!*\
+  !*** ./firebase.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   app: () => (/* binding */ app),\n/* harmony export */   auth: () => (/* binding */ auth),\n/* harmony export */   db: () => (/* binding */ db)\n/* harmony export */ });\n/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ \"(ssr)/./node_modules/firebase/app/dist/index.mjs\");\n/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/auth */ \"(ssr)/./node_modules/firebase/auth/dist/index.mjs\");\n/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase/firestore */ \"(ssr)/./node_modules/firebase/firestore/dist/index.mjs\");\n// Import the functions you need from the SDKs you need\n\n\n\nconst firebaseConfig = {\n    apiKey: process.env.NEXT_FIREBASE_API_KEY,\n    authDomain: process.env.NEXT_FIREBASE_AUTH_DOMAIN,\n    projectId: process.env.NEXT_FIREBASE_PROJECT_ID,\n    storageBucket: process.env.NEXT_FIREBASE_STORAGE_BUCKET,\n    messagingSenderId: process.env.NEXT_FIREBASE_MESSAGING_SENDER_ID,\n    appId: process.env.NEXT_FIREBASE_APP_ID,\n    measurementId: process.env.NEXT_FIREBASE_MEASUREMENT_ID\n};\n// Initialize Firebase\nconst app = (0,firebase_app__WEBPACK_IMPORTED_MODULE_0__.initializeApp)(firebaseConfig);\nconst db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_2__.getFirestore)(app);\n//const analytics = getAnalytics(app);\nconst auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_1__.getAuth)(app);\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi9maXJlYmFzZS5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7QUFBQSx1REFBdUQ7QUFDVjtBQUNXO0FBQ047QUFFbEQsTUFBTUksaUJBQWlCO0lBQ3JCQyxRQUFRQyxRQUFRQyxHQUFHLENBQUNDLHFCQUFxQjtJQUN6Q0MsWUFBWUgsUUFBUUMsR0FBRyxDQUFDRyx5QkFBeUI7SUFDakRDLFdBQVdMLFFBQVFDLEdBQUcsQ0FBQ0ssd0JBQXdCO0lBQy9DQyxlQUFlUCxRQUFRQyxHQUFHLENBQUNPLDRCQUE0QjtJQUN2REMsbUJBQW1CVCxRQUFRQyxHQUFHLENBQUNTLGlDQUFpQztJQUNoRUMsT0FBT1gsUUFBUUMsR0FBRyxDQUFDVyxvQkFBb0I7SUFDdkNDLGVBQWViLFFBQVFDLEdBQUcsQ0FBQ2EsNEJBQTRCO0FBQ3pEO0FBRUEsc0JBQXNCO0FBQ3RCLE1BQU1DLE1BQU1yQiwyREFBYUEsQ0FBQ0k7QUFDMUIsTUFBTWtCLEtBQUtuQixnRUFBWUEsQ0FBQ2tCO0FBQ3hCLHNDQUFzQztBQUN0QyxNQUFNRSxPQUFPdEIsc0RBQU9BLENBQUNvQjtBQUVJIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vYWlfdHV0b3IvLi9maXJlYmFzZS5qcz80ZDk3Il0sInNvdXJjZXNDb250ZW50IjpbIi8vIEltcG9ydCB0aGUgZnVuY3Rpb25zIHlvdSBuZWVkIGZyb20gdGhlIFNES3MgeW91IG5lZWRcbmltcG9ydCB7IGluaXRpYWxpemVBcHAgfSBmcm9tIFwiZmlyZWJhc2UvYXBwXCI7XG5pbXBvcnQgeyBnZXRBdXRoLCBpbml0aWFsaXplQXV0aCB9IGZyb20gXCJmaXJlYmFzZS9hdXRoXCI7XG5pbXBvcnQgeyBnZXRGaXJlc3RvcmUgfSBmcm9tIFwiZmlyZWJhc2UvZmlyZXN0b3JlXCI7XG5cbmNvbnN0IGZpcmViYXNlQ29uZmlnID0ge1xuICBhcGlLZXk6IHByb2Nlc3MuZW52Lk5FWFRfRklSRUJBU0VfQVBJX0tFWSxcbiAgYXV0aERvbWFpbjogcHJvY2Vzcy5lbnYuTkVYVF9GSVJFQkFTRV9BVVRIX0RPTUFJTixcbiAgcHJvamVjdElkOiBwcm9jZXNzLmVudi5ORVhUX0ZJUkVCQVNFX1BST0pFQ1RfSUQsXG4gIHN0b3JhZ2VCdWNrZXQ6IHByb2Nlc3MuZW52Lk5FWFRfRklSRUJBU0VfU1RPUkFHRV9CVUNLRVQsXG4gIG1lc3NhZ2luZ1NlbmRlcklkOiBwcm9jZXNzLmVudi5ORVhUX0ZJUkVCQVNFX01FU1NBR0lOR19TRU5ERVJfSUQsXG4gIGFwcElkOiBwcm9jZXNzLmVudi5ORVhUX0ZJUkVCQVNFX0FQUF9JRCxcbiAgbWVhc3VyZW1lbnRJZDogcHJvY2Vzcy5lbnYuTkVYVF9GSVJFQkFTRV9NRUFTVVJFTUVOVF9JRCxcbn07XG5cbi8vIEluaXRpYWxpemUgRmlyZWJhc2VcbmNvbnN0IGFwcCA9IGluaXRpYWxpemVBcHAoZmlyZWJhc2VDb25maWcpO1xuY29uc3QgZGIgPSBnZXRGaXJlc3RvcmUoYXBwKTtcbi8vY29uc3QgYW5hbHl0aWNzID0gZ2V0QW5hbHl0aWNzKGFwcCk7XG5jb25zdCBhdXRoID0gZ2V0QXV0aChhcHApO1xuXG5leHBvcnQgeyBhcHAsIGRiLCBhdXRoIH07XG4iXSwibmFtZXMiOlsiaW5pdGlhbGl6ZUFwcCIsImdldEF1dGgiLCJpbml0aWFsaXplQXV0aCIsImdldEZpcmVzdG9yZSIsImZpcmViYXNlQ29uZmlnIiwiYXBpS2V5IiwicHJvY2VzcyIsImVudiIsIk5FWFRfRklSRUJBU0VfQVBJX0tFWSIsImF1dGhEb21haW4iLCJORVhUX0ZJUkVCQVNFX0FVVEhfRE9NQUlOIiwicHJvamVjdElkIiwiTkVYVF9GSVJFQkFTRV9QUk9KRUNUX0lEIiwic3RvcmFnZUJ1Y2tldCIsIk5FWFRfRklSRUJBU0VfU1RPUkFHRV9CVUNLRVQiLCJtZXNzYWdpbmdTZW5kZXJJZCIsIk5FWFRfRklSRUJBU0VfTUVTU0FHSU5HX1NFTkRFUl9JRCIsImFwcElkIiwiTkVYVF9GSVJFQkFTRV9BUFBfSUQiLCJtZWFzdXJlbWVudElkIiwiTkVYVF9GSVJFQkFTRV9NRUFTVVJFTUVOVF9JRCIsImFwcCIsImRiIiwiYXV0aCJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(ssr)/./firebase.js\n");
+
+/***/ }),
+
 /***/ "(ssr)/./lib/utils.js":
 /*!**********************!*\
   !*** ./lib/utils.js ***!
@@ -382,7 +756,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/@swc","vendor-chunks/zod","vendor-chunks/tailwind-merge","vendor-chunks/react-hook-form","vendor-chunks/@radix-ui","vendor-chunks/lucide-react","vendor-chunks/class-variance-authority","vendor-chunks/@hookform","vendor-chunks/clsx"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fauth%2Flogin%2Fpage&page=%2Fauth%2Flogin%2Fpage&appPaths=%2Fauth%2Flogin%2Fpage&pagePath=private-next-app-dir%2Fauth%2Flogin%2Fpage.jsx&appDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
+var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/@swc","vendor-chunks/tailwind-merge","vendor-chunks/@radix-ui","vendor-chunks/class-variance-authority","vendor-chunks/lucide-react","vendor-chunks/clsx","vendor-chunks/@firebase","vendor-chunks/undici","vendor-chunks/@grpc","vendor-chunks/protobufjs","vendor-chunks/zod","vendor-chunks/react-hook-form","vendor-chunks/long","vendor-chunks/@protobufjs","vendor-chunks/lodash.camelcase","vendor-chunks/tslib","vendor-chunks/idb","vendor-chunks/@hookform","vendor-chunks/firebase"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fauth%2Flogin%2Fpage&page=%2Fauth%2Flogin%2Fpage&appPaths=%2Fauth%2Flogin%2Fpage&pagePath=private-next-app-dir%2Fauth%2Flogin%2Fpage.jsx&appDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
 module.exports = __webpack_exports__;
 
 })();
