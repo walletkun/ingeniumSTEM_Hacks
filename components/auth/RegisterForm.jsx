@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import {useFormStatus} from 'react-dom'
 //Components imports
-import {Toaster} from '@/components/ui/toaster';
 import * as ReactHookForm from "react-hook-form"; 
 import { promise, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,9 +48,12 @@ const formSchema = z.object({
 
 
 const RegisterForm = () => {
+
+
   //Router intialized
   const router = useRouter();
 
+  //Form initialization
   const form = ReactHookForm.useForm({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
@@ -71,11 +73,20 @@ const RegisterForm = () => {
     setIsLoading(true);
    try{
      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+     //Saves user information into localData for testing purpose
+     const userData = {
+        email: form.getValues('email'),
+        username: form.getValues('username'),
+        password: form.getValues('password'),
+     }
+
+     localStorage.setItem('registeredUser', JSON.stringify(userData));
+     
      toast({
       title: "Account Created!",
      });
      form.reset();
-
      setTimeout(() => {
         router.push('/auth/login');
      }, 2000);
@@ -160,7 +171,7 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className='w-full' disabled={isLoading}>
+            <Button type="submit" variant='primary' className='w-full' disabled={isLoading}>
             {isLoading ? "Registering.." : "Register"}
             </Button>
           </div>

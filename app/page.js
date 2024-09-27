@@ -68,11 +68,7 @@ export default function Component() {
               />
             </p>
             <Link
-<<<<<<< HEAD
-              href="auth/login"
-=======
               href="auth/register"
->>>>>>> 8f92b3b2ea41b6c1a40f7b282fb0318960d27672
               className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-[#121212] hover:bg-[#e0e0e0] shadow-lg transition-colors duration-300 ease-in-out"
               prefetch={false}
             >
