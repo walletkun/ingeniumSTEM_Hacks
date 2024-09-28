@@ -1,4 +1,4 @@
-// File: /Users/ceo/Desktop/hackathon_2024/ai-tutor/app/auth/register/page.jsx
+// File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/auth/register/page.jsx
 import * as entry from '../../../../../app/auth/register/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

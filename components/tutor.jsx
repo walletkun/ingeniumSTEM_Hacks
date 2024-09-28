@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Textarea } from "@/components/ui/textarea"
 
 export const Tutor = () => {
@@ -10,8 +9,7 @@ export const Tutor = () => {
       <div className="hidden w-[260px] flex-col bg-black p-4 md:flex border-r border-r-primary">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <BookIcon className="h-6 w-6 text-white" />
-            <h3 className="text-lg font-semibold">Tutoring Subjects</h3>
+            <h3 className="text-lg font-semibold ml-7">Tutoring Subjects</h3>
           </div>
           <Button size="icon" variant="ghost" className="rounded-full hover:bg-primary mt-1">
             <PlusIcon className="h-5 w-5" />
@@ -65,17 +63,19 @@ export const Tutor = () => {
           className="flex items-center justify-between bg-#000000 px-4 py-3 md:px-6 border-b border-b-primary">
           <div className="flex items-center gap-2">
             <div>
-              <h3 className="text-lg font-semibold">CICERO</h3>
-              <p className="text-sm text-muted-foreground">AI Tutor</p>
+              <h3 className="text-sm font-semibold text-center ml-3">
+                Workspace: <span className="bg-muted rounded-xl inline-block px-2 py-1 ml-2">Operating Systems</span>
+              </h3>
             </div>
           </div>
-          <h3 className="text-md font-semibold text-center ml-3">Current Workspace: Operating Systems</h3>
           <div className="flex items-center gap-2">
             <p className="text-sm font-semibold">Need Help?</p>
-            <Button variant="ghost" size="icon">
-              <CircleHelpIcon className="h-5 w-5" />
-              <span className="sr-only">Help</span>
-            </Button>
+            <Link href="/helpPage" passHref>
+              <Button variant="ghost" size="icon">
+                <CircleHelpIcon className="h-5 w-5" />
+                <span className="sr-only">Help</span>
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -104,7 +104,7 @@ export const Tutor = () => {
       {/*Navigation Sidebar */}
       <div className="hidden w-[260px] flex-col bg-background p-4 md:flex border-l border-l-primary">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Navigation</h3>
+          <h3 className="text-lg font-semibold ml-16">Navigation</h3>
         </div>
         <div className="mt-4 flex-1 space-y-2">
           <Link
