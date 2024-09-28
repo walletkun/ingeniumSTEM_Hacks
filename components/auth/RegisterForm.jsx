@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useFormStatus } from "react-dom";
+
 //Components imports
 import * as ReactHookForm from "react-hook-form";
 import { promise, z } from "zod";
@@ -19,6 +19,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "../hooks/use-toast";
+
+//Database imports
+import { db, auth} from "@/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 const formSchema = z
   .object({
@@ -63,50 +68,51 @@ const RegisterForm = () => {
       confirmPassword: "",
     },
   });
+  
+
 
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     //Clear the forms and prompt a shadcn confirmed message
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      //create user with Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password,
+      );
+      const user = userCredential.user;
 
-      //Check existing User
-      const existingUser = localStorage.getItem("registeredUser");
-      if (existingUser) {
-        toast({
-          title: "User with that info already exists",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      //Saves user information into localData for testing purpose
-      const userData = {
-        email: form.getValues("email"),
-        username: form.getValues("username"),
-        password: form.getValues("password"),
-      };
-
-      localStorage.setItem("registeredUser", JSON.stringify(userData));
-
+      //Create a new document in the 'users' collection with the uid
+      const userCollection = collection(db, "users");
+      const userDoc = doc(userCollection, user.uid);
+      //Save user data to Firestore
+      await setDoc(userDoc, {
+        email: data.email,
+        username: data.username,
+      });
       toast({
         title: "Account Created!",
+        timeout: 1000,
       });
       form.reset();
       setTimeout(() => {
-        router.push("/auth/login");
-      }, 2000);
+        window.location.href = "/auth/login/email";
+      }, 1200);
     } catch (error) {
-      toast({
-        title: "An error occurred.",
-        description:
-          "There was a problem creating your account. Please try again.",
-        variant: "destructive",
-      });
+      if (error.code === 'auth/email-already-in-use') {
+        toast({
+          title: "Email already in use.",
+          timeout: 1000,
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/auth/login/email";
+        }, 1200);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -116,8 +122,10 @@ const RegisterForm = () => {
     <CardWrapper
       title="Welcome To CICERO!"
       label="Create an Account"
-      backButtonHref="/auth/login"
-      backButtonLabel="Already have an account? Login here."
+      backButtonHref="/auth/login/email"
+      backButtonLabel="Already have an account? Login here with email."
+      usernameLoginHref="/auth/login/username"
+      usernameLoginLabel={"Already have an account? Login here with username."}
     >
       <Form {...form}>
         <form

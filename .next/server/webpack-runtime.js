@@ -30,7 +30,7 @@
 /******/ 		// Execute the module function
 /******/ 		var threw = true;
 /******/ 		try {
-/******/ 			__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 			__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 			threw = false;
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
@@ -125,7 +125,11 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
+<<<<<<< HEAD
 /******/ 		__webpack_require__.h = () => ("d7a76a96e61da735")
+=======
+/******/ 		__webpack_require__.h = () => ("f5bee4461fef8ef5")
+>>>>>>> a7bc149520121797c0cc3b26efa44b2053844631
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
