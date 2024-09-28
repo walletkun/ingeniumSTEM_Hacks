@@ -1,23 +1,15 @@
 {
   "pages": {
-<<<<<<< HEAD
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
-=======
-    "/mainScreen/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/mainScreen/page.js"
->>>>>>> 3987c3a688ad19ac33a708f35269f15785b70b7f
     ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-<<<<<<< HEAD
     ],
     "/auth/register/page": [
       "static/chunks/webpack.js",
@@ -33,8 +25,21 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/auth/login/email/page.js"
-=======
->>>>>>> 3987c3a688ad19ac33a708f35269f15785b70b7f
+    ],
+    "/auth/login/username/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/login/username/page.js"
+    ],
+    "/mainScreen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/mainScreen/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

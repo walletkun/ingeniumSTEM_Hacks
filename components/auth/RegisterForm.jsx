@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-//Components imports
+// Components imports
 import * as ReactHookForm from "react-hook-form";
-import { promise, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CardWrapper from "@/components/auth/card-wrapper";
 import {
@@ -20,8 +20,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "../hooks/use-toast";
 
-//Database imports
-import { db, auth} from "@/firebase";
+// Database imports
+import { db, auth } from "@/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, setDoc, doc } from "firebase/firestore";
 
@@ -54,10 +54,10 @@ const formSchema = z
   });
 
 const RegisterForm = () => {
-  //Router intialized
+  // Router initialized
   const router = useRouter();
 
-  //Form initialization
+  // Form initialization
   const form = ReactHookForm.useForm({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
@@ -68,48 +68,55 @@ const RegisterForm = () => {
       confirmPassword: "",
     },
   });
-  
-
 
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const onSubmit = async (data) => {
-    //Clear the forms and prompt a shadcn confirmed message
+    // Clear the forms and prompt a shadcn confirmed message
     setIsLoading(true);
     try {
-      //create user with Firebase Authentication
+      // Create user with Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.email,
-        data.password,
+        data.password
       );
       const user = userCredential.user;
-      //Create a new document in the 'users' collection with the uid
+
+      // Create a new document in the 'users' collection with the uid
       const userCollection = collection(db, "users");
       const userDoc = doc(userCollection, user.uid);
-      //Save user data to Firestore
+
+      // Save user data to Firestore
       await setDoc(userDoc, {
         email: data.email,
         username: data.username,
       });
+
+      // Show toast
       toast({
         title: "Account Created!",
-        timeout: 1000,
+        timeout: 1800,
       });
+
+      // Delay redirection slightly
+      setTimeout(() => {
+        window.location.href = '/auth/login/email'
+      }, 2000);
+
       form.reset();
-      router.push('auth/login/email')
-      setIsLoading(false);
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
+      if (error.code === "auth/email-already-in-use") {
         toast({
           title: "Email already in use.",
-          timeout: 1000,
-          variant: "destructive",
+          description: 'Rerouting you to the sign in page',
+          timeout: 1800,
         });
+        // Delay before redirecting to login page
         setTimeout(() => {
-          window.location.href = "/auth/login/email";
-        }, 1200);
+          window.location.href = '/auth/login/email';
+        }, 2000)
       }
     } finally {
       setIsLoading(false);
