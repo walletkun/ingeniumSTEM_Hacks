@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useFormStatus } from "react-dom";
 
 //Components imports
 import * as ReactHookForm from "react-hook-form";
@@ -69,6 +68,8 @@ const RegisterForm = () => {
       confirmPassword: "",
     },
   });
+  
+
 
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -99,8 +100,8 @@ const RegisterForm = () => {
       });
       form.reset();
       setTimeout(() => {
-        router.push("/auth/login");
-      }, 2000);
+        window.location.href = "/auth/login/email";
+      }, 1200);
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         toast({
@@ -108,72 +109,23 @@ const RegisterForm = () => {
           timeout: 1000,
           variant: "destructive",
         });
-      } else {
-        toast({
-          title: "An error occurred.",
-          timeout: 1000,
-          variant: "destructive",
-        });
+        setTimeout(() => {
+          window.location.href = "/auth/login/email";
+        }, 1200);
       }
-      setTimeout(() => {
-        router.push("/auth/login");
-      }, 2000);
     } finally {
       setIsLoading(false);
     }
-    //Testing database ^
-
-    //   //Check existing User
-    //   const existingUser = localStorage.getItem("registeredUser");
-    //   if(existingUser){
-    //     const existingUserData = JSON.parse(existingUser);
-    //     if(existingUserData.email === form.getValues("email") || existingUserData.username === form.getValues("username")){
-    //       toast({
-    //         title: "User with the same email or username already exists.",
-    //         timeout: "1000",
-    //         variant: "destructive",
-    //       });
-    //       setIsLoading(false);
-    //       setTimeout(() => {
-    //         router.push("/auth/login");
-    //       }, 1500);
-    //     }
-    //   }
-    //   else{
-    //   //Saves user information into localData for testing purpose
-    //   const userData = {
-    //     email: form.getValues("email"),
-    //     username: form.getValues("username"),
-    //     password: form.getValues("password"),
-    //   };
-
-    //   localStorage.setItem("registeredUser", JSON.stringify(userData));
-    //   toast({
-    //     title: "Account Created!",
-    //   });
-    //   form.reset();
-    //   setTimeout(() => {
-    //     router.push("/auth/login");
-    //   }, 2000);
-    //   }
-    // } catch (error) {
-    //   toast({
-    //     title: "An error occurred.",
-    //     description:
-    //       "There was a problem creating your account. Please try again.",
-    //     variant: "destructive",
-    //   });
-    // } finally {
-    //   setIsLoading(false);
-    // }
   };
 
   return (
     <CardWrapper
       title="Welcome To CICERO!"
       label="Create an Account"
-      backButtonHref="/auth/login"
-      backButtonLabel="Already have an account? Login here."
+      backButtonHref="/auth/login/email"
+      backButtonLabel="Already have an account? Login here with email."
+      usernameLoginHref="/auth/login/username"
+      usernameLoginLabel={"Already have an account? Login here with username."}
     >
       <Form {...form}>
         <form
