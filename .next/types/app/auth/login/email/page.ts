@@ -1,5 +1,10 @@
+<<<<<<< HEAD:.next/types/app/auth/login/page.ts
+// File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/auth/login/page.jsx
+import * as entry from '../../../../../app/auth/login/page.js'
+=======
 // File: /Users/ceo/Desktop/hackathon_2024/ai-tutor/app/auth/login/email/page.jsx
 import * as entry from '../../../../../../app/auth/login/email/page.js'
+>>>>>>> a7bc149520121797c0cc3b26efa44b2053844631:.next/types/app/auth/login/email/page.ts
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
 type TEntry = typeof import('../../../../../../app/auth/login/email/page.js')
