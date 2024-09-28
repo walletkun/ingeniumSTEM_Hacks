@@ -85,7 +85,6 @@ const RegisterForm = () => {
         data.password,
       );
       const user = userCredential.user;
-
       //Create a new document in the 'users' collection with the uid
       const userCollection = collection(db, "users");
       const userDoc = doc(userCollection, user.uid);
@@ -99,9 +98,8 @@ const RegisterForm = () => {
         timeout: 1000,
       });
       form.reset();
-      setTimeout(() => {
-        window.location.href = "/auth/login/email";
-      }, 1200);
+      router.push('auth/login/email')
+      setIsLoading(false);
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         toast({
