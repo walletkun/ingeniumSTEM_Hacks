@@ -11,6 +11,7 @@ exports.id = "vendor-chunks/@swc";
 exports.ids = ["vendor-chunks/@swc"];
 exports.modules = {
 
+<<<<<<< HEAD
 /***/ "./node_modules/@swc/helpers/cjs/_interop_require_default.cjs":
 /*!********************************************************************!*\
   !*** ./node_modules/@swc/helpers/cjs/_interop_require_default.cjs ***!
@@ -31,6 +32,8 @@ eval("\n\nfunction _getRequireWildcardCache(nodeInterop) {\n    if (typeof WeakM
 
 /***/ }),
 
+=======
+>>>>>>> 3987c3a688ad19ac33a708f35269f15785b70b7f
 /***/ "(ssr)/./node_modules/@swc/helpers/esm/_class_private_field_loose_base.js":
 /*!**************************************************************************!*\
   !*** ./node_modules/@swc/helpers/esm/_class_private_field_loose_base.js ***!

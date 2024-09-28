@@ -393,6 +393,7 @@ eval("// Exports\nmodule.exports = {\n\t\"style\": {\"fontFamily\":\"'__Manrope_
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(ssr)/./node_modules/next/dist/api/link.js":
 /*!********************************************!*\
   !*** ./node_modules/next/dist/api/link.js ***!
@@ -415,6 +416,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _cli
 
 /***/ }),
 
+=======
+>>>>>>> 3987c3a688ad19ac33a708f35269f15785b70b7f
 /***/ "(ssr)/./node_modules/next/dist/client/add-base-path.js":
 /*!********************************************************!*\
   !*** ./node_modules/next/dist/client/add-base-path.js ***!
