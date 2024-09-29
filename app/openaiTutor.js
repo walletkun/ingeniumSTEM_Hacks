@@ -86,7 +86,7 @@ class OpenAITutor {
     - Figure out why its sort of slow and how to speed it up.
     - Better error handling. Using logger.js maybe.
     - Let caller functions set respinse config variables like temperature, max_tokens, and n (number of completions).
-    - Let caller function set apikey  -- user uses own api key?
+    - Let caller function set apikey  --- user uses own api key?
     - Let caller function set model
     - set up async queues to manage high traffic
     - implement caching
