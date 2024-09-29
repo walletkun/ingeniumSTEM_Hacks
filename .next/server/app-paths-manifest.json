@@ -1,3 +1,6 @@
 {
-  "/mainScreen/page": "app/mainScreen/page.js"
+  "/page": "app/page.js",
+  "/mainScreen/page": "app/mainScreen/page.js",
+  "/auth/register/page": "app/auth/register/page.js",
+  "/auth/login/email/page": "app/auth/login/email/page.js"
 }
