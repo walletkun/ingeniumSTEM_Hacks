@@ -60,6 +60,7 @@ const LoginFormUsername = () => {
           duration: 1200,
         });
         setIsLoading(false);
+        window.location.reload();
         return;
       }
 
@@ -72,6 +73,9 @@ const LoginFormUsername = () => {
           variant: 'destructive',
           duration: 1200,
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
         return;
       }
       const userData = userDoc.data();
@@ -90,6 +94,9 @@ const LoginFormUsername = () => {
             variant: 'destructive',
             duration: 1200,
           });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1800);
         }else{
           toast({
             title: "Login successful",
@@ -100,7 +107,7 @@ const LoginFormUsername = () => {
           form.reset();
           setTimeout(() => {
             router.push("/mainScreen");
-          }, 2000);
+          }, 1800);
         }
     });
     } catch (error) {
@@ -117,6 +124,9 @@ const LoginFormUsername = () => {
         variant: 'destructive',
         duration: 3000,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1800);
     } finally {
       setIsLoading(false);
     }

@@ -66,11 +66,11 @@ const LoginFormEmail = () => {
       const user = await signInWithEmailAndPassword(auth, data.email, data.password);
       toast({
         title: "Login successful",
-        timeout: 1200,
+        timeout: 1100,
       });
       form.reset();
       setTimeout(() => {
-        router.replace("/mainScreen");
+        window.location.href = '/mainScreen';
       },1500);
     }catch(error){
       if(error.code === 'auth/user-not-found'){
@@ -78,12 +78,18 @@ const LoginFormEmail = () => {
           title: "User not found, check your usernames and password",
           timeout: 1000,
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
       }
       else if(error.code === 'auth/wrong-password'){
         toast({
           title: "Invalid username or password",
-          timeout: 1000,
+          timeout: 1200,
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
       }
       else{
         console.log(error.message)

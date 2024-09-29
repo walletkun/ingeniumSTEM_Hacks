@@ -1,4 +1,4 @@
-import {Tutor} from "@/components/tutor"
+import {Tutor} from "@/components/mainFeatures/tutor"
 
 export default function Component() {
   return (
