@@ -1,3 +1,10 @@
+require('dotenv').config();
+
+
+//with this it will fetch the api key from the env file
+const dotenv = require('dotenv');
+dotenv.config({path: '../.env'});
+
 /*
  Name: openaiTutor.js
  Description: This progran sets up an openAI client.
@@ -8,22 +15,20 @@
 // Required library from openai.
 const OpenAI = require('openai');
 // Allows for loading key from the .env
-require('dotenv').config();
-
 // Class initilizes openAI model and passes in desired prompt.
 class OpenAITutor {
   // Initilizes openAI config with key and model settings.
   constructor(model = "gpt-4-turbo-preview") {
 
 // Remove This line later. Insert key into ""
-    const apiKey = ""
+    const myApiKey = process.env.OPENAI_API_KEY
     
     // Fetch api key from .env.
 // ADD BACK THIS LINE BACK IN WHEN WE FIX .env
     // const apiKey = process.env.OPENAI_API_KEY;
 
     // Create instance of openai, passing in apikey.
-    this.openai = new OpenAI({ apiKey });
+    this.openai = new OpenAI({ apiKey: myApiKey });
     // Passing in desired model.
     this.model = model;
   }
@@ -61,7 +66,7 @@ class OpenAITutor {
   const tutor = new OpenAITutor();
   // Define system message, content, and query.
   const systemMessage = "You are a knowledgeable and helpful tutor in the given subject.";
-  const content = "The content extracted from LLaMA model analysis goes here.";
+  const content = "What is the meaning of this AI Tutor?";
   const query = "What are the main concepts of this content?";
   // Pass model systemMessage, content, and query. Save response.
   const response = await tutor.generateResponse(systemMessage, content, query);
@@ -70,7 +75,7 @@ class OpenAITutor {
 })();
 
 /*
-    Current concern: Fixing proccess.env.OPENAI_API_KEY 
+    Current concern: Fixing proccess.env.OPENAI_API_KEY  (Fixed)
     It doesnt work for some reason. Need to write in key manully for now.
     To test: node openaiTutor.js
 
