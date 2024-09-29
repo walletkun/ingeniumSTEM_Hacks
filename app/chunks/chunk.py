@@ -1,6 +1,6 @@
 # Name: chunk.py
 # Description: Creates a class called Chunk which is filled with 
-# text and meta data of a chunk of a parsed text
+# text and meta data of a chunk of a parsed text.
 # to allow for upload to pinecone.
 class Chunk:
     def __init__(self, text, annotations="", source_info="", tags=""):
