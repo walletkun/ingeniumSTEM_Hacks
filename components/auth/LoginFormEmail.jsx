@@ -41,8 +41,6 @@ const LoginFormEmail = () => {
   const [isLoading, setIsLoading] = useState(false);
   //Toast hook
   const {toast} = useToast();
-  //Router to navigate between pages
-  const router = useRouter();
 
 
   //Form initialization
@@ -96,8 +94,12 @@ const LoginFormEmail = () => {
         toast({
           title: "Login failed",
           description: error.message,
+          timeout: 1200,
           variant: 'destructive',
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
       }
     }finally{
       setIsLoading(false);
@@ -114,7 +116,7 @@ const LoginFormEmail = () => {
       usernameLoginHref="/auth/login/username"
       usernameLoginLabel="Login with username"
     >
-      <div className="p-4 md:p-6 lg:p-8">
+      <div className="md:p-4 p-10">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex flex-col">
           <FormField

@@ -8,7 +8,6 @@ export async function GET(req) {
     const chatsCollection = collection(db, "chats");
     // Fetch documents from the collection
     const chatSnapshot = await getDocs(chatsCollection);
-    console.log(chatSnapshot)
     // Map documents to include IDs and data
     const chatList = chatSnapshot.docs.map(doc => ({
       id: doc.id,
