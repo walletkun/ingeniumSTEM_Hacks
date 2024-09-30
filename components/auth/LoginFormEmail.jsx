@@ -66,11 +66,19 @@ const LoginFormEmail = () => {
       const user = await signInWithEmailAndPassword(auth, data.email, data.password);
       toast({
         title: "Login successful",
+<<<<<<< HEAD
         timeout: 1200,
       });
       form.reset();
       setTimeout(() => {
         window.location.href = "/homePage";
+=======
+        timeout: 1100,
+      });
+      form.reset();
+      setTimeout(() => {
+        window.location.href = '/mainScreen';
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
       },1500);
     }catch(error){
       if(error.code === 'auth/user-not-found'){
@@ -78,12 +86,26 @@ const LoginFormEmail = () => {
           title: "User not found, check your usernames and password",
           timeout: 1000,
         });
+<<<<<<< HEAD
+=======
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
       }
       else if(error.code === 'auth/wrong-password'){
         toast({
           title: "Invalid username or password",
+<<<<<<< HEAD
           timeout: 1000,
         });
+=======
+          timeout: 1200,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
       }
       else{
         console.log(error.message)

@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+require('dotenv').config();
+
+
+//with this it will fetch the api key from the env file
+const dotenv = require('dotenv');
+dotenv.config({path: '../.env'});
+
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
 /*
  Name: openaiTutor.js
  Description: This progran sets up an openAI client.
@@ -8,22 +18,33 @@
 // Required library from openai.
 const OpenAI = require('openai');
 // Allows for loading key from the .env
+<<<<<<< HEAD
 require('dotenv').config();
 
+=======
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
 // Class initilizes openAI model and passes in desired prompt.
 class OpenAITutor {
   // Initilizes openAI config with key and model settings.
   constructor(model = "gpt-4-turbo-preview") {
 
 // Remove This line later. Insert key into ""
+<<<<<<< HEAD
     const apiKey = ""
+=======
+    const myApiKey = process.env.OPENAI_API_KEY
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
     
     // Fetch api key from .env.
 // ADD BACK THIS LINE BACK IN WHEN WE FIX .env
     // const apiKey = process.env.OPENAI_API_KEY;
 
     // Create instance of openai, passing in apikey.
+<<<<<<< HEAD
     this.openai = new OpenAI({ apiKey });
+=======
+    this.openai = new OpenAI({ apiKey: myApiKey });
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
     // Passing in desired model.
     this.model = model;
   }
@@ -61,7 +82,11 @@ class OpenAITutor {
   const tutor = new OpenAITutor();
   // Define system message, content, and query.
   const systemMessage = "You are a knowledgeable and helpful tutor in the given subject.";
+<<<<<<< HEAD
   const content = "The content extracted from LLaMA model analysis goes here.";
+=======
+  const content = "What is the meaning of this AI Tutor?";
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
   const query = "What are the main concepts of this content?";
   // Pass model systemMessage, content, and query. Save response.
   const response = await tutor.generateResponse(systemMessage, content, query);
@@ -70,7 +95,11 @@ class OpenAITutor {
 })();
 
 /*
+<<<<<<< HEAD
     Current concern: Fixing proccess.env.OPENAI_API_KEY 
+=======
+    Current concern: Fixing proccess.env.OPENAI_API_KEY  (Fixed)
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
     It doesnt work for some reason. Need to write in key manully for now.
     To test: node openaiTutor.js
 
@@ -81,7 +110,11 @@ class OpenAITutor {
     - Figure out why its sort of slow and how to speed it up.
     - Better error handling. Using logger.js maybe.
     - Let caller functions set respinse config variables like temperature, max_tokens, and n (number of completions).
+<<<<<<< HEAD
     - Let caller function set apikey
+=======
+    - Let caller function set apikey  ---- user uses own api key?
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
     - Let caller function set model
     - set up async queues to manage high traffic
     - implement caching

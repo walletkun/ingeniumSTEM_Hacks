@@ -1,7 +1,11 @@
 'use client'
 import { Play } from "lucide-react"
 import Link from "next/link"
+<<<<<<< HEAD
 import { TypeAnimation } from "react-type-animation"
+=======
+import  {TypeAnimation} from "react-type-animation"
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
 
 export default function Component() {
   {/*Main Page */}

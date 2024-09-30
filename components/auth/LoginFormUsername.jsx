@@ -60,6 +60,10 @@ const LoginFormUsername = () => {
           duration: 1200,
         });
         setIsLoading(false);
+<<<<<<< HEAD
+=======
+        window.location.reload();
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
         return;
       }
 
@@ -72,6 +76,12 @@ const LoginFormUsername = () => {
           variant: 'destructive',
           duration: 1200,
         });
+<<<<<<< HEAD
+=======
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
         return;
       }
       const userData = userDoc.data();
@@ -90,6 +100,12 @@ const LoginFormUsername = () => {
             variant: 'destructive',
             duration: 1200,
           });
+<<<<<<< HEAD
+=======
+          setTimeout(() => {
+            window.location.reload();
+          }, 1800);
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
         }else{
           toast({
             title: "Login successful",
@@ -100,7 +116,11 @@ const LoginFormUsername = () => {
           form.reset();
           setTimeout(() => {
             router.push("/mainScreen");
+<<<<<<< HEAD
           }, 2000);
+=======
+          }, 1800);
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
         }
     });
     } catch (error) {
@@ -117,6 +137,12 @@ const LoginFormUsername = () => {
         variant: 'destructive',
         duration: 3000,
       });
+<<<<<<< HEAD
+=======
+      setTimeout(() => {
+        window.location.reload();
+      }, 1800);
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
     } finally {
       setIsLoading(false);
     }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/mainScreen/page.jsx
+=======
+// File: /Users/ceo/Desktop/hackathon_2024/ai-tutor/app/mainScreen/page.jsx
+>>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
 import * as entry from '../../../../app/mainScreen/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
