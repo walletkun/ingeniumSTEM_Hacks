@@ -1,9 +1,5 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/mainScreen/page": "app/mainScreen/page.js",
-  "/mainScreen/chatPage/page": "app/mainScreen/chatPage/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/chats/route": "app/api/chats/route.js",
-  "/auth/login/email/page": "app/auth/login/email/page.js",
-  "/auth/register/page": "app/auth/register/page.js"
+  "/api/saveWorkspace/route": "app/api/saveWorkspace/route.js",
+  "/mainScreen/chatPage/page": "app/mainScreen/chatPage/page.js"
 }

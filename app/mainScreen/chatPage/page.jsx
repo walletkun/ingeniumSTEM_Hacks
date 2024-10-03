@@ -1,73 +1,65 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState, useEffect, useRef } from "react";
-import { saveChat, getChats } from "@/lib/chatUtils";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {auth} from '@/firebase'
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: "system",
-      content: `Welcome to the College Tutor Chatbot! How can I help you today?`,
+      content:
+        "Welcome to the College Tutor Chatbot! How can I help you today?",
     },
   ]);
-
-  const [message, setMessage] = useState(""); // Change to a string
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [savedChats, setSavedChats] = useState([]);
-  const [selectedChat, setSelectedChat] = useState(null);
-  const messagesEndRef = useRef(null);
-  const auth = getAuth();
   const [userId, setUserId] = useState(null);
-
-  // Listen for authentication state changes
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserId(user.uid);
-      } else {
-        setUserId(null);
-      }
-    });
-    return () => unsubscribe(); // Cleanup subscription
-  }, [auth]);
+  const [workspaceTitle, setWorkspaceTitle] = useState("");
+  const [files, setFiles] = useState([]); // New state for file uploads
+  const authInstance = getAuth();
+  const messagesEndRef = useRef(null);
+  const storage = getStorage();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Fetch saved chats from Firebase
   useEffect(() => {
-    const fetchChats = async () => {
-      if (userId) {
-        try {
-          const data = await getChats(userId); // Use the actual user ID
-          setSavedChats(data);
-        } catch (error) {
-          console.error("Error fetching chats:", error);
-        }
-      }
-    };
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) setUserId(user.uid);
+      else setUserId(null);
+    });
+    return () => unsubscribe();
+  }, [auth]);
 
-    fetchChats();
-  }, [userId]); // Run effect when userId changes
+  const uploadFile = async (file) => {
+    const fileRef = ref(storage, `uploads/${file.name}`); // Create a reference to the file location
+
+    try {
+      // Upload the file
+      await uploadBytes(fileRef, file);
+
+      // Get the download URL
+      const downloadURL = await getDownloadURL(fileRef);
+      return downloadURL; // Return the download URL
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      throw new Error("File upload failed");
+    }
+  };
 
   const sendMessage = async () => {
-    if (!message.trim() || isLoading) return; // Don't send empty messages
+    if (!message.trim() || isLoading) return;
     const userMessage = { role: "user", content: message };
-    
-    setMessage(""); // Clear the input
+    setMessage("");
     setIsLoading(true);
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      userMessage,
-      { role: "system", content: "" },
-    ]);
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
 
     try {
       const response = await fetch("/api/chats", {
@@ -76,9 +68,7 @@ export default function Home() {
         body: JSON.stringify([...messages, userMessage]),
       });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      if (!response.ok) throw new Error("Network response was not ok");
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
@@ -87,14 +77,13 @@ export default function Home() {
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-
         result += decoder.decode(value, { stream: true });
-        setMessages((prevMessages) => {
-          const lastMessage = prevMessages[prevMessages.length - 1];
-          const otherMessages = prevMessages.slice(0, -1);
-          return [...otherMessages, { ...lastMessage, content: result }];
-        });
       }
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { role: "system", content: result },
+      ]);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -102,77 +91,98 @@ export default function Home() {
     setIsLoading(false);
   };
 
-  const handleSaveChat = async () => {
-    if (messages.length > 0 && userId) {
-      const existingChatIndex = savedChats.findIndex((chat) => chat.id === selectedChat?.id);
-      
-      if (existingChatIndex !== -1) {
-        // Update existing chat
-        const updatedChats = [...savedChats];
-        updatedChats[existingChatIndex] = {
-          ...updatedChats[existingChatIndex],
-          messages: [...messages],
-        };
-        setSavedChats(updatedChats);
-      } else {
-        // Create new chat
-        const newChat = {
-          id: Date.now(),
-          messages: [...messages],
-          title: `Chat ${savedChats.length + 1}`,
-        };
-        setSavedChats((prevChats) => [...prevChats, newChat]);
-      }
-      
-      try {
-        await saveChat(userId, messages, selectedChat);
-      } catch (error) {
-        console.error("Error saving chat:", error);
-      }
-    } else if (!userId) {
+  const handleSaveWorkspace = async () => {
+    if (!userId) {
       console.error("User is not authenticated.");
+      return;
+    }
+  
+    try {
+      const token = await authInstance.currentUser.getIdToken();
+      const fileUrls = await Promise.all(files.map((file) => uploadFile(file)));
+  
+      if (!workspaceTitle || messages.length === 0) {
+        throw new Error("Invalid workspace data");
+      }
+  
+      const workspaceData = {
+        title: workspaceTitle || `Workspace ${Date.now()}`,
+        messages: messages.map((message) => ({
+          role: message.role,
+          content: message.content,
+        })),
+        fileContent: fileUrls,
+      };
+  
+      const response = await fetch("/api/saveWorkspace", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ data: workspaceData }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error saving workspace:", errorData);
+        throw new Error(`Failed to save workspace: ${JSON.stringify(errorData)}`);
+      }
+  
+      const result = await response.json();
+      console.log("Workspace saved successfully", result);
+    } catch (error) {
+      console.error("Error saving workspace:", error);
     }
   };
+  // Function to handle file selection
 
+  const handleFileChange = (event) => {
+    const allowedFileTypes = ["application/pdf"];
+    const maxSize = 10 * 1024 * 1024; // 10 MB
 
-  const loadChat = (chat) => {
-    console.log("Loaded chat", chat);
-    if (chat && chat.message && Array.isArray(chat.message)) {
-      setMessages(chat.message); 
-      setSelectedChat(chat);
-      console.log("Messages after load:", chat.message); 
-    } else {
-      console.error("Loaded chat messages are empty or not an array.");
-    }
+    const selectedFiles = Array.from(event.target.files);
+
+    selectedFiles.forEach((file) => {
+      if (!allowedFileTypes.includes(file.type) || file.size > maxSize) {
+        console.error(
+          `File type ${file.type} or size ${file.size} is not allowed.`
+        );
+      }
+    });
+
+    setFiles(selectedFiles);
   };
 
   return (
     <Card>
       <ScrollArea>
-        {Array.isArray(messages) && messages.length > 0 ? (
-          messages.map((message, index) => (
-            <div key={index}>
-              <p>{message.content}</p> {/* Ensure the content is accessible */}
-            </div>
-          ))
-        ) : (
-          <p>No messages yet.</p> // Optional: Display a message when there are no chats
-        )}
+        {messages.map((message, index) => (
+          <div key={index}>
+            <p>{message.content || "Start conversation..."}</p>
+          </div>
+        ))}
         <div ref={messagesEndRef} />
       </ScrollArea>
       <Input
-        value={message} // Keep as string
+        value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Enter your message"
       />
-      <Button onClick={sendMessage} disabled={isLoading}>Send</Button>
-      <Button onClick={handleSaveChat}>Save Chat</Button>
-      {Array.isArray(savedChats) &&
-        savedChats.map((chat) => (
-          <Button key={chat.id} onClick={() => loadChat(chat)}>
-            {chat.id}
-          </Button>
-        ))}
+      <Button onClick={sendMessage} disabled={isLoading}>
+        Send
+      </Button>
+      <Input
+        value={workspaceTitle}
+        onChange={(e) => setWorkspaceTitle(e.target.value)}
+        placeholder="Enter workspace title"
+      />
+      <Input
+        type="file" // Change input type to file for uploading files
+        onChange={handleFileChange}
+        multiple // Allow multiple file uploads
+      />
+      <Button onClick={handleSaveWorkspace}>Save Workspace</Button>
     </Card>
   );
 }
