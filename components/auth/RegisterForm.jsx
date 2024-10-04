@@ -92,6 +92,7 @@ const RegisterForm = () => {
       await setDoc(userDoc, {
         email: data.email,
         username: data.username,
+        createdAt: new Date().toISOString(),
       });
 
       // Show toast

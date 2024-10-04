@@ -15,7 +15,7 @@ const CardWrappper = ({
   usernameLoginLabel,
 }) => {
   return (
-    <Card className="xl:w-1/4 md:w-1/2 drop-shadow-md">
+    <Card className="~xl:w-[450px] ~md:w-[400px] ~sm:w-1/4 drop-shadow-md">
       <CardHeader>
         <AuthHeader label={label} title={title} />
       </CardHeader>

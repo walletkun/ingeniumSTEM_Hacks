@@ -61,9 +61,13 @@ const LoginFormUsername = () => {
         });
         setIsLoading(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         window.location.reload();
 >>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
+=======
+        window.location.reload();
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
         return;
       }
 
@@ -77,11 +81,17 @@ const LoginFormUsername = () => {
           duration: 1200,
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         setTimeout(() => {
           window.location.reload();
         }, 1800);
 >>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
+=======
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
         return;
       }
       const userData = userDoc.data();
@@ -101,11 +111,17 @@ const LoginFormUsername = () => {
             duration: 1200,
           });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
           setTimeout(() => {
             window.location.reload();
           }, 1800);
 >>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
+=======
+          setTimeout(() => {
+            window.location.reload();
+          }, 1800);
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
         }else{
           toast({
             title: "Login successful",
@@ -117,10 +133,14 @@ const LoginFormUsername = () => {
           setTimeout(() => {
             router.push("/mainScreen");
 <<<<<<< HEAD
+<<<<<<< HEAD
           }, 2000);
 =======
           }, 1800);
 >>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
+=======
+          }, 1800);
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
         }
     });
     } catch (error) {
@@ -138,11 +158,17 @@ const LoginFormUsername = () => {
         duration: 3000,
       });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       setTimeout(() => {
         window.location.reload();
       }, 1800);
 >>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
+=======
+      setTimeout(() => {
+        window.location.reload();
+      }, 1800);
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
     } finally {
       setIsLoading(false);
     }

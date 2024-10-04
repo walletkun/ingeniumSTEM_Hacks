@@ -41,8 +41,6 @@ const LoginFormEmail = () => {
   const [isLoading, setIsLoading] = useState(false);
   //Toast hook
   const {toast} = useToast();
-  //Router to navigate between pages
-  const router = useRouter();
 
 
   //Form initialization
@@ -67,18 +65,24 @@ const LoginFormEmail = () => {
       toast({
         title: "Login successful",
 <<<<<<< HEAD
+<<<<<<< HEAD
         timeout: 1200,
       });
       form.reset();
       setTimeout(() => {
         window.location.href = "/homePage";
 =======
+=======
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
         timeout: 1100,
       });
       form.reset();
       setTimeout(() => {
         window.location.href = '/mainScreen';
+<<<<<<< HEAD
 >>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
+=======
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
       },1500);
     }catch(error){
       if(error.code === 'auth/user-not-found'){
@@ -87,33 +91,49 @@ const LoginFormEmail = () => {
           timeout: 1000,
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         setTimeout(() => {
           window.location.reload();
         }, 1800);
 >>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
+=======
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
       }
       else if(error.code === 'auth/wrong-password'){
         toast({
           title: "Invalid username or password",
 <<<<<<< HEAD
+<<<<<<< HEAD
           timeout: 1000,
         });
 =======
+=======
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
           timeout: 1200,
         });
         setTimeout(() => {
           window.location.reload();
         }, 1800);
+<<<<<<< HEAD
 >>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
+=======
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
       }
       else{
         console.log(error.message)
         toast({
           title: "Login failed",
           description: error.message,
+          timeout: 1200,
           variant: 'destructive',
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
       }
     }finally{
       setIsLoading(false);
@@ -130,7 +150,7 @@ const LoginFormEmail = () => {
       usernameLoginHref="/auth/login/username"
       usernameLoginLabel="Login with username"
     >
-      <div className="p-4 md:p-6 lg:p-8">
+      <div className="md:p-4 p-10">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex flex-col">
           <FormField
