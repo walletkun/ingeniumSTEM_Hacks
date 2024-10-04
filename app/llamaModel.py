@@ -11,10 +11,6 @@ client = Groq(api_key=api_key)
 
 # File path for parsed text
 parsed_text_path = "parsed_text.txt"
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
 def load_text_from_file(file_path):
     """Loads text from a file."""
     try:
@@ -25,10 +21,6 @@ def load_text_from_file(file_path):
         return None
 
 def analyze_text_with_llama(parsed_text):
-<<<<<<< HEAD
-    """Analyzes the text using LLaMA and returns insights."""
-    try:
-=======
     """Analyzes the text using LLaMA and returns structured insights for embedding."""
     try:
         # Modified prompt for LLaMA analysis
@@ -49,22 +41,13 @@ def analyze_text_with_llama(parsed_text):
             f"{parsed_text}"
         )
         
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
         # Make request to Groq for analysis
         completion = client.chat.completions.create(
             model="llama3-groq-70b-8192-tool-use-preview",
             messages=[
                 {
                     "role": "system",
-<<<<<<< HEAD
-                    "content": "Analyze the following text for insights, summaries, key points, keywords, and any notable concepts."
-                },
-                {
-                    "role": "user",
-                    "content": parsed_text
-=======
                     "content": llama_prompt
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
                 }
             ],
             temperature=0.5,

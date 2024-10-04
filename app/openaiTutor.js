@@ -58,6 +58,7 @@ class OpenAITutor {
     }
   }
 }
+module.exports = OpenAITutor;
 
 // This function is only for testing. REMOVE LATER.
 // Usage Example

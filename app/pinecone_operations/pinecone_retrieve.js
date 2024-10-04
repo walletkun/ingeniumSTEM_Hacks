@@ -62,7 +62,7 @@ async function queryPinecone(query, userId, workspaceId, topK = 10) {
   // Should implement better error handling and logging here.
   if (!queryEmbedding) {
     console.error("Embedding generation failed.");
-    return [];
+    return ' ';
   }
 
   // Query Pinecone index with filters. Requests metadata.
@@ -77,10 +77,15 @@ async function queryPinecone(query, userId, workspaceId, topK = 10) {
         workspace_id: workspaceId
       }
     });
-    return response.matches;
+
+    // Return results in string format.
+    const formattedResults = response.matches.map(entry => 
+      `Text: ${entry.metadata.text}\nSource Info: ${entry.metadata.source_info}\nAnnotations: ${entry.metadata.annotations}\nTags: ${entry.metadata.tags}`
+    ).join('\n\n'); 
+
   } catch (error) {
     console.error("Error querying Pinecone:", error);
-    return [];
+    return ' ';
   }
 }
 
