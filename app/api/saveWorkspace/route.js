@@ -27,7 +27,6 @@ export async function POST(req) {
     // Verify the token
     const decodedToken = await auth.verifyIdToken(token);
     const userId = decodedToken.uid;
-
     const { data } = await req.json();
     validateData(data);
 
@@ -35,8 +34,6 @@ export async function POST(req) {
     //Get existed users collection
     const usersRef = db.collection('users').doc(userId);
     //and add a new workspace document
-
-
 
     // Create workspace document
     const workspaceRef = await usersRef.collection('workspaces').add({

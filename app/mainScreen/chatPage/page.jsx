@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {auth} from '@/firebase'
+import { auth } from "@/firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function Home() {
@@ -20,6 +20,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [workspace, setWorkspace] = useState(null);
   const [workspaceTitle, setWorkspaceTitle] = useState("");
   const [files, setFiles] = useState([]); // New state for file uploads <- stores in an array of files
   const authInstance = getAuth();
@@ -91,7 +92,7 @@ export default function Home() {
     setIsLoading(false);
   };
 
-  const handleSaveWorkspace = async () => {
+  const handleGetWorkspace = async () => {
     if (!userId) {
       console.error("User is not authenticated.");
       return;
@@ -99,12 +100,65 @@ export default function Home() {
   
     try {
       const token = await authInstance.currentUser.getIdToken();
-      const fileUrls = await Promise.all(files.map((file) => uploadFile(file)));
+      const workspaceResponse = await fetch(
+        `/api/getWorkspace?title=${encodeURIComponent(workspaceTitle)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
   
+      if (!workspaceResponse.ok) {
+        const errorData = await workspaceResponse.json();
+        console.error("Need to input a title to get the workspace", errorData);
+      }
+  
+      const workspaceData = await workspaceResponse.json();
+      console.log("Workspace data:", workspaceData);
+      setWorkspace(workspaceData);
+  
+      // Check if workspaceData is defined and has the expected structure
+      if (workspaceData) {
+    
+        // Check if fileContent exists before mapping
+        if (Array.isArray(workspaceData.fileUrls)) {
+          setFiles(
+            workspaceData.fileUrls.map((url) => ({
+              name: url.split("/").pop(),
+              url,
+            }))
+          );
+        } else {
+          console.log("No file content found in workspace data.");
+          setFiles([]); // Clear files if none found
+        }
+      } else {
+        console.log("No workspace found");
+        setWorkspace(null);
+      }
+    } catch (e) {
+      console.error("Error fetching workspace:", e);
+      setWorkspace(null);
+    }
+  };
+  
+  const handleSaveWorkspace = async () => {
+    if (!userId) {
+      console.error("User is not authenticated.");
+      return;
+    }
+
+    try {
+      const token = await authInstance.currentUser.getIdToken();
+      const fileUrls = await Promise.all(files.map((file) => uploadFile(file)));
+
       if (!workspaceTitle || messages.length === 0) {
         throw new Error("Invalid workspace data");
       }
-  
+
       const workspaceData = {
         title: workspaceTitle || `Workspace ${Date.now()}`,
         messages: messages.map((message) => ({
@@ -113,22 +167,24 @@ export default function Home() {
         })),
         fileContent: fileUrls,
       };
-  
+
       const response = await fetch("/api/saveWorkspace", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ data: workspaceData }),
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error saving workspace:", errorData);
-        throw new Error(`Failed to save workspace: ${JSON.stringify(errorData)}`);
+        throw new Error(
+          `Failed to save workspace: ${JSON.stringify(errorData)}`
+        );
       }
-  
+
       const result = await response.json();
       console.log("Workspace saved successfully", result);
     } catch (error) {
@@ -166,21 +222,30 @@ export default function Home() {
       <Input
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Enter your message"
+        placeholder="Type your message..."
+        disabled={isLoading}
       />
       <Button onClick={sendMessage} disabled={isLoading}>
-        Send
+        {isLoading ? "Sending..." : "Send"}
       </Button>
+
+      {/* Search for Workspace */}
       <Input
         value={workspaceTitle}
         onChange={(e) => setWorkspaceTitle(e.target.value)}
-        placeholder="Enter workspace title"
+        placeholder="Search Workspace..."
       />
-      <Input
-        type="file" // Change input type to file for uploading files
+      <Button onClick={handleGetWorkspace}>Get Workspace</Button>
+
+       {/* File Input for Upload */}
+       <Input
+        type="file"
+        multiple
         onChange={handleFileChange}
-        multiple // Allow multiple file uploads
+        accept="application/pdf"
       />
+
+      {/* Save Workspace */}
       <Button onClick={handleSaveWorkspace}>Save Workspace</Button>
     </Card>
   );
