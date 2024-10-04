@@ -1,16 +1,19 @@
 'use client'
 import { Play } from "lucide-react"
 import Link from "next/link"
+<<<<<<< HEAD
+import { TypeAnimation } from "react-type-animation"
+=======
 import  {TypeAnimation} from "react-type-animation"
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
 
 export default function Component() {
   {/*Main Page */}
   return (
     <div className="flex flex-col min-h-[100dvh] bg-[#000000] text-[#f0f0f0] font-mono">
-
       {/*Navbar */}
       <header className="flex items-center justify-between px-6 py-4">
-        <Link href="#" className="text-2xl font-bold" prefetch={false}>
+        <Link href="/" className="text-2xl font-semibold" prefetch={false}>
           CICERO
         </Link>
         <div className="flex items-center gap-4">

@@ -6,15 +6,31 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+<<<<<<< HEAD
+    "/mainScreen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/mainScreen/page.js"
+=======
     "/mainScreen/chatPage/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/mainScreen/chatPage/page.js"
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
     ],
-    "/_not-found/page": [
+    "/homePage/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
+<<<<<<< HEAD
+      "static/chunks/app/homePage/page.js"
+    ],
+    "/helpPage/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/helpPage/page.js"
+=======
       "static/chunks/app/_not-found/page.js"
+>>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
     ]
   }
 }
