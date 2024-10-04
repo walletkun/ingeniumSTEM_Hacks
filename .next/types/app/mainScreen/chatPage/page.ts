@@ -1,10 +1,5 @@
-<<<<<<< HEAD:.next/types/app/mainScreen/page.ts
-// File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/mainScreen/page.jsx
-import * as entry from '../../../../app/mainScreen/page.js'
-=======
 // File: /Users/ceo/Desktop/hackathon_2024/ai-tutor/app/mainScreen/chatPage/page.jsx
 import * as entry from '../../../../../app/mainScreen/chatPage/page.js'
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1:.next/types/app/mainScreen/chatPage/page.ts
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
 type TEntry = typeof import('../../../../../app/mainScreen/chatPage/page.js')

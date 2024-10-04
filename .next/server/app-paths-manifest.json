@@ -1,12 +1,8 @@
 {
-<<<<<<< HEAD
-  "/page": "app/page.js",
   "/mainScreen/page": "app/mainScreen/page.js",
-  "/helpPage/page": "app/helpPage/page.js",
-  "/homePage/page": "app/homePage/page.js"
-=======
-  "/_not-found/page": "app/_not-found/page.js",
+  "/mainScreen/chatPage/page": "app/mainScreen/chatPage/page.js",
   "/api/saveWorkspace/route": "app/api/saveWorkspace/route.js",
-  "/mainScreen/chatPage/page": "app/mainScreen/chatPage/page.js"
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
+  "/helpPage/page": "app/helpPage/page.js",
+  "/homePage/page": "app/homePage/page.js",
+  "/auth/login/email/page": "app/auth/login/email/page.js"
 }

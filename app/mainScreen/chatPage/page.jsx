@@ -21,7 +21,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState(null);
   const [workspaceTitle, setWorkspaceTitle] = useState("");
-  const [files, setFiles] = useState([]); // New state for file uploads
+  const [files, setFiles] = useState([]); // New state for file uploads <- stores in an array of files
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
   const storage = getStorage();
@@ -36,7 +36,7 @@ export default function Home() {
       else setUserId(null);
     });
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
   const uploadFile = async (file) => {
     const fileRef = ref(storage, `uploads/${file.name}`); // Create a reference to the file location
@@ -135,8 +135,8 @@ export default function Home() {
       console.error("Error saving workspace:", error);
     }
   };
-  // Function to handle file selection
 
+  // Function to handle file selection
   const handleFileChange = (event) => {
     const allowedFileTypes = ["application/pdf"];
     const maxSize = 10 * 1024 * 1024; // 10 MB
@@ -150,7 +150,6 @@ export default function Home() {
         );
       }
     });
-
     setFiles(selectedFiles);
   };
 

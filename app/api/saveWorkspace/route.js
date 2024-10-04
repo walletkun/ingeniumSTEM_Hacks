@@ -32,9 +32,14 @@ export async function POST(req) {
     validateData(data);
 
     const { title, messages, fileContent } = data;
+    //Get existed users collection
+    const usersRef = db.collection('users').doc(userId);
+    //and add a new workspace document
+
+
 
     // Create workspace document
-    const workspaceRef = await db.collection('workspaces').add({
+    const workspaceRef = await usersRef.collection('workspaces').add({
       userId,
       title,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -43,7 +48,7 @@ export async function POST(req) {
     // Create conversations subcollection document
     await workspaceRef.collection('conversations').add({
       messages,
-      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      createAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
     if (fileContent && fileContent.length > 0) {
@@ -59,6 +64,7 @@ export async function POST(req) {
       },
       { status: 201 }
     );
+
   } catch (error) {
     console.error("Server error:", error);
     return NextResponse.json(

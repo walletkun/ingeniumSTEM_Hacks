@@ -1,36 +1,50 @@
 {
   "pages": {
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-<<<<<<< HEAD
+    "/auth/login/email/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/login/email/page.js"
+    ],
+    "/auth/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/layout.js"
+    ],
     "/mainScreen/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/mainScreen/page.js"
-=======
-    "/mainScreen/chatPage/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/mainScreen/chatPage/page.js"
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
-    ],
-    "/homePage/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-<<<<<<< HEAD
-      "static/chunks/app/homePage/page.js"
     ],
     "/helpPage/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/helpPage/page.js"
-=======
-      "static/chunks/app/_not-found/page.js"
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
+    ],
+    "/homePage/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/homePage/page.js"
+    ],
+    "/mainScreen/chatbox/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/mainScreen/chatbox/page.js"
+    ],
+    "/mainScreen/chatPage/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/mainScreen/chatPage/page.js"
     ]
   }
 }

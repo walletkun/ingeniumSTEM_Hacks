@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
+
 require('dotenv').config();
 
 
@@ -10,10 +6,6 @@ require('dotenv').config();
 const dotenv = require('dotenv');
 dotenv.config({path: '../.env'});
 
-<<<<<<< HEAD
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
-=======
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
 /*
  Name: openaiTutor.js
  Description: This progran sets up an openAI client.
@@ -24,44 +16,22 @@ dotenv.config({path: '../.env'});
 // Required library from openai.
 const OpenAI = require('openai');
 // Allows for loading key from the .env
-<<<<<<< HEAD
-<<<<<<< HEAD
 require('dotenv').config();
 
-=======
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
-=======
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
 // Class initilizes openAI model and passes in desired prompt.
 class OpenAITutor {
   // Initilizes openAI config with key and model settings.
   constructor(model = "gpt-4-turbo-preview") {
 
 // Remove This line later. Insert key into ""
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const apiKey = ""
-=======
     const myApiKey = process.env.OPENAI_API_KEY
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
-=======
-    const myApiKey = process.env.OPENAI_API_KEY
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
     
     // Fetch api key from .env.
 // ADD BACK THIS LINE BACK IN WHEN WE FIX .env
     // const apiKey = process.env.OPENAI_API_KEY;
 
     // Create instance of openai, passing in apikey.
-<<<<<<< HEAD
-<<<<<<< HEAD
-    this.openai = new OpenAI({ apiKey });
-=======
     this.openai = new OpenAI({ apiKey: myApiKey });
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
-=======
-    this.openai = new OpenAI({ apiKey: myApiKey });
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
     // Passing in desired model.
     this.model = model;
   }
@@ -100,15 +70,7 @@ module.exports = OpenAITutor;
   const tutor = new OpenAITutor();
   // Define system message, content, and query.
   const systemMessage = "You are a knowledgeable and helpful tutor in the given subject.";
-<<<<<<< HEAD
-<<<<<<< HEAD
   const content = "The content extracted from LLaMA model analysis goes here.";
-=======
-  const content = "What is the meaning of this AI Tutor?";
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
-=======
-  const content = "What is the meaning of this AI Tutor?";
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
   const query = "What are the main concepts of this content?";
   // Pass model systemMessage, content, and query. Save response.
   const response = await tutor.generateResponse(systemMessage, content, query);
