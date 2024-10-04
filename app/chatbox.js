@@ -1,5 +1,8 @@
 /*
-    Chatbox program.
+    Name: chatbox.js
+    Exports: Chatbox
+    Description: Interacts with front end, to take in user input, update chat history, 
+    and get an answer from openai.
 */
 
 // React modules for state handling, and our pinecone and openai modules.
@@ -34,8 +37,7 @@ const Chatbox = ({ userName, user_id, workspace_id }) => {
         }
     ]);
 
-    // -------- TESTING LINE -------
-    console.log ("Initial chat state: ", formatChatHistory (chatHistory));
+  
 
     // State to hold the current input text that the user is typing.
     const [message, setMessage] = useState('');
@@ -59,16 +61,12 @@ const Chatbox = ({ userName, user_id, workspace_id }) => {
             { role: 'user', content: currentMessage }
         ]);
 
-        // -------- TESTING LINE -------
-        console.log ("State after update: ", formatChatHistory (chatHistory));
+        
 
         // Queries Pinecone for top results as a string.
         const userId = user_id;
         const workspaceId = workspace_id;
         const pineconeResults = await queryPinecone(currentMessage, userId, workspaceId);
-
-        // -------- TESTING LINE -------
-        console.log ("Pinecone results: ", pineconeResults);
 
         // Format chat history to maintain context.
         const formattedChatHistory = formatChatHistory(chatHistory);
@@ -77,8 +75,6 @@ const Chatbox = ({ userName, user_id, workspace_id }) => {
         const tutor = new OpenAITutor();
         const aiResponse = await tutor.generateResponse(systemMessage, pineconeResults, formattedChatHistory);
 
-        // -------- TESTING LINE -------
-        console.log ("AI response: ", aiResponse);
 
         // Add the AI's response to chatHistory.
         setChatHistory((chatHistory) => [
@@ -86,8 +82,6 @@ const Chatbox = ({ userName, user_id, workspace_id }) => {
             { role: 'Cicero', content: aiResponse || "I'm sorry, I'm having trouble processing your request right now. Please try again." }
         ]);
 
-        // -------- TESTING LINE -------
-        console.log ("Final state: ", formatChatHistory (chatHistory));
     };
 
     // Returns `null` so no front-end UI is rendered directly by this component.
@@ -115,3 +109,20 @@ const ChatboxTester = () => {
 
 // Render the ChatboxTester for testing
 export default ChatboxTester;
+
+/*
+    Code has not been tested yet.
+    Needs to be routed to a front for that.
+    Future improvements:
+    Error handling and logging
+    Modulize more
+    Have systemMessage include some input from the user when they create their workspace, for personalized response style.
+    Initilize openAi model else where, maybe once when user opens workspace.
+    Implement translation tools for input in handleInputChange and in output in sendMessage.
+    Implement filteration in handleInputChange, and display TOS violations in sendMessage.
+    Implement auto correct features in handleInputChange.
+    Add more data in chatHistory state. Timestamps, Message type, read status, message ID, and threading.
+    Typing indicator and response delay simuation.
+    Feedback loop so users can rate responses.
+    Sentiment analysis.
+*/
