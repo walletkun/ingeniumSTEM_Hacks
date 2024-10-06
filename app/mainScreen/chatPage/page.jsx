@@ -119,11 +119,8 @@ export default function Home() {
       const workspaceData = await workspaceResponse.json();
       console.log("Workspace data:", workspaceData);
       setWorkspace(workspaceData);
-  
       // Check if workspaceData is defined and has the expected structure
       if (workspaceData) {
-    
-        // Check if fileContent exists before mapping
         if (Array.isArray(workspaceData.fileUrls)) {
           setFiles(
             workspaceData.fileUrls.map((url) => ({

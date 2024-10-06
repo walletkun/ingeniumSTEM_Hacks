@@ -79,16 +79,6 @@ module.exports = OpenAITutor;
 })();
 
 /*
-<<<<<<< HEAD
-<<<<<<< HEAD
-    Current concern: Fixing proccess.env.OPENAI_API_KEY 
-=======
-    Current concern: Fixing proccess.env.OPENAI_API_KEY  (Fixed)
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
-=======
-    Current concern: Fixing proccess.env.OPENAI_API_KEY  (Fixed)
->>>>>>> 49a4c195822a1e70c30682022cbbccb92c33cfc1
-    It doesnt work for some reason. Need to write in key manully for now.
     To test: node openaiTutor.js
 
     notes: This program is intended to be used by a chatbox.js, flashcard.js, ect
@@ -98,11 +88,7 @@ module.exports = OpenAITutor;
     - Figure out why its sort of slow and how to speed it up.
     - Better error handling. Using logger.js maybe.
     - Let caller functions set respinse config variables like temperature, max_tokens, and n (number of completions).
-<<<<<<< HEAD
-    - Let caller function set apikey
-=======
     - Let caller function set apikey  ---- user uses own api key?
->>>>>>> 6b80c8c85dcdc7ecaba13094af6ad5ee16fdf9fc
     - Let caller function set model
     - set up async queues to manage high traffic
     - implement caching
