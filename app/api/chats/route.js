@@ -22,6 +22,10 @@ export async function GET(req) {
     const decodedToken = await auth.verifyIdToken(token);
     const userId = decodedToken.uid;
 
+
+    console.log("Fetching workspace for user:", userId, "with title:", workspaceTitle);
+
+
     // Get the workspace
     const workspacesSnapshot = await db.collection('users').doc(userId)
       .collection('workspaces')
@@ -36,19 +40,23 @@ export async function GET(req) {
     const workspaceDoc = workspacesSnapshot.docs[0];
     const workspaceRef = workspaceDoc.ref;
 
-    // Get the conversation history
-    const conversationsSnapshot = await workspaceRef.collection('conversations')
-      .orderBy('timestamp', 'asc')
-      .get();
+    console.log("Workspace found:", workspaceDoc.id);
 
-    const conversations = conversationsSnapshot.docs.map(doc => ({
-      id: doc.id,
-      role: doc.data().role,
-      content: doc.data().content,
-      timestamp: doc.data().timestamp.toDate().toISOString()
-    }));
 
-    return NextResponse.json(conversations);
+    // Get the conversation document
+    const conversationDoc= await workspaceRef.collection('conversations').doc('chat').get();
+    
+
+    if(!conversationDoc.exists){
+      return NextResponse.json({messages: []});
+    }
+
+    const conversationData = conversationDoc.data();
+
+    console.log("Conversation data retrieved:", conversationData);
+
+
+    return NextResponse.json(conversationData);
 
   } catch (error) {
     console.error("Server error:", error);

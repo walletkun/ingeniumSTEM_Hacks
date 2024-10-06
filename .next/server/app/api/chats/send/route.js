@@ -83,36 +83,6 @@ module.exports = require("https");
 
 /***/ }),
 
-/***/ "node:fs":
-/*!**************************!*\
-  !*** external "node:fs" ***!
-  \**************************/
-/***/ ((module) => {
-
-module.exports = require("node:fs");
-
-/***/ }),
-
-/***/ "node:stream":
-/*!******************************!*\
-  !*** external "node:stream" ***!
-  \******************************/
-/***/ ((module) => {
-
-module.exports = require("node:stream");
-
-/***/ }),
-
-/***/ "node:stream/web":
-/*!**********************************!*\
-  !*** external "node:stream/web" ***!
-  \**********************************/
-/***/ ((module) => {
-
-module.exports = require("node:stream/web");
-
-/***/ }),
-
 /***/ "os":
 /*!*********************!*\
   !*** external "os" ***!
@@ -193,6 +163,36 @@ module.exports = require("zlib");
 
 /***/ }),
 
+/***/ "node:fs":
+/*!**************************!*\
+  !*** external "node:fs" ***!
+  \**************************/
+/***/ ((module) => {
+
+module.exports = require("node:fs");
+
+/***/ }),
+
+/***/ "node:stream":
+/*!******************************!*\
+  !*** external "node:stream" ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = require("node:stream");
+
+/***/ }),
+
+/***/ "node:stream/web":
+/*!**********************************!*\
+  !*** external "node:stream/web" ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = require("node:stream/web");
+
+/***/ }),
+
 /***/ "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fchats%2Fsend%2Froute&page=%2Fapi%2Fchats%2Fsend%2Froute&appPaths=&pagePath=private-next-app-dir%2Fapi%2Fchats%2Fsend%2Froute.js&appDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fchats%2Fsend%2Froute&page=%2Fapi%2Fchats%2Fsend%2Froute&appPaths=&pagePath=private-next-app-dir%2Fapi%2Fchats%2Fsend%2Froute.js&appDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D! ***!
@@ -240,7 +240,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/@opentelemetry","vendor-chunks/formdata-node","vendor-chunks/@pinecone-database","vendor-chunks/openai","vendor-chunks/form-data-encoder","vendor-chunks/whatwg-url","vendor-chunks/agentkeepalive","vendor-chunks/tr46","vendor-chunks/dotenv","vendor-chunks/web-streams-polyfill","vendor-chunks/node-fetch","vendor-chunks/webidl-conversions","vendor-chunks/ms","vendor-chunks/humanize-ms","vendor-chunks/event-target-shim","vendor-chunks/abort-controller"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fchats%2Fsend%2Froute&page=%2Fapi%2Fchats%2Fsend%2Froute&appPaths=&pagePath=private-next-app-dir%2Fapi%2Fchats%2Fsend%2Froute.js&appDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
+var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/@opentelemetry","vendor-chunks/formdata-node","vendor-chunks/@pinecone-database","vendor-chunks/openai","vendor-chunks/form-data-encoder","vendor-chunks/whatwg-url","vendor-chunks/agentkeepalive","vendor-chunks/tr46","vendor-chunks/dotenv","vendor-chunks/webidl-conversions","vendor-chunks/ms","vendor-chunks/humanize-ms","vendor-chunks/event-target-shim","vendor-chunks/abort-controller"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fchats%2Fsend%2Froute&page=%2Fapi%2Fchats%2Fsend%2Froute&appPaths=&pagePath=private-next-app-dir%2Fapi%2Fchats%2Fsend%2Froute.js&appDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
 module.exports = __webpack_exports__;
 
 })();

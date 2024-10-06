@@ -67,9 +67,15 @@ export default function Home() {
       });
   
       if (!response.ok) throw new Error("Failed to fetch chat history");
-  
-      const chatHistory = await response.json();
-      setMessages(chatHistory);
+      
+      const chatData = await response.json();
+      if(chatData && chatData.messages){
+        const sortedMessages = chatData.messages.sort((a,b) => a.timestamp - b.timestamp);
+        setMessages(sortedMessages)
+      }
+      else{
+        setMessages([]);
+      }
     } catch (error) {
       console.error("Error fetching chat history:", error);
     }

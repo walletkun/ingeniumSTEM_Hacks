@@ -1,6 +1,9 @@
 {
-  "/page": "app/page.js",
   "/mainScreen/page": "app/mainScreen/page.js",
   "/mainScreen/chatPage/page": "app/mainScreen/chatPage/page.js",
+  "/page": "app/page.js",
+  "/api/chats/send/route": "app/api/chats/send/route.js",
+  "/api/chats/route": "app/api/chats/route.js",
+  "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
   "/auth/login/email/page": "app/auth/login/email/page.js"
 }
