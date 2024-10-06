@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button"
 export const Help = () => {
     return (
         <div className="flex min-h-screen flex-col bg-background text-foreground font-mono">
-        <header className="sticky top-0 z-10 border-b border-primary bg-background px-8 py-6 sm:px-6 md:px-8">
+        <header className="sticky top-0 z-10 border-b border-primary bg-background px-8 py-5 sm:px-6 md:px-8">
             <div className="flex items-center justify-between">
-                <Link href="/" className="text-2xl font-bold" prefetch={false}>
+                <Link href="/" className="text-2xl font-semibold" prefetch={false}>
                     CICERO
                 </Link>
                 <Link href="/homePage">
@@ -239,12 +239,14 @@ export const Help = () => {
                 </div>
             </div>
         </main>
-        <footer className="py-6 px-8 border-t border-primary text-sm text-[#999]">
-            <div className="flex items-center justify-between">
-            <p>&copy; 2024 CICERO. All rights reserved.</p>
-            <nav className="flex items-center gap-4">
-                
-            </nav>
+        <footer className="bg-[#1a1a1a] py-6 px-6 text-[#c0c0c0] text-sm">
+            <div className="container max-w-7xl mx-auto flex items-center justify-between">
+                <p>&copy; 2024 CICERO. All rights reserved.</p>
+                <nav className="flex items-center gap-4">
+                    <Link href="#" className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out" prefetch={false}>
+                    About Us
+                    </Link>
+                </nav>
             </div>
         </footer>
         </div>

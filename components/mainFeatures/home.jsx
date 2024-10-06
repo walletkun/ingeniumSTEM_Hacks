@@ -1,11 +1,10 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { PrefixPathnameNormalizer } from "next/dist/server/future/normalizers/request/prefix";
 
 export const HomePage = () => {
     return (
     (<div className="flex flex-col min-h-screen bg-black text-[#f0f0f0] font-mono">
-        <header className="py-6 px-8 border-b border-primary">
+        <header className="py-5 px-8 border-b border-primary">
             <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
                 <Link href="/" className="text-2xl font-semibold" prefetch={false}>
@@ -92,12 +91,14 @@ export const HomePage = () => {
             </Link>
             </div>
         </main>
-        <footer className="py-6 px-8 border-t border-primary text-sm text-[#999]">
-            <div className="flex items-center justify-between">
-            <p className="font-mono">&copy; 2024 CICERO. All rights reserved.</p>
-            <nav className="flex items-center gap-4">
-                
-            </nav>
+        <footer className="bg-[#1a1a1a] py-6 px-6 text-[#c0c0c0] text-sm">
+            <div className="container max-w-7xl mx-auto flex items-center justify-between">
+                <p>&copy; 2024 CICERO. All rights reserved.</p>
+                <nav className="flex items-center gap-4">
+                    <Link href="#" className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out" prefetch={false}>
+                    About Us
+                    </Link>
+                </nav>
             </div>
         </footer>
         </div>)
