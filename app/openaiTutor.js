@@ -60,7 +60,7 @@ class OpenAITutor {
 export default OpenAITutor;
 
 // This function is only for testing. REMOVE LATER.
-// Usage Example
+/*
 (async () => {
   // Initialize the OpenAITutor object.
   const tutor = new OpenAITutor();
@@ -73,6 +73,8 @@ export default OpenAITutor;
   // Output response to terminal.
   console.log(response);
 })();
+*/
+
 
 /*
     Current concern: Fixing process.env.OPENAI_API_KEY 
