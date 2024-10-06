@@ -1,10 +1,16 @@
 /*
-    Flashcard Generation Program.
+    Name: flashcard.js
+    Exports: FlashCardGenerator
+    Description: Creates flashcard set based on caller program specification.
+    Recieves strings representing size, difficulty, topic, and user id and workspace id.
+    Gets relevant content from pinecone based on user_id, workspace_id and query.
+    Gets set from openAI in JSON format.
+    Parse JSON to create array and returns array of flashcards.
 */
 
-// React module and pinecone/openAI imports.
-import { queryPinecone } from './pinecone_operations/pinecone_retrieve';
-import OpenAITutor from './openaiTutor';
+// React module and pinecone/openAI imports in ES module format.
+import { queryPinecone } from './pinecone_operations/pinecone_retrieve.js';
+import OpenAITutor from './openaiTutor.js';
 
 // Constant string 'systemMessage' for flashcard generation in OpenAI.
 const systemMessage = 
@@ -40,7 +46,7 @@ Return in the following JSON format:
 const FlashcardGenerator = async ({ flashcard_size, flashcard_diff, flashcard_topic, user_id, workspace_id }) => {
     // Construct query string based on props.
     const query = `Make a flashcard set of size ${flashcard_size} of difficulty ${flashcard_diff} on ${flashcard_topic}`;
-
+    
     // Query Pinecone to fetch related content for flashcard generation.
     const pineconeResults = await queryPinecone(flashcard_topic, user_id, workspace_id);
 
@@ -49,17 +55,19 @@ const FlashcardGenerator = async ({ flashcard_size, flashcard_diff, flashcard_to
     const flashcardResponse = await tutor.generateResponse(systemMessage, pineconeResults, query);
 
     // Return the generated flashcards in the expected JSON format.
-    return flashcardResponse.flashcards || [];
+    const parsedResponse = JSON.parse(flashcardResponse);
+    const flashcards = parsedResponse.flashcards || [];
+    return flashcards;
 };
 
-// Temporary test component for direct testing.
+// Temporary test component for direct testing. Remove later.
 const FlashcardTester = async () => {
     // Mock data for testing.
     const flashcard_size = 10;
     const flashcard_diff = "medium";
-    const flashcard_topic = "derivatives";
-    const user_id = "user123";
-    const workspace_id = "workspace456";
+    const flashcard_topic = "quantum physics";
+    const user_id = "test_user";
+    const workspace_id = "test_workspace";
 
     // Generate flashcards using mock data.
     const generatedFlashcards = await FlashcardGenerator({
@@ -73,14 +81,36 @@ const FlashcardTester = async () => {
     console.log("Generated Flashcards: ", generatedFlashcards);
 };
 
+// Run test program. Remove later.
+FlashcardTester();
+
 // Export the FlashcardGenerator for use in the front end.
 export { FlashcardGenerator };
 
-// Export the FlashcardTester for testing purposes.
+// Export the FlashcardTester for testing purposes. Remove later.
 export default FlashcardTester;
 
 /*
-    Code has not yet been tested.
+    Code has been tested and works.
+    Future plans:
+    Allow for a variety of difficulty and include tags on each card for front end filtering.
+    Change openAI implementation to allow for model setting. Flashcard.js can use 4o mini.
+        We generally want to be able to send more parameters to set up openAI like temp nd what not.
+        Except Im not sure if this can be done as well as a constant connection.
+    Route to an ongoing openAI and pinecone conection so that result is quicker.
+    Improve prompt.
+    Imporve Error handling and logging.
+    Implement filteration so that user does not voilate TOS.
+    Implement translation from incoming requests and outgoing response (google-translate-api).
+    Add validation for parameters.
+    We may only need the text from pinecone and not annotations. We may need to change how retrieve_pinecone works 
+        to allow for different types of requests.
+    Generally we need to speed this proccess up.
+    We can batch requests to openAI and parallel send them to front end. Maybe ask for 5/10 at a time?
+    Make systemMessage more dynamic --> include user setup requests and log feedback to personalize creation.
+    Refractor progrm for more seperation of concerns.
+
+
 
 
 

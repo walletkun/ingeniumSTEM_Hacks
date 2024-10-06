@@ -1,13 +1,10 @@
-/*
-    Program gets binary data and parses it.
-*/
-const logger = require('../utils/logger');
-const pdf = require('pdf-parse');
-const fs = require('fs');
-const getBinaryData = require('./fileHandler');
+import logger from '../utils/logger.js';
+import pdf from 'pdf-parse';
+import fs from 'fs';
+import getBinaryData from './fileHandler.js';
 
 // Function to extract text from binary PDF data
-async function extractTextFromPDF(pdfBinaryData) {
+export async function extractTextFromPDF(pdfBinaryData) {
     try {
         const data = await pdf(pdfBinaryData);
         logger.info('Text extracted from PDF');
@@ -19,18 +16,19 @@ async function extractTextFromPDF(pdfBinaryData) {
 }
 
 // Function to process the PDF and return the extracted text
-async function processPDF(pdfBinaryData) {
+export async function processPDF(pdfBinaryData) {
     try {
         const extractedText = await extractTextFromPDF(pdfBinaryData);
         logger.info('PDF processing completed successfully');
         return extractedText;
     } catch (error) {
-        logger.error('Error processing PDF:', error.message);
+        logger.error(`Error processing PDF: ${error.message}`);
+        throw new Error(`Error processing PDF: ${error.message}`);
     }
 }
 
 // Get binary data from fileHandler
-const pdfBinaryData = getBinaryData();
+const pdfBinaryData = await getBinaryData();
 
 // Error handling
 if (!pdfBinaryData) {

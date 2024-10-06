@@ -59,7 +59,7 @@ const Chatbox = ({ userName, user_id, workspace_id }) => {
         // Updates 'chatHistory' with the user's message.
         setChatHistory((chatHistory) => [
             ...chatHistory,
-            { role: 'user', content: currentMessage }
+            { role: 'user', content: currentMessage}
         ]);
 
         
