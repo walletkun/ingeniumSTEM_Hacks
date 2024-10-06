@@ -77,29 +77,14 @@ export default OpenAITutor;
 
 
 /*
-<<<<<<< HEAD
-=======
     Current concern: Fixing process.env.OPENAI_API_KEY 
     It doesn't work for some reason. Need to write in key manually for now.
->>>>>>> 686ef0aa106e4abf22f0a8dbf81a1fd6665cf212
     To test: node openaiTutor.js
 
     Notes: This program is intended to be used by a chatbox.js, flashcard.js, etc.
     It is stateless so caller function will need to save all queries and answers in a string.
 
     Future plans:
-<<<<<<< HEAD
-    - Figure out why its sort of slow and how to speed it up.
-    - Better error handling. Using logger.js maybe.
-    - Let caller functions set respinse config variables like temperature, max_tokens, and n (number of completions).
-    - Let caller function set apikey  ---- user uses own api key?
-    - Let caller function set model
-    - set up async queues to manage high traffic
-    - implement caching
-    - use google translate api to enable use with different langauges
-    - post-proccessing of response?
-    - validating responses?
-=======
     - Figure out why it's slow and how to speed it up.
     - Better error handling using logger.js maybe.
     - Let caller functions set response config variables like temperature, max_tokens, and n (number of completions).
@@ -110,5 +95,4 @@ export default OpenAITutor;
     - Use Google Translate API to enable use with different languages.
     - Post-processing of response?
     - Validating responses?
->>>>>>> 686ef0aa106e4abf22f0a8dbf81a1fd6665cf212
 */
