@@ -1,5 +1,7 @@
 /*
-
+    Name: studyguide.js
+    Export: StudyGuideGenerator
+    Description: Provides study guide based on specified topic recieved from openai.
 */
 // React module and pinecone/openAI imports in ES module format.
 import { queryPinecone } from './pinecone_operations/pinecone_retrieve.js';
@@ -84,3 +86,16 @@ export { StudyGuideGenerator };
 
 // Export the default testStudyGuideGenerator for testing purposes. REMOVE LATER.
 export default testStudyGuideGenerator;
+
+/*
+    Code works.
+    Future Plans:
+    Need to figure out best formating.
+    Also this needs to work with a program to format this nicely.
+    Constant connection to api, pass dimensions to api.
+    Play with prompt.
+    Store prompt elsewhere.
+    Filteration of topic, topic validation.
+    Error handling, logging.
+    Translation.
+*/
