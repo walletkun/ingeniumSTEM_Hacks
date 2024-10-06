@@ -51,10 +51,10 @@ const AnswerGenerator = async ({question, correct_answer, user_answer, user_id, 
 
     // Generate response using OpenAI.
     const tutor = new OpenAITutor();
-    const testResponse = await tutor.generateResponse(systemMessage, pineconeResults, query);        
+    const answerResult = await tutor.generateResponse(systemMessage, pineconeResults, query);        
 
     // Return the generated response in the expected JSON format.
-    return testResponse;    
+    return answerResult;    
 }
 
 
