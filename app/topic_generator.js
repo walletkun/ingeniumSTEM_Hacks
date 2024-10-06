@@ -11,6 +11,8 @@
 // React module and pinecone/openAI imports in ES module format.
 import { queryPinecone } from './pinecone_operations/pinecone_retrieve.js';
 import OpenAITutor from './openaiTutor.js';
+
+// System prompt for openai.
 const systemMessage = 
 `You are a knowledgable assistant tasked with providing a topic idea for the specified study material
     based on the relevant topic. 
