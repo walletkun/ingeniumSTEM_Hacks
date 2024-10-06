@@ -1,3 +1,11 @@
+/*
+    Name: practice_test.js
+    Exports: TestGenerator
+    Description: Creates a practice test in JSON format based on user specification.
+    Takes in parameters on difficulty, number of different question types, and content.
+    Queries pinecone for relevant content.
+    Gets JSON format test from openAI and returns JSON.
+*/
 // React module and pinecone/openAI imports in ES module format.
 import { queryPinecone } from './pinecone_operations/pinecone_retrieve.js';
 import OpenAITutor from './openaiTutor.js';
@@ -24,7 +32,6 @@ You are a helpful assistant tasked with generating practice tests based on the p
 4. **Difficulty**: 
    - The user will specify how difficult the exam should be on a scale of 1 - 5.
    - If the user request is vague, generate a balanced test with an equal distribution of difficulty types.
-
 
 ### Output Format:
 Return the generated practice test in the following JSON format:
@@ -103,3 +110,19 @@ export { TestGenerator };
 
 // Export the default GeneratorTest for testing purposes. Remove later.
 export default GeneratorTest;
+
+/*
+    Code works.
+    Future plans:
+    Better error handling and logging.
+    Validating parameters.
+    Filtering content for TOS purposes.
+    Translation in and out.
+    Refractor for seperation of concerns.
+    Play with prompt.
+    Want to use a config file to store all systemMessages so that it doesnt clutter code.
+    Type script for type safety?
+    Allow for dynamic difficulty. Maybe two parameters? Lowest diff and highest diff?
+    Implement feedback loop.
+    Caching but maybe that should be done elsewhere.
+*/
