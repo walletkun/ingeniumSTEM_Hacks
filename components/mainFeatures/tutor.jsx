@@ -1,15 +1,17 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Textarea } from "@/components/ui/textarea"
+import { DropdownMenu, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator } from "../ui/dropdown-menu";
 
 export const Tutor = () => {
   return (
     (<div className="flex min-h-screen w-full bg-background">
       {/*Saved Chats Sidebar */}
       <div className="hidden w-[260px] flex-col bg-black p-4 md:flex border-r border-r-primary">
-        <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold mb-[52px]">Chat Sessions</h3>
-          <Button size="icon" variant="ghost" className="rounded-full hover:bg-primary mb-[52px]">
+        <div className="flex items-center justify-center">
+            <h3 className="text-lg font-semibold mb-[52px] ml-4">Chat Sessions</h3>
+          <Button size="icon" variant="ghost" className="rounded-full hover:bg-primary mb-[50px] ml-3">
             <PlusIcon className="h-5 w-5" />
             <span className="sr-only">Create New Chat</span>
           </Button>
@@ -27,13 +29,24 @@ export const Tutor = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <p className="text-sm font-semibold">Need Help?</p>
-            <Link href="/helpPage" passHref>
-              <Button variant="ghost" size="icon">
-                <CircleHelpIcon className="h-5 w-5" />
-                <span className="sr-only">Help</span>
-              </Button>
-            </Link>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <CircleHelpIcon className="h-5 w-5" />
+                  <span className="sr-only">Help</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 bg-black font-mono">
+                <DropdownMenuLabel>Navigation</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
+
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 
@@ -43,15 +56,15 @@ export const Tutor = () => {
         </div>
 
         {/*Textfield */}
-        <div className="sticky bottom-0 bg-secondary px-4 py-3 md:px-6">
-          <div className="relative">
+        <div className="sticky bottom-0 bg-secondary px-4 py-0 md:px-6">
+          <div className="relative mb-7">
             <Textarea
               placeholder="Type your message..."
               name="message"
               id="message"
               rows={1}
-              className="min-h-[48px] rounded-2xl resize-none p-4 border border-neutral-400 shadow-sm pr-16" />
-            <Button type="submit" size="icon" className="absolute w-8 h-8 top-3 right-3">
+              className="min-h-[48px] rounded-full resize-none p-4 shadow-sm pr-16 bg-muted" />
+            <Button type="submit" size="icon" className="absolute w-8 h-8 top-3 right-3 bg-muted">
               <SendIcon className="w-4 h-4" />
               <span className="sr-only">Send</span>
             </Button>
@@ -61,8 +74,8 @@ export const Tutor = () => {
 
       {/*Saved Documents Sidebar */}
       <div className="hidden w-[260px] flex-col bg-background p-4 md:flex border-l border-l-primary">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold ml-3">Saved Documents</h3>
+        <div className="flex items-center justify-center">
+          <h3 className="text-lg font-semibold ml-3 text-center mr-3">Saved Documents</h3>
         </div>
         
       </div>
