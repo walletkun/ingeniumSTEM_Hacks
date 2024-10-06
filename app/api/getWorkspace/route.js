@@ -33,7 +33,7 @@ export async function GET(req) {
 
     console.log("Querying workspace with title:", name);
 
-
+    //This is used for testing, to see if workspace even exists
     const allWorkspacesRef = db.collection("users").doc(userId).collection('workspaces').where("userId", "==", userId);
     const allSnapshots = await allWorkspacesRef.get();
     allSnapshots.forEach(doc => {

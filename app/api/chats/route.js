@@ -1,35 +1,60 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { db, auth } from '@/firebaseAdmin';
 
-const systemPrompt = "You are an agent and testing api for me.";
+export async function GET(req) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const workspaceTitle = searchParams.get('title');
 
-export async function POST(req) {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY }); // Ensure you initialize with API key
-  const data = await req.json();
+    const authHeader = req.headers.get("Authorization");
+    const token = authHeader && authHeader.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : null;
 
-  const completion = await openai.chat.completions.create({
-    messages: [{ role: 'system', content: systemPrompt }, ...data], // Assuming 'data' includes user messages
-    model: 'gpt-4', // Correct the model name
-    stream: true,
-  });
+    if (!token) {
+      return NextResponse.json(
+        { error: "You need to be logged in to get chats" },
+        { status: 401 }
+      );
+    }
 
-  const stream = new ReadableStream({
-    async start(controller) {
-      const encoder = new TextEncoder();
-      try {
-        for await (const chunk of completion) {
-          const content = chunk.choices[0]?.delta?.content;
-          if (content) {
-            controller.enqueue(encoder.encode(content));
-          }
-        }
-      } catch (err) {
-        controller.error(err);
-      } finally {
-        controller.close();
-      }
-    },
-  });
+    // Verify the token
+    const decodedToken = await auth.verifyIdToken(token);
+    const userId = decodedToken.uid;
 
-  return new NextResponse(stream);
+    // Get the workspace
+    const workspacesSnapshot = await db.collection('users').doc(userId)
+      .collection('workspaces')
+      .where('title', '==', workspaceTitle)
+      .limit(1)
+      .get();
+
+    if (workspacesSnapshot.empty) {
+      return NextResponse.json({ error: "Workspace not found" }, { status: 404 });
+    }
+
+    const workspaceDoc = workspacesSnapshot.docs[0];
+    const workspaceRef = workspaceDoc.ref;
+
+    // Get the conversation history
+    const conversationsSnapshot = await workspaceRef.collection('conversations')
+      .orderBy('timestamp', 'asc')
+      .get();
+
+    const conversations = conversationsSnapshot.docs.map(doc => ({
+      id: doc.id,
+      role: doc.data().role,
+      content: doc.data().content,
+      timestamp: doc.data().timestamp.toDate().toISOString()
+    }));
+
+    return NextResponse.json(conversations);
+
+  } catch (error) {
+    console.error("Server error:", error);
+    return NextResponse.json(
+      { error: "Failed to get chat messages", message: error.message },
+      { status: 500 }
+    );
+  }
 }

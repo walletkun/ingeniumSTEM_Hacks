@@ -41,6 +41,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(ssr)/./node_modules/lucide-react/dist/esm/icons/check.js":
 /*!***********************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/check.js ***!
@@ -71,6 +72,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+=======
+>>>>>>> d76773ac50543a48f6ab92daa984ecebc6b992f9
 /***/ "(ssr)/./node_modules/lucide-react/dist/esm/icons/x.js":
 /*!*******************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/x.js ***!

@@ -55,42 +55,70 @@ export default function Home() {
     }
   };
 
+  const fetchChatHistory = async () => {
+    if (!userId || !workspaceTitle) return;
+  
+    try {
+      const token = await authInstance.currentUser.getIdToken();
+      const response = await fetch(`/api/chats?title=${encodeURIComponent(workspaceTitle)}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (!response.ok) throw new Error("Failed to fetch chat history");
+  
+      const chatHistory = await response.json();
+      setMessages(chatHistory);
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+    }
+  };
+
   const sendMessage = async () => {
-    if (!message.trim() || isLoading) return;
+    if (!message.trim() || isLoading || !workspaceTitle) return;
     const userMessage = { role: "user", content: message };
     setMessage("");
     setIsLoading(true);
     setMessages((prevMessages) => [...prevMessages, userMessage]);
-
+  
     try {
-      const response = await fetch("/api/chats", {
+      const token = await authInstance.currentUser.getIdToken();
+      const response = await fetch("/api/chats/send", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify([...messages, userMessage]),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          message: userMessage.content,
+          workspaceTitle: workspaceTitle,
+        }),
       });
-
+  
       if (!response.ok) throw new Error("Network response was not ok");
-
+  
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let result = "";
-
+  
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
         result += decoder.decode(value, { stream: true });
       }
-
+  
       setMessages((prevMessages) => [
         ...prevMessages,
-        { role: "system", content: result },
+        { role: "assistant", content: result },
       ]);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error sending message:", error);
     }
-
+  
     setIsLoading(false);
   };
+
 
   const handleGetWorkspace = async () => {
     if (!userId) {
@@ -119,11 +147,10 @@ export default function Home() {
       const workspaceData = await workspaceResponse.json();
       console.log("Workspace data:", workspaceData);
       setWorkspace(workspaceData);
-  
+
+      await fetchChatHistory();
       // Check if workspaceData is defined and has the expected structure
       if (workspaceData) {
-    
-        // Check if fileContent exists before mapping
         if (Array.isArray(workspaceData.fileUrls)) {
           setFiles(
             workspaceData.fileUrls.map((url) => ({

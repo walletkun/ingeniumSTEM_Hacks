@@ -1,5 +1,16 @@
 {
+<<<<<<< HEAD
   "/mainScreen/page": "app/mainScreen/page.js",
   "/homePage/page": "app/homePage/page.js",
   "/flashcards/page": "app/flashcards/page.js"
+=======
+  "/mainScreen/chatbox/page": "app/mainScreen/chatbox/page.js",
+  "/mainScreen/page": "app/mainScreen/page.js",
+  "/page": "app/page.js",
+  "/mainScreen/chatPage/page": "app/mainScreen/chatPage/page.js",
+  "/api/chats/send/route": "app/api/chats/send/route.js",
+  "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
+  "/api/chats/route": "app/api/chats/route.js",
+  "/auth/login/email/page": "app/auth/login/email/page.js"
+>>>>>>> d76773ac50543a48f6ab92daa984ecebc6b992f9
 }

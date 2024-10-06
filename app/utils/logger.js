@@ -1,8 +1,6 @@
-/*
-    This program exports a error logging object.
-*/
-const winston = require('winston');
+import winston from 'winston';
 
+// Create and configure a logger
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.combine(
@@ -18,4 +16,5 @@ const logger = winston.createLogger({
     ]
 });
 
-module.exports = logger;
+// Export logger for usage in other modules
+export default logger;

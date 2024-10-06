@@ -1,15 +1,20 @@
-const fs = require('fs');
-const logger = require('./utils/logger');
-const getFilePath = require('./parsers/pathHandler'); // To handle file paths
-const { processPDF } = require('./parsers/parser'); // Import parser function
+import fs from 'fs';
+import logger from './utils/logger.js';
+import getFilePath from './parsers/pathHandler.js'; // To handle file paths
+import { processPDF } from './parsers/parser.js'; // Import parser function
 
 // Main function to parse a PDF and save the extracted text
-async function parseAndSavePDF(pdfPath = './test_parsing/deeplearningbook.org_contents_part_basics.html.pdf') {
-    // NOTE: Default path is set for testing purposes; remove this default later.
+export async function parseAndSavePDF(pdfPath = './test_parsing/deeplearningbook.org_contents_part_basics.html.pdf') {
     try {
         // Resolve the provided or default file path
         const filePath = getFilePath(pdfPath);
+        console.log('Resolved Path:', filePath); // Log the resolved path
         logger.info(`Parsing file at path: ${filePath}`);
+
+        // Check if file exists before attempting to process
+        if (!fs.existsSync(filePath)) {
+            throw new Error(`File does not exist at path: ${filePath}`);
+        }
 
         // Process the PDF and get the parsed text
         const parsedText = await processPDF(filePath);
@@ -25,5 +30,3 @@ async function parseAndSavePDF(pdfPath = './test_parsing/deeplearningbook.org_co
 
 // Call this function directly for testing
 parseAndSavePDF();
-
-module.exports = parseAndSavePDF;

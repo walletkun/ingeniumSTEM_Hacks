@@ -5,18 +5,25 @@
   Searches pinecone database for most similar vectors and returns result as array of objects.
 */ 
 // Required modules
-const OpenAI = require('openai');
-const { Pinecone } = require('@pinecone-database/pinecone');
-require('dotenv').config();
+import dotenv from 'dotenv';
+import OpenAI from 'openai';
+import { Pinecone } from '@pinecone-database/pinecone';
+
+dotenv.config();
+
 
 // Initialize OpenAI configuration
 const openaiClient = new OpenAI({
+  // For now put in apikey directly.
   apiKey: process.env.OPENAI_API_KEY
+  // apiKey: ""
 });
 
 // Initialize Pinecone
 const pinecone = new Pinecone({
+  // For now hardcode apiKey.
   apiKey: process.env.PINECONE_API_KEY
+  // apiKey: ""
 });
 
 // Set index name for pinecone.
@@ -82,6 +89,7 @@ async function queryPinecone(query, userId, workspaceId, topK = 10) {
     const formattedResults = response.matches.map(entry => 
       `Text: ${entry.metadata.text}\nSource Info: ${entry.metadata.source_info}\nAnnotations: ${entry.metadata.annotations}\nTags: ${entry.metadata.tags}`
     ).join('\n\n'); 
+    return formattedResults;
 
   } catch (error) {
     console.error("Error querying Pinecone:", error);
@@ -90,14 +98,14 @@ async function queryPinecone(query, userId, workspaceId, topK = 10) {
 }
 
 // Export the function for external usage.
-module.exports = { queryPinecone };
+export { queryPinecone };
 
 // Test function to verify Pinecone query functionality
 // DELETE LATER.
-async function testPineconeRetrieve() {
+/*async function testPineconeRetrieve() {
   const user_id = 'test_user';
   const workspace_id = 'test_workspace';
-  const query = 'Explain the principle of superposition in quantum physics';
+  const query = 'Julius Cesear';
 
   try {
     const pineconeResponse = await queryPinecone(query, user_id, workspace_id);
@@ -123,6 +131,7 @@ async function testPineconeRetrieve() {
 
 // Run the test
 testPineconeRetrieve();
+*/
 
 /*
   Code works

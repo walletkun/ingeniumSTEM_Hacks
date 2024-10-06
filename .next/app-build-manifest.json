@@ -11,12 +11,36 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+<<<<<<< HEAD
     "/homePage/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/homePage/page.js"
     ],
     "/flashcards/page": [
+=======
+    "/auth/register/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/register/page.js"
+    ],
+    "/auth/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/layout.js"
+    ],
+    "/auth/login/email/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/login/email/page.js"
+    ],
+    "/mainScreen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/mainScreen/page.js"
+    ],
+    "/mainScreen/chatbox/page": [
+>>>>>>> d76773ac50543a48f6ab92daa984ecebc6b992f9
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/flashcards/page.js"

@@ -1,15 +1,15 @@
-// Required node.js modules.
-const fs = require('fs');
-const logger = require('../utils/logger'); // Use the logger for logging
-const getFilePath = require('./pathHandler'); // Importing the getFilePath function
+// Required node.js modules
+import fs from 'fs';
+import logger from '../utils/logger.js'; // Use the logger for logging
+import getFilePath from './pathHandler.js'; // Importing the getFilePath function
 
-// Function to get binary data for any type of file.
+// Function to get binary data for any type of file
 function getBinaryData() {
     try {
         const filePath = getFilePath(); // Call the getFilePath function
         logger.info(`Reading binary data from: ${filePath}`);
         
-        // Get and return binary data.
+        // Get and return binary data
         const binaryData = fs.readFileSync(filePath);
         return binaryData;
 
@@ -19,5 +19,5 @@ function getBinaryData() {
     }
 }
 
-// Exporting the function
-module.exports = getBinaryData;
+// Exporting the function as default
+export default getBinaryData;
