@@ -786,6 +786,9 @@ video {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -821,6 +824,9 @@ video {
 }
 .ml-auto {
   margin-left: auto;
+}
+.mr-2 {
+  margin-right: 0.5rem;
 }
 .mr-3 {
   margin-right: 0.75rem;
@@ -943,6 +949,9 @@ video {
 .w-5 {
   width: 1.25rem;
 }
+.w-56 {
+  width: 14rem;
+}
 .w-8 {
   width: 2rem;
 }
@@ -954,9 +963,6 @@ video {
 }
 .w-screen {
   width: 100vw;
-}
-.w-56 {
-  width: 14rem;
 }
 .min-w-\[8rem\] {
   min-width: 8rem;
@@ -1035,6 +1041,12 @@ video {
 .items-center {
   align-items: center;
 }
+.justify-start {
+  justify-content: flex-start;
+}
+.justify-end {
+  justify-content: flex-end;
+}
 .justify-center {
   justify-content: center;
 }
@@ -1101,6 +1113,9 @@ video {
 .whitespace-nowrap {
   white-space: nowrap;
 }
+.rounded {
+  border-radius: 0.25rem;
+}
 .rounded-\[inherit\] {
   border-radius: inherit;
 }
@@ -1118,6 +1133,12 @@ video {
 }
 .rounded-xl {
   border-radius: calc(var(--radius) + 4px);
+}
+.rounded-2xl {
+  border-radius: 1rem;
+}
+.rounded-3xl {
+  border-radius: 1.5rem;
 }
 .border {
   border-width: 1px;
@@ -1245,6 +1266,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
 .fill-current {
   fill: currentColor;
 }
@@ -1265,6 +1290,12 @@ video {
 }
 .p-\[1px\] {
   padding: 1px;
+}
+.p-3 {
+  padding: 0.75rem;
+}
+.p-5 {
+  padding: 1.25rem;
 }
 .px-2 {
   padding-left: 0.5rem;
@@ -1652,6 +1683,11 @@ video {
   background-color: hsl(var(--destructive) / 0.9);
 }
 
+.hover\:bg-muted:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(42 42 42 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-pink-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(244 114 182 / var(--tw-bg-opacity));
@@ -1751,6 +1787,10 @@ video {
 
 .focus-visible\:ring-offset-2:focus-visible {
   --tw-ring-offset-width: 2px;
+}
+
+.active\:bg-muted\/80:active {
+  background-color: rgb(42 42 42 / 0.8);
 }
 
 .disabled\:pointer-events-none:disabled {

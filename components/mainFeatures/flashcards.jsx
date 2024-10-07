@@ -13,6 +13,7 @@ import {
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
+import FlashcardGenerator from "@/app/flashcard"
 
 export const Flashcards = () => {
     const [difficulty, setDifficulty] = useState(3)

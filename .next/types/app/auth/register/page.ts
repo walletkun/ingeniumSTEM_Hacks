@@ -1,16 +1,8 @@
-<<<<<<<< HEAD:.next/types/app/flashcards/page.ts
-// File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/flashcards/page.jsx
-import * as entry from '../../../../app/flashcards/page.js'
-import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
-
-type TEntry = typeof import('../../../../app/flashcards/page.js')
-========
-// File: /Users/ceo/Desktop/hackathon_2024/ai-tutor/app/auth/register/page.jsx
+// File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/auth/register/page.jsx
 import * as entry from '../../../../../app/auth/register/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
 type TEntry = typeof import('../../../../../app/auth/register/page.js')
->>>>>>>> d76773ac50543a48f6ab92daa984ecebc6b992f9:.next/types/app/auth/register/page.ts
 
 // Check that the entry is a valid entry
 checkFields<Diff<{

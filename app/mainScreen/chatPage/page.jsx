@@ -75,6 +75,7 @@ export default function Home() {
     }
   };
 
+
   const sendMessage = async () => {
     if (!message.trim() || isLoading || !workspaceTitle) return;
     const userMessage = { role: "user", content: message };
@@ -265,7 +266,7 @@ export default function Home() {
       <Button onClick={handleGetWorkspace}>Get Workspace</Button>
 
        {/* File Input for Upload */}
-       <Input
+      <Input
         type="file"
         multiple
         onChange={handleFileChange}
@@ -277,3 +278,7 @@ export default function Home() {
     </Card>
   );
 }
+
+
+
+
