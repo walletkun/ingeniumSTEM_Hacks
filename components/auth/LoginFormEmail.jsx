@@ -68,7 +68,7 @@ const LoginFormEmail = () => {
       });
       form.reset();
       setTimeout(() => {
-        window.location.href = '/mainScreen';
+        window.location.href = '/homePage';
       },1500);
     }catch(error){
       if(error.code === 'auth/user-not-found'){

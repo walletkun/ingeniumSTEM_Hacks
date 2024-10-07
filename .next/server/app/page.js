@@ -262,7 +262,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
+<<<<<<< HEAD
 var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/@radix-ui","vendor-chunks/tailwind-merge","vendor-chunks/@opentelemetry","vendor-chunks/lucide-react","vendor-chunks/class-variance-authority","vendor-chunks/@swc","vendor-chunks/clsx","vendor-chunks/react-type-animation"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fpage&page=%2Fpage&appPaths=%2Fpage&pagePath=private-next-app-dir%2Fpage.jsx&appDir=%2FUsers%2Fdabrownie%2FAI%20Tutor%2FingeniumSTEM_Hacks%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Fdabrownie%2FAI%20Tutor%2FingeniumSTEM_Hacks&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
+=======
+var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/@swc","vendor-chunks/@opentelemetry","vendor-chunks/@radix-ui","vendor-chunks/tailwind-merge","vendor-chunks/lucide-react","vendor-chunks/class-variance-authority","vendor-chunks/clsx","vendor-chunks/react-type-animation"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fpage&page=%2Fpage&appPaths=%2Fpage&pagePath=private-next-app-dir%2Fpage.jsx&appDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Fceo%2FDesktop%2Fhackathon_2024%2Fai-tutor&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
+>>>>>>> 9894f1c41a94d9165e660efae48484fb299e1f58
 module.exports = __webpack_exports__;
 
 })();

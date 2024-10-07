@@ -15,15 +15,13 @@ dotenv.config();
 // Initialize OpenAI configuration
 const openaiClient = new OpenAI({
   // For now put in apikey directly.
-  apiKey: process.env.OPENAI_APIKEY
-  // apiKey: ""
+   apiKey: process.env.OPENAI_APIKEY
 });
 
 // Initialize Pinecone
 const pinecone = new Pinecone({
   // For now hardcode apiKey.
   apiKey: process.env.PINECONE_APIKEY
-  // apiKey: ""
 });
 
 // Set index name for pinecone.
@@ -98,7 +96,7 @@ async function queryPinecone(query, userId, workspaceId, topK = 10) {
 }
 
 // Export the function for external usage.
-export { queryPinecone };
+export { queryPinecone, generateEmbedding};
 
 // Test function to verify Pinecone query functionality
 // DELETE LATER.
