@@ -27,7 +27,7 @@ If needed, provide a "5-year-old" level explanation to ensure the user grasps th
 const formatChatHistory = (chatHistory) => {
     return chatHistory.map(entry => `${entry.role}: ${entry.content}`).join('\n');
 };
-
+console.log("Hello world")
 
 // Creates and initializes chatbox function to handle message logic. 
 const Chatbox = ({ userName, user_id, workspace_id, token }) => {
