@@ -1,71 +1,174 @@
 import { NextResponse } from "next/server";
 import { db, auth, admin } from '@/firebaseAdmin';
+import { generateEmbedding } from '@/app/pinecone_operations/pinecone_retrieve';
+import { Pinecone } from '@pinecone-database/pinecone';
+import dotenv from 'dotenv';
+import multer from 'multer';
 
-const validateData = (data) => {
-  if (!data.messages || !Array.isArray(data.messages) || data.messages.length === 0) {
-    throw new Error("Invalid messages data");
+dotenv.config();
+
+const pinecone = new Pinecone({
+  apiKey: process.env.PINECONE_APIKEY,
+});
+
+const indexName = "ai-tutor-index";
+
+const upload = multer().fields([{ name: 'file', maxCount: 1 }, { name: 'title', maxCount: 1 }]);
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+const validateData = (title, file) => {
+  const errors = [];
+  if (!title || title.trim().length === 0) { 
+    errors.push("Workspace title is required");
   }
-  if (!data.title) {
-    throw new Error("Workspace title is required");
+  if (!file) {
+    errors.push("File is required");
+  }
+  if (errors.length > 0) {
+    throw new Error(errors.join(", "));
+  }
+};
+
+const processFile = async (file) => {
+  if (!file) {
+    throw new Error("No file provided");
+  }
+  try {
+    const content = await file.text();
+    return content;
+  } catch (error) {
+    console.error("Error reading file:", error);
+    throw new Error("Failed to read file content");
   }
 };
 
 export async function POST(req) {
+  console.log("Received POST request to /api/saveWorkspace");
   try {
-    const authHeader = req.headers.get("Authorization");
-    const token = authHeader && authHeader.startsWith("Bearer ")
-      ? authHeader.split(" ")[1]
-      : null;
+    return await new Promise((resolve, reject) => {
+      upload(req, {}, async (err) => {
+        if (err) {
+          console.error(err);
+          resolve(NextResponse.json({ error: 'Error uploading file' }, { status: 400 }));
+        }
 
-    if (!token) {
-      return NextResponse.json(
-        { error: "You need to be logged in to save chats" },
-        { status: 401 }
-      );
-    }
+        const authHeader = req.headers.get("Authorization");
+        console.log("Authorization header:", authHeader ? "Present" : "Missing");
 
-    // Verify the token
-    const decodedToken = await auth.verifyIdToken(token);
-    const userId = decodedToken.uid;
-    const { data } = await req.json();
-    validateData(data);
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+          resolve(NextResponse.json(
+            { error: "Invalid or missing Authorization header" },
+            { status: 401 }
+          ));
+        }
 
-    const { title, messages, fileContent } = data;
-    //Get existed users collection
-    const usersRef = db.collection('users').doc(userId);
-    //and add a new workspace document
+        const token = authHeader.split("Bearer ")[1];
+        console.log("Token extracted");
 
-    // Create workspace document
-    const workspaceRef = await usersRef.collection('workspaces').add({
-      userId,
-      title,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
+        let decodedToken;
+        try {
+          decodedToken = await auth.verifyIdToken(token);
+          console.log("Token verified successfully");
+        } catch (verifyError) {
+          console.error("Token verification failed:", verifyError);
+          resolve(NextResponse.json(
+            { error: "Invalid authentication token" },
+            { status: 401 }
+          ));
+        }
 
-    // Create conversations subcollection document
-    await workspaceRef.collection('conversations').add({
-      messages,
-      createAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
+        const userId = decodedToken.uid;
+        console.log("User ID:", userId);
 
-    if (fileContent && fileContent.length > 0) {
-      await workspaceRef.update({
-        fileUrls: fileContent
+        const formData = await req.formData();
+        const title = formData.get('title');
+        const file = formData.get('file');
+
+        try {
+          validateData(title, file);
+        } catch (validationError) {
+          console.error("Data validation error:", validationError);
+          resolve(NextResponse.json(
+            { error: validationError.message },
+            { status: 400 }
+          ));
+        }
+
+        let fileContent;
+        try {
+          fileContent = await processFile(file);
+        } catch (fileError) {
+          console.error("File processing error:", fileError);
+          resolve(NextResponse.json(
+            { error: fileError.message },
+            { status: 400 }
+          ));
+        }
+
+        console.log("Creating workspace document");
+        let workspaceRef;
+        try {
+          workspaceRef = await db.collection('users').doc(userId).collection('workspaces').add({
+            userId,
+            title,
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          });
+          console.log("Workspace created with ID:", workspaceRef.id);
+        } catch (dbError) {
+          console.error("Error creating workspace in Firestore:", dbError);
+          resolve(NextResponse.json(
+            { error: "Failed to create workspace in database" },
+            { status: 500 }
+          ));
+        }
+
+        if (fileContent) {
+          console.log("Processing file content for Pinecone");
+          try {
+            const maxTokens = 8192;
+            const text = fileContent.substring(0, maxTokens);
+            const embedding = await generateEmbedding(text);
+            if (!embedding) {
+              throw new Error("Failed to generate embedding");
+            }
+            const index = pinecone.Index(indexName);
+            await index.upsert([{
+              id: workspaceRef.id,
+              values: embedding,
+              metadata: {
+                user_id: userId,
+                workspace_id: workspaceRef.id,
+                title: title,
+                text: text
+              }
+            }]);
+            console.log("File content uploaded to Pinecone");
+          } catch (pineconeError) {
+            console.error("Error uploading to Pinecone:", pineconeError);
+            // Optionally, you might want to delete the workspace if Pinecone upload fails
+            // await workspaceRef.delete();
+            resolve(NextResponse.json(
+              { error: "Failed to process file for AI integration" },
+              { status: 500 }
+            ));
+          }
+        }
+
+        resolve(NextResponse.json(
+          { message: "Workspace created successfully" },
+          { status: 201 }
+        ));
       });
-    }
-
-    return NextResponse.json(
-      {
-        workspaceId: workspaceRef.id,
-        workspaceTitle: title,
-      },
-      { status: 201 }
-    );
-
+    });
   } catch (error) {
-    console.error("Server error:", error);
+    console.error("Error in POST /api/saveWorkspace:", error);
     return NextResponse.json(
-      { error: "Failed to save workspace", message: error.message },
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }
