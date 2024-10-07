@@ -1,11 +1,9 @@
 {
-  "/homePage/page": "app/homePage/page.js",
   "/mainScreen/page": "app/mainScreen/page.js",
-<<<<<<< HEAD
+  "/homePage/page": "app/homePage/page.js",
   "/page": "app/page.js",
-=======
-  "/flashcards/page": "app/flashcards/page.js",
+  "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
   "/helpPage/page": "app/helpPage/page.js",
->>>>>>> 9894f1c41a94d9165e660efae48484fb299e1f58
+  "/flashcards/page": "app/flashcards/page.js",
   "/auth/login/email/page": "app/auth/login/email/page.js"
 }
