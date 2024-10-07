@@ -1,15 +1,5 @@
 {
   "/mainScreen/page": "app/mainScreen/page.js",
-<<<<<<< HEAD
-  "/homePage/page": "app/homePage/page.js",
-  "/auth/login/email/page": "app/auth/login/email/page.js",
-  "/auth/register/page": "app/auth/register/page.js"
-=======
-  "/mainScreen/chatPage/page": "app/mainScreen/chatPage/page.js",
   "/page": "app/page.js",
-  "/api/chats/send/route": "app/api/chats/send/route.js",
-  "/api/chats/route": "app/api/chats/route.js",
-  "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
   "/auth/login/email/page": "app/auth/login/email/page.js"
->>>>>>> 972ad17d04ccecbe3dd9601cf0c1086171a1f61d
 }

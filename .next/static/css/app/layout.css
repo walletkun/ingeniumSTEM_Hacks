@@ -1,5 +1,5 @@
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[14].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.jsx","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-heading"}],"variableName":"fontHeading"} ***!
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.jsx","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-heading"}],"variableName":"fontHeading"} ***!
   \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* cyrillic-ext */
 @font-face {
@@ -60,7 +60,7 @@
 }
 
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[14].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.jsx","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-body"}],"variableName":"fontBody"} ***!
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.jsx","import":"Manrope","arguments":[{"subsets":["latin"],"display":"swap","variable":"--font-body"}],"variableName":"fontBody"} ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* cyrillic-ext */
 @font-face {
@@ -121,7 +121,7 @@
 }
 
 /*!*************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./app/globals.css ***!
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./app/globals.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************/
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
@@ -230,7 +230,7 @@
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }/*
-! tailwindcss v3.4.13 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.12 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -1116,6 +1116,9 @@ video {
 .rounded {
   border-radius: 0.25rem;
 }
+.rounded-3xl {
+  border-radius: 1.5rem;
+}
 .rounded-\[inherit\] {
   border-radius: inherit;
 }
@@ -1133,12 +1136,6 @@ video {
 }
 .rounded-xl {
   border-radius: calc(var(--radius) + 4px);
-}
-.rounded-2xl {
-  border-radius: 1rem;
-}
-.rounded-3xl {
-  border-radius: 1.5rem;
 }
 .border {
   border-width: 1px;
@@ -1266,10 +1263,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
-}
 .fill-current {
   fill: currentColor;
 }
@@ -1278,6 +1271,9 @@ video {
 }
 .p-10 {
   padding: 2.5rem;
+}
+.p-3 {
+  padding: 0.75rem;
 }
 .p-4 {
   padding: 1rem;
@@ -1290,12 +1286,6 @@ video {
 }
 .p-\[1px\] {
   padding: 1px;
-}
-.p-3 {
-  padding: 0.75rem;
-}
-.p-5 {
-  padding: 1.25rem;
 }
 .px-2 {
   padding-left: 0.5rem;

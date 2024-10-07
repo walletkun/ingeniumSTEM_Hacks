@@ -42,6 +42,11 @@ export const Tutor = () => {
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
 
+  // automatically scroll to the most recent message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   // fetches chat history
   const fetchChatHistory = async () => {
     if (!userId || !workspaceTitle) return;
@@ -248,7 +253,7 @@ export const Tutor = () => {
             <Button
               onClick={sendMessage}
               disabled={isLoading}
-              type="submit"
+              type="button"
               size="icon"
               className="absolute w-8 h-8 top-3 right-3 bg-muted"
             >
