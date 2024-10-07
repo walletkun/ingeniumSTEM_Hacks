@@ -1,7 +1,8 @@
 {
   "/homePage/page": "app/homePage/page.js",
   "/mainScreen/page": "app/mainScreen/page.js",
-  "/flashcards/page": "app/flashcards/page.js",
   "/helpPage/page": "app/helpPage/page.js",
+  "/flashcards/page": "app/flashcards/page.js",
+  "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
   "/auth/login/email/page": "app/auth/login/email/page.js"
 }

@@ -3,5 +3,11 @@ node_modules
 env
 admin_key/*
 
-.next/static/webpack/
-.next/types/
+
+.next/*
+.next/static/webpack/*
+.next/types/webpack*
+.next/cache/webpack*
+.next/server/webpack*
+.next/build-manifest.json
+.next/server
