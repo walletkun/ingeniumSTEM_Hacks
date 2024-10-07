@@ -1,9 +1,15 @@
 {
   "/mainScreen/page": "app/mainScreen/page.js",
+<<<<<<< HEAD
   "/homePage/page": "app/homePage/page.js",
   "/page": "app/page.js",
   "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
   "/helpPage/page": "app/helpPage/page.js",
   "/flashcards/page": "app/flashcards/page.js",
+=======
+  "/helpPage/page": "app/helpPage/page.js",
+  "/flashcards/page": "app/flashcards/page.js",
+  "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
+>>>>>>> 81cbb0e2ea3681ba088c4550b9f4bd0c3c110033
   "/auth/login/email/page": "app/auth/login/email/page.js"
 }
