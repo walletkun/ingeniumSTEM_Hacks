@@ -56,7 +56,6 @@ export async function POST(req) {
             messages = conversationDoc.data().messages || [];
         }
 
-
         //Add new user message
         const newUserMessage = {
             role: 'user',

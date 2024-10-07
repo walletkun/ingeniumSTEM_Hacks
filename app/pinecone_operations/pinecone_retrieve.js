@@ -15,14 +15,14 @@ dotenv.config();
 // Initialize OpenAI configuration
 const openaiClient = new OpenAI({
   // For now put in apikey directly.
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAI_APIKEY
   // apiKey: ""
 });
 
 // Initialize Pinecone
 const pinecone = new Pinecone({
   // For now hardcode apiKey.
-  apiKey: process.env.PINECONE_API_KEY
+  apiKey: process.env.PINECONE_APIKEY
   // apiKey: ""
 });
 

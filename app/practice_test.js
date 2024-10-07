@@ -90,7 +90,7 @@ const GeneratorTest = async () => {
         number_mc: 2, // Number of multiple choice questions
         number_short_answer: 1, // Number of short answer questions
         number_truefalse: 1, // Number of true/false questions
-        test_topic: "World History", // Topic for the questions
+        test_topic: "Roman History", // Topic for the questions
         user_id: "test_user", // Example user ID
         workspace_id: "test_workspace" // Example workspace ID
     };
