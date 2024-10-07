@@ -26,10 +26,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/mainScreen/page.js"
     ],
-    "/mainScreen/chatPage/page": [
+    "/homePage/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/mainScreen/chatPage/page.js"
+      "static/chunks/app/homePage/page.js"
+    ],
+    "/flashcards/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/flashcards/page.js"
+    ],
+    "/helpPage/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/helpPage/page.js"
     ]
   }
 }
