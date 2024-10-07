@@ -2,3 +2,6 @@
 node_modules
 env
 admin_key/*
+
+.next/static/webpack/
+.next/types/
