@@ -5,6 +5,7 @@ export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
     const workspaceTitle = searchParams.get('title');
+    const conversationId = searchParams.get('conversationId');
 
     console.log("Received request for workspace:", workspaceTitle);
 
@@ -50,13 +51,40 @@ export async function GET(req) {
 
     console.log("Workspace found:", workspaceDoc.id);
 
-    // Get the conversation document
-    const conversationDoc = await workspaceRef.collection('conversations').doc('chat').get();
+    let conversationDoc;
+    if(conversationId){
+      conversationDoc = await workspaceRef.collection('conversations').doc(conversationId).get();
+    }else{
+      const conversationSnapshot = await workspaceRef.collection('conversations')
+      .orderBy('createdAt', 'desc')
+      .limit(1)
+      .get();
+    
+    
+    if(conversationSnapshot.empty){
+      const newConversationRef = workspaceRef.collection('conversations').doc();
+      await newConversationRef.set({
+        messages: [
+          {
+            role: "system",
+            content: `Welcome to your new workspace: ${title}! How many I help you today?`,
+            timestamp: Date.now(),
+          },
+        ],
+        createdAt: Date.now(),
+      });
 
-    if (!conversationDoc.exists) {
-      console.log("No conversation found for workspace:", workspaceDoc.id);
-      return NextResponse.json({ messages: [] });
+      conversationDoc = await newConversationRef.get();
+    }else{
+      conversationDoc = conversationSnapshot.docs[0];
     }
+  }
+
+  if(!conversationDoc.exists){
+    console.log("Conversation not found for workspace: ", workspaceTitle);
+    return NextResponse.json({messages: []});
+  }
+
 
     const conversationData = conversationDoc.data();
 
@@ -64,6 +92,8 @@ export async function GET(req) {
 
     // Ensure we're returning an object with a 'messages' array
     const response = {
+      conversationId: conversationDoc.id,
+      title: conversationData.title,
       messages: Array.isArray(conversationData.messages) ? conversationData.messages : []
     };
 

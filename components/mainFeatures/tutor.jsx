@@ -39,6 +39,9 @@ export const Tutor = ({ workspaceTitle }) => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [conversationId, setConversationId] = useState(null);
+  const [conversationTitle, setConversationTitle] = useState(null);
+  const [error, setError] = useState(null);
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
 
@@ -65,29 +68,34 @@ export const Tutor = ({ workspaceTitle }) => {
 
   const fetchChatHistory = useCallback(async () => {
     if (!userId || !workspaceTitle) return;
-  
+
     try {
       setIsLoading(true);
       const token = await authInstance.currentUser.getIdToken();
-      const response = await fetch(
-        `/api/chats?title=${encodeURIComponent(workspaceTitle)}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      let url = `/api/chats?title=${encodeURIComponent(workspaceTitle)}`;
+      if(conversationId){
+        url += `&conversationId=${conversationId}`;
+      }
+      console.log('Fetching chat history with URL: ', url);
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         }
-      );
-  
+      });
       if (!response.ok) throw new Error("Failed to fetch chat history");
-  
+
       const chatHistory = await response.json();
       console.log("Chat history received in Tutor component:", chatHistory);
-  
+
       if (Array.isArray(chatHistory.messages)) {
         setMessages(chatHistory.messages);
+        setConversationId(chatHistory.conversationId);
+        setConversationTitle(chatHistory.title);
       } else {
         console.error("Unexpected chat history format:", chatHistory);
         setMessages([]);
+        setConversationId(null);
+        setConversationTitle(null);
       }
     } catch (error) {
       console.error("Error fetching chat history:", error);
@@ -95,7 +103,7 @@ export const Tutor = ({ workspaceTitle }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [userId, workspaceTitle, authInstance]);
+  }, [userId, workspaceTitle, conversationId, authInstance]);
 
   useEffect(() => {
     if (userId && workspaceTitle) {
@@ -128,13 +136,27 @@ export const Tutor = ({ workspaceTitle }) => {
         body: JSON.stringify({
           message: userMessage.content,
           workspaceTitle: workspaceTitle,
+          conversationId: conversationId,
         }),
       });
 
-      if (!response.ok){  const errorData = await response.json();
+      if (!response.ok) {
+        const errorData = await response.json();
         console.error("Error response:", errorData);
         throw new Error(`Network response was not ok: ${errorData.error}`);
       }
+
+      const newConversationId = response.headers.get("X-Conversation-Id");
+      const newConversationTitle = response.headers.get("X-Conversation-Title");
+      if (newConversationId) {
+        setConversationId(newConversationId);
+        console.log("New conversation ID:", newConversationId);
+      }
+      if (newConversationTitle) {
+        setConversationTitle(newConversationTitle);
+        console.log("New conversation title:", newConversationTitle);
+      }
+
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let result = "";

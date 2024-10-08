@@ -8,7 +8,7 @@ import multer from "multer";
 dotenv.config();
 
 const pinecone = new Pinecone({
-  apiKey: process.env.PINECONE_APIKEY,
+   apiKey: process.env.PINECONE_APIKEY,
 });
 
 const indexName = "ai-tutor-index";
@@ -187,8 +187,6 @@ export async function POST(req) {
             console.log("File content uploaded to Pinecone");
           } catch (pineconeError) {
             console.error("Error uploading to Pinecone:", pineconeError);
-            // Optionally, you might want to delete the workspace if Pinecone upload fails
-            // await workspaceRef.delete();
             resolve(
               NextResponse.json(
                 { error: "Failed to process file for AI integration" },

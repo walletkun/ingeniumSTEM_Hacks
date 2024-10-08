@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { queryPinecone } from "@/app/pinecone_operations/pinecone_retrieve";
 import OpenAI from "openai";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY});
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 
 const systemPrompt = `Your role is to act as a friendly and highly effective AI tutor, with two primary functions: delivering outstanding communication and providing exceptional teaching on the selected subject. Follow these guidelines:
@@ -18,7 +18,8 @@ If needed, provide a "5-year-old" level explanation to ensure the user grasps th
 
 export async function POST(req) {
     try {
-        const { message, workspaceTitle } = await req.json();
+        const { message, workspaceTitle, conversationId} = await req.json();
+        console.log("Received conversationId:", conversationId);
         const authHeader = req.headers.get('authorization');
         const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
 
@@ -51,17 +52,34 @@ export async function POST(req) {
         // Get the workspace id that we're in
         const workspaceId = workspaceSnapshot.docs[0].id;
         
-        //Refernce to the single conversaton docmnet
-        const conversationRef = db.collection('users').doc(userId)
-        .collection('workspaces').doc(workspaceId)
-        .collection('conversations').doc('chat');
+        //Refernce to the conversation document
+        let conversationRef;
+        if(conversationId){
+            conversationRef = db.collection('users').doc(userId)
+            .collection('workspaces').doc(workspaceId)
+            .collection('conversations').doc(conversationId);
+            console.log("Using existing conversation:", conversationId);
+        }else{
+            conversationRef = db.collection('users').doc(userId)
+            .collection('workspaces').doc(workspaceId).collection('conversations').doc();
+            console.log("Using existing conversation:", conversationId);
+        }
 
-        
         //Get the current conversation or create it if it does not exist
         const conversationDoc = await conversationRef.get();
         let messages = [];
+        let isNewConversation = false;
         if(conversationDoc.exists){
             messages = conversationDoc.data().messages || [];
+        }else{
+            //Set isNewConversation to true
+            isNewConversation = true;
+            //Create a new conversation document
+            await conversationRef.set({
+                title: `New Chat ${Date.now()}`,
+                createdAt: Date.now(),
+                messages: []
+            });
         }
 
         //Add new user message
@@ -81,7 +99,7 @@ export async function POST(req) {
         //Prepare messages for OpenAI
         const openaiMessages = [
             {role: 'system', content: systemPrompt},
-            ...messages.map(m => ({role: m.role, content: m.content})), //Only send the role and content to OpenAI,
+            ...messages.filter(m => m.content !== null && m.content !== undefined).map(m => ({ role: m.role, content: m.content })),
             {role: 'system', content: `Relevant information: ${pineconeResults}`},
         ];
 
@@ -92,6 +110,24 @@ export async function POST(req) {
             model: 'gpt-4',
             stream: true,
         });
+        let suggestedTitle;
+        if(isNewConversation){
+            const titlePrompt = `Summarize the following conversation in 5 words or less: "${message}"`;
+            try{
+                const titleCompletion = await openai.chat.completions.create({
+                    messages: [{ role: 'user', content: titlePrompt }],
+                    model: 'gpt-4o'
+                });
+                suggestedTitle = titleCompletion.choices[0].message.content.trim();
+                await conversationRef.set({title: suggestedTitle}, {merge: true});
+                console.log("Generated suggested Title: ", suggestedTitle);
+            }catch(error){
+                console.error("Failed to generate suggested title:", error);
+                suggestedTitle = `New Chat ${Date.now()}`;
+            }
+        }
+
+        console.log(suggestedTitle)
 
         const stream = new ReadableStream({
             async start(controller) {
@@ -109,9 +145,9 @@ export async function POST(req) {
                 } finally {
                     // Save AI response to conversation collection
                     const newAiMessage = {
-                        role:'system',
+                        role: 'assistant',
                         content: aiResponse,
-                        timestamp: Date.now(), //Use current timestamp instead of server timestamp to reduce error
+                        timestamp: Date.now(),
                     }
                     messages.push(newAiMessage);
 
@@ -121,7 +157,13 @@ export async function POST(req) {
                 }
             }
         });
-        return new NextResponse(stream);
+        const response = new NextResponse(stream, {
+            headers: {
+                'X-Conversation-Id' : conversationRef.id,
+                'X-Conversation-Title': suggestedTitle || `New Chat ${Date.now()}`,
+            },
+        })
+        return response;
     }catch (openaiError) {
         console.error("OpenAI API error:", openaiError);
         return NextResponse.json({ error: 'Failed to generate AI response' }, { status: 500 });
