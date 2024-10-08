@@ -66,9 +66,9 @@ const StudyGuideGenerator = async ({ topic, user_id, workspace_id }) => {
 const testStudyGuideGenerator = async () => {
     // Sample input parameters
     const testParams = {
-        topic: "Quantum Physics", // The subject for the study guide
-        user_id: "test_user", // Example user ID
-        workspace_id: "test_workspace" // Example workspace ID
+        topic: "Machine Learning", // The subject for the study guide
+        user_id: "test_user_123", // Example user ID
+        workspace_id: "test_workspace_456" // Example workspace ID
     };
 
     // Call StudyGuideGenerator with sample parameters
