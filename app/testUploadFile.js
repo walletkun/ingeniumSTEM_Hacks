@@ -1,7 +1,7 @@
 import uploadFile from './uploadFile.js';
 
 async function testUpload() {
-    const testFilename = 'source_file.pdf';  // Changed to match your actual file name
+    const testFilename = 'source_file.pdf'; 
     const testUserId = 'test_user_123';
     const testWorkspaceId = 'test_workspace_456';
     
