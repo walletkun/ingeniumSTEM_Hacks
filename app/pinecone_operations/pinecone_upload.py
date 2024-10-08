@@ -261,4 +261,4 @@ if __name__ == "__main__":
     # Upload text chunks to Pinecone
     upload_to_pinecone(text_chunks, user_id, workspace_id, document_id)
 
-    print("Chunks have been uploaded to Pinecone.")
+    print("Chunks have been uploaded to Pinecone.")# Test comment
