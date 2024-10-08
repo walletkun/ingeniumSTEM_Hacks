@@ -6,12 +6,15 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const workspaceTitle = searchParams.get('title');
 
+    console.log("Received request for workspace:", workspaceTitle);
+
     const authHeader = req.headers.get("Authorization");
     const token = authHeader && authHeader.startsWith("Bearer ")
       ? authHeader.split(" ")[1]
       : null;
 
     if (!token) {
+      console.log("No token provided");
       return NextResponse.json(
         { error: "You need to be logged in to get chats" },
         { status: 401 }
@@ -19,12 +22,16 @@ export async function GET(req) {
     }
 
     // Verify the token
-    const decodedToken = await auth.verifyIdToken(token);
+    let decodedToken;
+    try {
+      decodedToken = await auth.verifyIdToken(token);
+    } catch (error) {
+      console.error("Token verification failed:", error);
+      return NextResponse.json({ error: "Invalid authentication token" }, { status: 401 });
+    }
+
     const userId = decodedToken.uid;
-
-
     console.log("Fetching workspace for user:", userId, "with title:", workspaceTitle);
-
 
     // Get the workspace
     const workspacesSnapshot = await db.collection('users').doc(userId)
@@ -34,6 +41,7 @@ export async function GET(req) {
       .get();
 
     if (workspacesSnapshot.empty) {
+      console.log("Workspace not found for title:", workspaceTitle);
       return NextResponse.json({ error: "Workspace not found" }, { status: 404 });
     }
 
@@ -42,21 +50,24 @@ export async function GET(req) {
 
     console.log("Workspace found:", workspaceDoc.id);
 
-
     // Get the conversation document
-    const conversationDoc= await workspaceRef.collection('conversations').doc('chat').get();
-    
+    const conversationDoc = await workspaceRef.collection('conversations').doc('chat').get();
 
-    if(!conversationDoc.exists){
-      return NextResponse.json({messages: []});
+    if (!conversationDoc.exists) {
+      console.log("No conversation found for workspace:", workspaceDoc.id);
+      return NextResponse.json({ messages: [] });
     }
 
     const conversationData = conversationDoc.data();
 
-    console.log("Conversation data retrieved:", conversationData);
+    console.log("Conversation data retrieved:", JSON.stringify(conversationData));
 
+    // Ensure we're returning an object with a 'messages' array
+    const response = {
+      messages: Array.isArray(conversationData.messages) ? conversationData.messages : []
+    };
 
-    return NextResponse.json(conversationData);
+    return NextResponse.json(response);
 
   } catch (error) {
     console.error("Server error:", error);

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,34 +24,50 @@ import {
   Layers3,
   CircleHelp,
 } from "lucide-react";
+
+//Firebase used for client operation
 import { getAuth } from "firebase/auth";
 import { auth } from "@/firebase";
 
-export const Tutor = () => {
+export const Tutor = ({ workspaceTitle }) => {
   const [messages, setMessages] = useState([
     {
       role: "system",
-      content:
-        "Welcome to the College Tutor Chatbot! How can I help you today?",
+      content: `Welcome to CICERO Chatbot! We are here to help you with your queries ${workspaceTitle}`,
     },
   ]);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [workspaceTitle, setWorkspaceTitle] = useState("");
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
 
-  // automatically scroll to the most recent message
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    const fetchUserData = async () => {
+      const user = authInstance.currentUser;
+      if (user) {
+        console.log("User is logged in:", user.uid);
+        setUserId(user.uid);
+      } else {
+        console.log("User is not logged in");
+      }
+    };
 
-  // fetches chat history
-  const fetchChatHistory = async () => {
+    fetchUserData();
+  }, [authInstance]);
+
+  useEffect(() => {
+    console.log(
+      "Tutor component rendered with workspaceTitle:",
+      workspaceTitle
+    );
+  }, [workspaceTitle]);
+
+  const fetchChatHistory = useCallback(async () => {
     if (!userId || !workspaceTitle) return;
-
+  
     try {
+      setIsLoading(true);
       const token = await authInstance.currentUser.getIdToken();
       const response = await fetch(
         `/api/chats?title=${encodeURIComponent(workspaceTitle)}`,
@@ -61,15 +77,37 @@ export const Tutor = () => {
           },
         }
       );
-
+  
       if (!response.ok) throw new Error("Failed to fetch chat history");
-
+  
       const chatHistory = await response.json();
-      setMessages(chatHistory);
+      console.log("Chat history received in Tutor component:", chatHistory);
+  
+      if (Array.isArray(chatHistory.messages)) {
+        setMessages(chatHistory.messages);
+      } else {
+        console.error("Unexpected chat history format:", chatHistory);
+        setMessages([]);
+      }
     } catch (error) {
       console.error("Error fetching chat history:", error);
+      setError("Failed to load chat history");
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, [userId, workspaceTitle, authInstance]);
+
+  useEffect(() => {
+    if (userId && workspaceTitle) {
+      console.log("Fetching chat history for:", workspaceTitle);
+      fetchChatHistory();
+    }
+  }, [userId, workspaceTitle, fetchChatHistory]);
+
+  // automatically scroll to the most recent message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   // sends message to openai on click
   const sendMessage = async () => {
@@ -93,8 +131,10 @@ export const Tutor = () => {
         }),
       });
 
-      if (!response.ok) throw new Error("Network response was not ok");
-
+      if (!response.ok){  const errorData = await response.json();
+        console.error("Error response:", errorData);
+        throw new Error(`Network response was not ok: ${errorData.error}`);
+      }
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let result = "";
@@ -107,7 +147,7 @@ export const Tutor = () => {
 
       setMessages((prevMessages) => [
         ...prevMessages,
-        { role: "assistant", content: result },
+        { role: "system", content: result },
       ]);
     } catch (error) {
       console.error("Error sending message:", error);
@@ -148,7 +188,7 @@ export const Tutor = () => {
               <h3 className="text-sm font-semibold text-center ml-3">
                 Workspace:{" "}
                 <span className="bg-muted rounded-xl inline-block px-2 py-1 ml-2">
-                  Operating Systems
+                  {workspaceTitle}
                 </span>
               </h3>
             </div>
@@ -227,9 +267,7 @@ export const Tutor = () => {
               >
                 <div
                   className={`p-3 text-white rounded-3xl ${
-                    message.role === "system"
-                      ? "bg-muted"
-                      : "bg-secondary"
+                    message.role === "system" ? "bg-muted" : "bg-secondary"
                   }`}
                 >
                   <p>{message.content || "Start conversation..."}</p>
@@ -337,3 +375,5 @@ function SendIcon(props) {
     </svg>
   );
 }
+
+export default Tutor;

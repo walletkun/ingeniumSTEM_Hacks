@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 import { queryPinecone } from "@/app/pinecone_operations/pinecone_retrieve";
 import OpenAI from "openai";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY});
+
 
 const systemPrompt = `Your role is to act as a friendly and highly effective AI tutor, with two primary functions: delivering outstanding communication and providing exceptional teaching on the selected subject. Follow these guidelines:
 Subject-Specific Expertise: focus exclusively on the subject that the content given to you specifies. All responses, examples, and interactions should remain aligned with this topic, ensuring no deviation from the user's chosen focus.
@@ -26,8 +27,15 @@ export async function POST(req) {
         }
 
         // Verify the token
-        const decodedToken = await auth.verifyIdToken(token);
+        let decodedToken;
+        try {
+            decodedToken = await auth.verifyIdToken(token);
+        } catch (error) {
+            console.error("Token verification failed:", error);
+            return NextResponse.json({ error: 'Invalid authentication token' }, { status: 401 });
+        }
         const userId = decodedToken.uid;
+        console.log("User ID:", userId);
 
         // Get workspace snapshot
         const workspaceSnapshot = await db.collection('users').doc(userId)
@@ -42,7 +50,7 @@ export async function POST(req) {
 
         // Get the workspace id that we're in
         const workspaceId = workspaceSnapshot.docs[0].id;
-
+        
         //Refernce to the single conversaton docmnet
         const conversationRef = db.collection('users').doc(userId)
         .collection('workspaces').doc(workspaceId)
@@ -66,7 +74,7 @@ export async function POST(req) {
 
         //Update the conversation document
         await conversationRef.set({ messages }, {merge: true});
-        
+
         //Query Pinecone for top results as a string
         const pineconeResults = await queryPinecone(message, userId, workspaceId);
 
@@ -77,6 +85,7 @@ export async function POST(req) {
             {role: 'system', content: `Relevant information: ${pineconeResults}`},
         ];
 
+        try{
         // Generate AI response
         const completion = await openai.chat.completions.create({
             messages: openaiMessages,
@@ -113,6 +122,10 @@ export async function POST(req) {
             }
         });
         return new NextResponse(stream);
+    }catch (openaiError) {
+        console.error("OpenAI API error:", openaiError);
+        return NextResponse.json({ error: 'Failed to generate AI response' }, { status: 500 });
+    }
     } catch (e) {
         console.error('API Error:', e);
         return NextResponse.json({ error: 'An error occurred while processing your request' }, { status: 500 });

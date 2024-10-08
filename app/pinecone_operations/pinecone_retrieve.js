@@ -79,7 +79,7 @@ async function queryPinecone(query, userId, workspaceId, topK = 10) {
       includeMetadata: true,
       filter: {
         user_id: userId,
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       }
     });
 

@@ -1,4 +1,4 @@
-// File: /Users/dabrownie/AI Tutor/ingeniumSTEM_Hacks/app/auth/layout.jsx
+// File: /Users/ceo/Desktop/hackathon_2024/ai-tutor/app/auth/layout.jsx
 import * as entry from '../../../../app/auth/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

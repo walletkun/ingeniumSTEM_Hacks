@@ -1,7 +1,9 @@
-import {Tutor} from "@/components/mainFeatures/tutor"
+import Tutor from '@/components/mainFeatures/tutor';
 
-export default function Component() {
+const testing = () => {
   return (
-    <Tutor/>
+    <Tutor workspaceTitle={1231}/>
   )
 }
+
+export default testing
