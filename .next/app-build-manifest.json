@@ -1,10 +1,5 @@
 {
   "pages": {
-    "/mainScreen/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/mainScreen/page.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -31,28 +26,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/auth/layout.js"
     ],
-    "/helpPage/page": [
+    "/mainScreen/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/helpPage/page.js"
+      "static/chunks/app/mainScreen/page.js"
     ],
-    "/flashcards/page": [
+    "/chat/[workspaceTitle]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/flashcards/page.js"
-<<<<<<< HEAD
-=======
-    ],
-    "/helpPage/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/helpPage/page.js"
+      "static/chunks/app/chat/[workspaceTitle]/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/_not-found/page.js"
->>>>>>> 81cbb0e2ea3681ba088c4550b9f4bd0c3c110033
     ]
   }
 }

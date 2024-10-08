@@ -1,15 +1,11 @@
 {
-  "/mainScreen/page": "app/mainScreen/page.js",
-<<<<<<< HEAD
+  "/_not-found/page": "app/_not-found/page.js",
   "/homePage/page": "app/homePage/page.js",
-  "/page": "app/page.js",
+  "/mainScreen/page": "app/mainScreen/page.js",
+  "/chat/[workspaceTitle]/page": "app/chat/[workspaceTitle]/page.js",
   "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
-  "/helpPage/page": "app/helpPage/page.js",
-  "/flashcards/page": "app/flashcards/page.js",
-=======
-  "/helpPage/page": "app/helpPage/page.js",
-  "/flashcards/page": "app/flashcards/page.js",
-  "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
->>>>>>> 81cbb0e2ea3681ba088c4550b9f4bd0c3c110033
+  "/api/chats/route": "app/api/chats/route.js",
+  "/api/saveWorkspace/route": "app/api/saveWorkspace/route.js",
+  "/api/chats/send/route": "app/api/chats/send/route.js",
   "/auth/login/email/page": "app/auth/login/email/page.js"
 }

@@ -37,7 +37,10 @@ export const HomePage = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(authInstance, (currentUser) => {
-        console.log('Auth state changed, user: ', currentUser ? currentUser.uid : 'not logged in');
+      console.log(
+        "Auth state changed, user: ",
+        currentUser ? currentUser.uid : "not logged in"
+      );
       setUser(currentUser);
       setLoading(false);
     });
@@ -74,28 +77,31 @@ export const HomePage = () => {
   }, [user]);
 
   const createWorkspace = async () => {
-    console.log("createWorkspace function called, user:", user ? user.uid : "not logged in");
-    if (!user || isCreating){
-        console.log("User not logged in or creation already in progress");
-  
-        return;
+    console.log(
+      "createWorkspace function called, user:",
+      user ? user.uid : "not logged in"
+    );
+    if (!user || isCreating) {
+      console.log("User not logged in or creation already in progress");
+
+      return;
     }
-  
+
     try {
       setLoading(true);
       setError(null);
-  
+
       const token = await user.getIdToken();
-  
+
       if (!workspaceTitle || !file) {
         throw new Error("Workspace title and content are required");
       }
-  
+
       const formData = new FormData();
       formData.append("title", workspaceTitle);
       formData.append("file", file);
-      
-      console.log(formData)
+
+      console.log(formData);
       const response = await fetch("/api/saveWorkspace", {
         method: "POST",
         headers: {
@@ -103,7 +109,7 @@ export const HomePage = () => {
         },
         body: formData,
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("API Error:", errorData);
@@ -111,9 +117,12 @@ export const HomePage = () => {
       } else {
         const result = await response.json();
         console.log("Workspace created successfully:", result);
-  
-        setWorkspaces((prevWorkspaces) => [...prevWorkspaces, result.workspace]);
-  
+
+        setWorkspaces((prevWorkspaces) => [
+          ...prevWorkspaces,
+          result.workspace,
+        ]);
+
         //Reset form fields
         setWorkspaceTitle("");
         setFile(null);
@@ -129,7 +138,7 @@ export const HomePage = () => {
   const handleCreateWorkspace = () => {
     console.log("Creating workspace...");
     createWorkspace();
-  }
+  };
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -210,22 +219,32 @@ export const HomePage = () => {
           <p>No workspaces found. Create your first workspace!</p>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {workspaces.map((workspace) => (
-              <Link
-                href={`/workspace/${workspace.title}`}
-                key={workspace.id}
-                className="bg-[#222] rounded-lg p-6 hover:bg-[#333] transition-colors"
-                prefetch={false}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <ArrowRightIcon className="w-5 h-5" />
-                </div>
-                <h3 className="text-xl font-bold">{workspace.title}</h3>
-                <p className="text-sm text-[#999]">
-                  Created: {new Date(workspace.createdAt).toLocaleDateString()}
-                </p>
-              </Link>
-            ))}
+            {workspaces.map((workspace) => {
+              const chatUrl = `/chat/${encodeURIComponent(workspace.title)}`;
+              console.log(
+                "Creating Link for workspace with title:",
+                workspace.title,
+                "and URL:",
+                chatUrl
+              );
+              return (
+                <Link
+                  href={chatUrl}
+                  key={workspace.id}
+                  className="bg-[#222] rounded-lg p-6 hover:bg-[#333] transition-colors"
+                  prefetch={false}
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <ArrowRightIcon className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-xl font-bold">{workspace.title}</h3>
+                  <p className="text-sm text-[#999]">
+                    Created:{" "}
+                    {new Date(workspace.createdAt).toLocaleDateString()}
+                  </p>
+                </Link>
+              );
+            })}
           </div>
         )}
       </main>
