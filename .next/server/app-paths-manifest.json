@@ -3,9 +3,5 @@
   "/homePage/page": "app/homePage/page.js",
   "/mainScreen/page": "app/mainScreen/page.js",
   "/chat/[workspaceTitle]/page": "app/chat/[workspaceTitle]/page.js",
-  "/api/getWorkspace/route": "app/api/getWorkspace/route.js",
-  "/api/chats/route": "app/api/chats/route.js",
-  "/api/saveWorkspace/route": "app/api/saveWorkspace/route.js",
-  "/api/chats/send/route": "app/api/chats/send/route.js",
   "/auth/login/email/page": "app/auth/login/email/page.js"
 }

@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 import { queryPinecone } from "@/app/pinecone_operations/pinecone_retrieve";
 import OpenAI from "openai";
 
-const openai = new OpenAI({ apiKey: "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"
-});
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY});
+
 
 const systemPrompt = `Your role is to act as a friendly and highly effective AI tutor, with two primary functions: delivering outstanding communication and providing exceptional teaching on the selected subject. Follow these guidelines:
 Subject-Specific Expertise: focus exclusively on the subject that the content given to you specifies. All responses, examples, and interactions should remain aligned with this topic, ensuring no deviation from the user's chosen focus.
