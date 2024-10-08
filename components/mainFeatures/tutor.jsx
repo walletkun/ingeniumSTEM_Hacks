@@ -23,6 +23,7 @@ import {
   SquareChartGanttIcon,
   Layers3,
   CircleHelp,
+  Send,
 } from "lucide-react";
 
 //Firebase used for client operation
@@ -33,15 +34,12 @@ export const Tutor = ({ workspaceTitle }) => {
   const [messages, setMessages] = useState([
     {
       role: "system",
-      content: `Welcome to CICERO Chatbot! We are here to help you with your queries ${workspaceTitle}`,
+      content: `Welcome to: ${workspaceTitle}! Shall we get started?`,
     },
   ]);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [conversationId, setConversationId] = useState(null);
-  const [conversationTitle, setConversationTitle] = useState(null);
-  const [error, setError] = useState(null);
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
 
@@ -68,34 +66,29 @@ export const Tutor = ({ workspaceTitle }) => {
 
   const fetchChatHistory = useCallback(async () => {
     if (!userId || !workspaceTitle) return;
-
+  
     try {
       setIsLoading(true);
       const token = await authInstance.currentUser.getIdToken();
-      let url = `/api/chats?title=${encodeURIComponent(workspaceTitle)}`;
-      if(conversationId){
-        url += `&conversationId=${conversationId}`;
-      }
-      console.log('Fetching chat history with URL: ', url);
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `/api/chats?title=${encodeURIComponent(workspaceTitle)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
+  
       if (!response.ok) throw new Error("Failed to fetch chat history");
-
+  
       const chatHistory = await response.json();
       console.log("Chat history received in Tutor component:", chatHistory);
-
+  
       if (Array.isArray(chatHistory.messages)) {
         setMessages(chatHistory.messages);
-        setConversationId(chatHistory.conversationId);
-        setConversationTitle(chatHistory.title);
       } else {
         console.error("Unexpected chat history format:", chatHistory);
         setMessages([]);
-        setConversationId(null);
-        setConversationTitle(null);
       }
     } catch (error) {
       console.error("Error fetching chat history:", error);
@@ -103,7 +96,7 @@ export const Tutor = ({ workspaceTitle }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [userId, workspaceTitle, conversationId, authInstance]);
+  }, [userId, workspaceTitle, authInstance]);
 
   useEffect(() => {
     if (userId && workspaceTitle) {
@@ -136,27 +129,13 @@ export const Tutor = ({ workspaceTitle }) => {
         body: JSON.stringify({
           message: userMessage.content,
           workspaceTitle: workspaceTitle,
-          conversationId: conversationId,
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
+      if (!response.ok){  const errorData = await response.json();
         console.error("Error response:", errorData);
         throw new Error(`Network response was not ok: ${errorData.error}`);
       }
-
-      const newConversationId = response.headers.get("X-Conversation-Id");
-      const newConversationTitle = response.headers.get("X-Conversation-Title");
-      if (newConversationId) {
-        setConversationId(newConversationId);
-        console.log("New conversation ID:", newConversationId);
-      }
-      if (newConversationTitle) {
-        setConversationTitle(newConversationTitle);
-        console.log("New conversation title:", newConversationTitle);
-      }
-
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let result = "";
@@ -278,7 +257,7 @@ export const Tutor = ({ workspaceTitle }) => {
         </div>
 
         {/*Main Chat Screen */}
-        <div className="flex-1 overflow-auto p-4 md:p-6 bg-secondary">
+        <div className="flex-1 overflow-auto p-4 md:p-6 bg-[#202020]">
           <ScrollArea>
             {messages.map((message, index) => (
               <div
@@ -288,7 +267,7 @@ export const Tutor = ({ workspaceTitle }) => {
                 }`}
               >
                 <div
-                  className={`p-3 text-white rounded-3xl ${
+                  className={`p-3 text-white rounded-3xl mt-2 mb-2 px-5 ${
                     message.role === "system" ? "bg-muted" : "bg-secondary"
                   }`}
                 >
@@ -301,7 +280,7 @@ export const Tutor = ({ workspaceTitle }) => {
         </div>
 
         {/*Textfield */}
-        <div className="sticky bottom-0 bg-secondary px-4 py-0 md:px-6">
+        <div className="sticky bottom-0 bg-[#202020] px-4 py-0 md:px-6">
           <div className="relative mb-7">
             <Input
               value={message}
@@ -315,20 +294,11 @@ export const Tutor = ({ workspaceTitle }) => {
               disabled={isLoading}
               type="button"
               size="icon"
-              className="absolute w-8 h-8 top-3 right-3 bg-muted"
+              className="absolute w-10 h-10 top-1 right-3 bg-muted hover:bg-slate-900 rounded-3xl"
             >
-              {isLoading ? "Sending..." : "Send"}
+              <Send className="mr-2 ml-2 h-5 w-5"/>
             </Button>
           </div>
-        </div>
-      </div>
-
-      {/*Saved Documents Sidebar */}
-      <div className="hidden w-[260px] flex-col bg-background p-4 md:flex border-l border-l-primary">
-        <div className="flex items-center justify-center">
-          <h3 className="text-lg font-semibold ml-3 text-center mr-3">
-            Saved Documents
-          </h3>
         </div>
       </div>
     </div>
