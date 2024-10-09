@@ -48,10 +48,16 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body;
+    background-image: url('/images/PastedGraphic-8.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: "100%"; 
+    margin: 0; 
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
   }
 }
+

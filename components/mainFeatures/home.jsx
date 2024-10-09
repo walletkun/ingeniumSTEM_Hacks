@@ -14,8 +14,16 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Label } from "@radix-ui/react-label";
 import { Slider } from "@radix-ui/react-slider";
-import { CircleHelpIcon } from "lucide-react";
-import { ArrowRightIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  SearchX,
+  AppWindow,
+  LogOut,
+  SquareChartGanttIcon,
+  Layers3,
+  CircleHelp,
+  Send,
+} from "lucide-react";
 
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -159,22 +167,43 @@ export const HomePage = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-[#f0f0f0] font-mono">
-      <header className="py-5 px-8 border-b border-primary">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Link href="/" className="text-2xl font-semibold" prefetch={false}>
-              CICERO
-            </Link>
-          </div>
-          <nav className="flex items-center gap-4">
-            <p className="text-sm font-semibold ml-2">Need Help?</p>
-            <Link href="/helpPage" passHref>
-              <Button variant="ghost" size="icon">
-                <CircleHelpIcon className="h-5 w-5" />
-                <span className="sr-only">Help</span>
-              </Button>
-            </Link>
-          </nav>
+      <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
+        <Link href="/" className="text-2xl font-semibold" prefetch={false}>
+          CICERO
+        </Link>
+        <div className="flex items-center gap-1">
+          <Link
+            href="/homePage"
+            className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            prefetch={false}
+          >
+            <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
+            Workspaces
+          </Link>
+          <Link
+            href="/flashcards"
+            className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            prefetch={false}
+          >
+            <Layers3 className="h-5 w-5 mr-2"/>
+            Flashcards
+          </Link>
+          <Link
+            href="/helpPage"
+            className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            prefetch={false}
+          >
+            <CircleHelp className="h-5 w-5 mr-2"/>
+            Help
+          </Link>
+          <Link
+            href="#"
+            className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            prefetch={false}
+          >
+            <LogOut className="h-5 w-5 mr-2"/>
+            Log out
+          </Link>
         </div>
       </header>
 
@@ -183,7 +212,7 @@ export const HomePage = () => {
           <h2 className="text-3xl font-bold mb-8 ml-2">Your Workspaces</h2>
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="bg-[#ffd1dc] hover:bg-pink-400 text-black">
+              <Button className="bg-[#ffd1dc] hover:bg-pink-400 text-black rounded-full">
                 Create New Workspace
               </Button>
             </DialogTrigger>
@@ -195,6 +224,7 @@ export const HomePage = () => {
                 <Input
                   value={workspaceTitle}
                   onChange={(e) => setWorkspaceTitle(e.target.value)}
+                  maxLength={42}
                   placeholder="Enter workspace title"
                   className="bg-[#222] border-gray-600 mt-1"
                 />
@@ -216,7 +246,10 @@ export const HomePage = () => {
         </div>
 
         {workspaces.length === 0 ? (
-          <p>No workspaces found. Create your first workspace!</p>
+          <div className="flex flex-col items-center justify-center mt-40   ">
+            <SearchX className="h-10 w-10 mb-5" />
+            <h1 className="text-2xl font-bold">Looks empty in here...</h1>
+          </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {workspaces.map((workspace) => {
@@ -227,21 +260,21 @@ export const HomePage = () => {
                 "and URL:",
                 chatUrl
               );
-              return (
-                <Link
+              return (  
+                <Link 
                   href={chatUrl}
                   key={workspace.id}
-                  className="bg-[#222] rounded-lg p-6 hover:bg-[#333] transition-colors"
+                  className="bg-[#222] rounded-lg p-6 hover:bg-[#333] transition-colors flex flex-col justify-between relative h-[140px]"
                   prefetch={false}
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <ArrowRightIcon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-xl font-bold">{workspace.title}</h3>
-                  <p className="text-sm text-[#999]">
+                  <h3 className="text-xl font-bold break-words flex-grow">{workspace.title}</h3>
+                  <p className="text-sm text-[#999] mt-auto">
                     Created:{" "}
                     {new Date(workspace.createdAt).toLocaleDateString()}
                   </p>
+                  <div className="absolute bottom-4 right-4">
+                    <ArrowRightIcon className="w-5 h-5" />  
+                  </div>
                 </Link>
               );
             })}
@@ -249,8 +282,8 @@ export const HomePage = () => {
         )}
       </main>
 
-      <footer className="bg-[#1a1a1a] py-6 px-6 text-[#c0c0c0] text-sm">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between">
+      <footer className="bg-[#171221] py-6 px-6 text-[#c0c0c0] text-sm">
+        <div className="mx-auto flex items-center justify-between">
           <p>&copy; 2024 CICERO. All rights reserved.</p>
           <nav className="flex items-center gap-4">
             <Link
