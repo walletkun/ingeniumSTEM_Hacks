@@ -15,16 +15,14 @@ dotenv.config();
 // Initialize OpenAI configuration
 const openaiClient = new OpenAI({
   // For now put in apikey directly.
-  //apiKey: process.env.OPENAI_APIKEY
-  apiKey: "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",
+  apiKey: "",
   dangerouslyAllowBrowser: true,
 });
 
 // Initialize Pinecone
 const pinecone = new Pinecone({
   // For now hardcode apiKey.
-  //apiKey: process.env.PINECONE_APIKEY
-  apiKey: "196d92bb-daac-494d-a314-4da93dda5913"
+  apiKey: process.env.PINECONE_APIKEY
 });
 
 // Set index name for pinecone.
