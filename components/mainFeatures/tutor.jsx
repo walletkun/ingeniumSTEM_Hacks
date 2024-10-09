@@ -163,9 +163,9 @@ export const Tutor = ({ workspaceTitle }) => {
   }, [userId, workspaceTitle]);
 
   return (
-    <div className="flex min-h-screen w-full bg-background">
+    <div className="flex min-h-screen w-full bg-[#202020] text-white">
       {/*Saved Chats Sidebar */}
-      <div className="hidden w-[260px] flex-col bg-black p-4 md:flex border-r border-r-primary">
+      <div className="hidden w-[260px] flex-col bg-[#171221] p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
         <div className="flex items-center justify-center">
           <h3 className="text-lg font-semibold mb-[52px] ml-4">
             Chat Sessions
@@ -181,80 +181,53 @@ export const Tutor = ({ workspaceTitle }) => {
         </div>
       </div>
 
-      {/*Chat Screen Navbar */}
       <div className="flex flex-1 flex-col">
-        <div className="flex items-center justify-between bg-#000000 px-4 py-3 md:px-6 border-b border-b-primary">
-          <div className="flex items-center gap-2">
-            <div>
-              <h3 className="text-sm font-semibold text-center ml-3">
-                Workspace:{" "}
-                <span className="bg-muted rounded-xl inline-block px-2 py-1 ml-2">
-                  {workspaceTitle}
-                </span>
-              </h3>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <MenuIcon className="h-5 w-5" />
-                  <span className="sr-only">Help</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-black">
-                <DropdownMenuLabel>Navigation</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <Link href="/homePage">
-                    <DropdownMenuItem className="flex items-center justify-between mb-1 mt-1 text-sm hover:bg-muted active:bg-muted/80 py-2 rounded focus:outline-none">
-                      <SquareChartGanttIcon className="mr-2 ml-2 h-4 w-4" />
-                      <span>Workspaces</span>
-                      <DropdownMenuShortcut className="mr-2">
-                        ⇧⌘W
-                      </DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </Link>
-                  <Link href="/flashcards">
-                    <DropdownMenuItem className="flex items-center justify-between mb-1 mt-1 text-sm hover:bg-muted active:bg-muted/80 py-2 rounded focus:outline-none">
-                      <Layers3 className="mr-2 ml-2 h-4 w-4" />
-                      <span>Flashcards</span>
-                      <DropdownMenuShortcut className="mr-2">
-                        ⌘F
-                      </DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </Link>
-                  <Link href="/helpPage">
-                    <DropdownMenuItem className="flex items-center justify-between mb-1 mt-1 text-sm hover:bg-muted active:bg-muted/80 py-2 rounded focus:outline-none">
-                      <CircleHelp className="mr-2 ml-2 h-4 w-4" />
-                      <span>Help</span>
-                      <DropdownMenuShortcut className="mr-2">
-                        ⌘H
-                      </DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </Link>
-                  <Link href="/">
-                    <DropdownMenuItem className="flex items-center justify-between mb-1 mt-1 text-sm hover:bg-muted active:bg-muted/80 py-2 rounded focus:outline-none">
-                      <AppWindow className="mr-2 ml-2 h-4 w-4" />
-                      <span>CICERO Page</span>
-                      <DropdownMenuShortcut className="mr-2">
-                        ⌘C
-                      </DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </Link>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex items-center justify-between mb-1 mt-1 text-sm hover:bg-muted active:bg-muted/80 py-2 rounded focus:outline-none">
-                  <LogOut className="mr-2 ml-2 h-4 w-4" />
-                  <span>Log out</span>
-                  <DropdownMenuShortcut className="mr-2">
-                    ⇧⌘Q
-                  </DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+
+        {/*Chat Screen Navbar */}
+        <header className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 bg-[#202020]">
+          <h3 className="text-sm font-semibold flex ml-3 items-center leading-none">
+            Workspace:{" "}
+            <span className="font-sans rounded-full bg-[#1a1a1a] px-4 py-2 text-sm font-medium text-white flex items-center space-x-2 ml-2">
+              {workspaceTitle}
+            </span>
+          </h3>
+        <div className="flex items-center gap-1">
+          <Link
+            href="/homePage"
+            className="font-sans rounded-full bg-muted px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            prefetch={false}
+          >
+            <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
+            Workspaces
+          </Link>
+          <Link
+            href="/flashcards"
+            className="font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            prefetch={false}
+          >
+            <Layers3 className="h-5 w-5 mr-2"/>
+            Flashcards
+          </Link>
+          <Link
+            href="/helpPage"
+            className="font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            prefetch={false}
+          >
+            <CircleHelp className="h-5 w-5 mr-2"/>
+            Help
+          </Link>
+          <Link
+            href="#"
+            className="font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            prefetch={false}
+          >
+            <LogOut className="h-5 w-5 mr-2"/>
+            Log out
+          </Link>
         </div>
+      </header>
+
+        
 
         {/*Main Chat Screen */}
         <div className="flex-1 overflow-auto p-4 md:p-6 bg-[#202020]">
@@ -287,6 +260,7 @@ export const Tutor = ({ workspaceTitle }) => {
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Type your message..."
               disabled={isLoading}
+              maxLength={21}
               className="min-h-[48px] rounded-full resize-none p-4 shadow-sm pr-16 bg-muted"
             />
             <Button

@@ -2,21 +2,57 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import {
+    ArrowRightIcon,
+    SearchX,
+    AppWindow,
+    LogOut,
+    SquareChartGanttIcon,
+    Layers3,
+    CircleHelp,
+    Send,
+} from "lucide-react";
 
 export const Help = () => {
     return (
-        <div className="flex min-h-screen flex-col bg-background text-foreground font-mono">
-        <header className="sticky top-0 z-10 border-b border-primary bg-background px-8 py-5 sm:px-6 md:px-8">
-            <div className="flex items-center justify-between">
-                <Link href="/" className="text-2xl font-semibold" prefetch={false}>
-                    CICERO
-                </Link>
-                <Link href="/homePage">
-                    <Button variant="ghost" size="icon">
-                        <HomeIcon className="w-5 h-5"/>
-                        <span className="sr-only">Home</span>
-                    </Button>
-                </Link>
+    <div className="flex min-h-screen flex-col bg-background text-foreground font-mono">
+        <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
+            <Link href="/" className="text-2xl font-semibold" prefetch={false}>
+            CICERO
+            </Link>
+            <div className="flex items-center gap-1">
+            <Link
+                href="/homePage"
+                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+            >
+                <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
+                Workspaces
+            </Link>
+            <Link
+                href="/flashcards"
+                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+            >
+                <Layers3 className="h-5 w-5 mr-2"/>
+                Flashcards
+            </Link>
+            <Link
+                href="/helpPage"
+                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+            >
+                <CircleHelp className="h-5 w-5 mr-2"/>
+                Help
+            </Link>
+            <Link
+                href="#"
+                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+            >
+                <LogOut className="h-5 w-5 mr-2"/>
+                Log out
+            </Link>
             </div>
         </header>
         <main className="flex-1 px-4 py-8 sm:px-6 md:px-8 font-mono">
@@ -239,8 +275,8 @@ export const Help = () => {
                 </div>
             </div>
         </main>
-        <footer className="bg-[#1a1a1a] py-6 px-6 text-[#c0c0c0] text-sm">
-            <div className="container max-w-7xl mx-auto flex items-center justify-between">
+        <footer className="bg-[#171221] py-6 px-6 text-[#c0c0c0] text-sm">
+            <div className="mx-auto flex items-center justify-between">
                 <p>&copy; 2024 CICERO. All rights reserved.</p>
                 <nav className="flex items-center gap-4">
                     <Link href="#" className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out" prefetch={false}>

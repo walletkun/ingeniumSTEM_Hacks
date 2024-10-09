@@ -10,6 +10,16 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+    ArrowRightIcon,
+    SearchX,
+    AppWindow,
+    LogOut,
+    SquareChartGanttIcon,
+    Layers3,
+    CircleHelp,
+    Send,
+} from "lucide-react";
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
@@ -29,23 +39,44 @@ export const Flashcards = () => {
     ]
 
     return (
-        <div className="flex flex-col min-h-screen bg-black text-gray-100 font-mono">
-            <header className="py-5 px-8 border-b border-primary w-full">
-            <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-                <Link href="/" className="text-2xl font-semibold" prefetch={false}>
-                    CICERO
-                </Link>
-            </div>
-            <nav className="flex items-center gap-4">
-                <p className="text-sm font-semibold ml-2">Need Help?</p>
-                    <Link href="/helpPage" passHref>
-                        <Button variant="ghost" size="icon">
-                            <CircleHelpIcon className="h-5 w-5" />
-                            <span className="sr-only">Help</span>
-                        </Button>
-                    </Link>
-            </nav>
+    <div className="flex flex-col min-h-screen bg-black text-gray-100 font-mono">
+        <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
+            <Link href="/" className="text-2xl font-semibold" prefetch={false}>
+            CICERO
+            </Link>
+            <div className="flex items-center gap-1">
+            <Link
+                href="/homePage"
+                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+            >
+                <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
+                Workspaces
+            </Link>
+            <Link
+                href="/flashcards"
+                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+            >
+                <Layers3 className="h-5 w-5 mr-2"/>
+                Flashcards
+            </Link>
+            <Link
+                href="/helpPage"
+                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+            >
+                <CircleHelp className="h-5 w-5 mr-2"/>
+                Help
+            </Link>
+            <Link
+                href="#"
+                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+            >
+                <LogOut className="h-5 w-5 mr-2"/>
+                Log out
+            </Link>
             </div>
         </header>
 
@@ -115,8 +146,8 @@ export const Flashcards = () => {
             </div>
         </main>
         
-        <footer className="bg-[#1a1a1a] py-6 px-6 text-[#c0c0c0] text-sm">
-            <div className="container max-w-7xl mx-auto flex items-center justify-between">
+        <footer className="bg-[#171221] py-6 px-6 text-[#c0c0c0] text-sm">
+            <div className="mx-auto flex items-center justify-between">
                 <p>&copy; 2024 CICERO. All rights reserved.</p>
                 <nav className="flex items-center gap-4">
                     <Link href="#" className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out" prefetch={false}>
