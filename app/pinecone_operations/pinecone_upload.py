@@ -17,18 +17,18 @@ import sys
 import json
 
 # For now insert key in "", delete line when issue resolves.
-client = OpenAI(api_key= "")
-
+# client = OpenAI(api_key= os.getenv('OPENAI_APIKEY'))
+client = OpenAI(api_key="")
 # Bring this code back in when issue resolves.
 # client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # Load environment variables.
-load_dotenv()
-pinecone_api_key = os.getenv('PINECONE_API_KEY')
+# load_dotenv()
+pinecone_api_key = os.getenv('PINECONE_APIKEY')
 pinecone_env = os.getenv('PINECONE_ENVIRONMENT') 
-openai_api_key = os.getenv('OPENAI_API_KEY')
+openai_api_key = os.getenv('OPENAI_APIKEY')
 
 # Initialize Pinecone client and openAI for embedding.
 pc = Pinecone(api_key="")

@@ -34,7 +34,10 @@ export async function GET(req) {
 
     const snapshot = await workspaceRef.get();
 
+    console.log("Snapshot empty:", snapshot.empty);
+
     if (snapshot.empty) {
+      console.log("No workspaces found for user:", userId);
       return NextResponse.json(
         { workspaces: [] },
         { status: 200 }
@@ -43,16 +46,17 @@ export async function GET(req) {
 
     const workspaces = snapshot.docs.map(doc => {
       const data = doc.data();
+      console.log("Workspace data:", data);
       return {
         id: doc.id,
         title: data.title,
-        createdAt: data.createdAt ? data.createdAt.toDate() : null,
+        createdAt: data.createdAt ? data.createdAt.toDate().toISOString() : null,
         fileUrls: data.fileUrls || [],
         userId: data.userId,
       }
     });
 
-    console.log("Returning workspaces:", workspaces.length);
+    console.log("Returning workspaces:", workspaces);
     return NextResponse.json(
       { workspaces },
       { status: 200 }

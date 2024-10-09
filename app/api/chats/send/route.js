@@ -1,9 +1,12 @@
-import { admin, db, auth } from "@/firebaseAdmin";
+import { db, auth } from "@/firebaseAdmin";
 import { NextResponse } from "next/server";
 import { queryPinecone } from "@/app/pinecone_operations/pinecone_retrieve";
 import OpenAI from "openai";
+import dotenv from 'dotenv';
+dotenv.config();
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const openai = new OpenAI({apiKey: process.env.OPENAI_APIKEY});
 
 
 const systemPrompt = `Your role is to act as a friendly and highly effective AI tutor, with two primary functions: delivering outstanding communication and providing exceptional teaching on the selected subject. Follow these guidelines:
@@ -145,7 +148,7 @@ export async function POST(req) {
                 } finally {
                     // Save AI response to conversation collection
                     const newAiMessage = {
-                        role: 'assistant',
+                        role: 'system',
                         content: aiResponse,
                         timestamp: Date.now(),
                     }
