@@ -35,8 +35,8 @@ export async function POST(req) {
       workspace_id: workspaceId || null,
     });
 
-    //Create a flashcard based on workspace and workspaceid
-    const flashcardRef = await db.collection("flashcards").add({
+    //Create a flashcard based on userId 
+    const flashcardRef = await db.collection('users').doc(userId).collection("flashcards").add({
       title: flashcardsTitle,
       flashcards: generatedFlashcards,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -44,12 +44,6 @@ export async function POST(req) {
       workspaces: workspaceId ? [workspaceId] : [], // Array of workspaces this flashcard set belongs to
       isPublic: false, // Flag to indicate if this set is publicly accessible
       accessibleTo: [userId], // Array of user IDs who can access this set
-    });
-
-    //Create a reference in the user's personal flashcards collection
-    await db.collection("users").doc(userId).collection("flashcards").add({
-      flashcardId: flashcardRef.id,
-      flashcards: generatedFlashcards,
     });
 
     //if a worksapce is selected, create a reference there as well
@@ -64,9 +58,13 @@ export async function POST(req) {
     }
 
     console.log("Flashcard created successfully:", flashcardRef.id);
+    console.log("Flashcards:", generatedFlashcards);
 
     return NextResponse.json(
-      { flashcardId: flashcardRef.id, flashcards: generatedFlashcards },
+      { flashcardId: flashcardRef.id,
+        flashcardTitle: flashcardsTitle,
+        flashcardDifficulty: flashcardDifficulty, 
+        flashcards: generatedFlashcards },
       { status: 200 }
     );
   } catch (error) {

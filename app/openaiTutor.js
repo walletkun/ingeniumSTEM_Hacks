@@ -25,7 +25,8 @@ class OpenAITutor {
     // const apiKey = process.env.OPENAI_API_KEY;
 
     // Create instance of OpenAI, passing in API key.
-    this.openai = new OpenAI({ apiKey: myApiKey, dangerouslyAllowBrowser: true});
+    this.openai = new OpenAI({ apiKey: ""
+      , dangerouslyAllowBrowser: true});
     // Passing in desired model.
     this.model = model;
   }

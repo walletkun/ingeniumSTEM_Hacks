@@ -15,7 +15,8 @@ dotenv.config();
 // Initialize OpenAI configuration
 const openaiClient = new OpenAI({
   // For now put in apikey directly.
-  apiKey: "",
+  apiKey: ""
+  ,
   dangerouslyAllowBrowser: true,
 });
 
