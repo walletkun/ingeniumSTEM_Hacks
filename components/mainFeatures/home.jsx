@@ -297,25 +297,11 @@ export const HomePage = () => {
                 >
                   <div className="bg-[#222] rounded-lg p-6 hover:bg-primary transition-colors flex flex-col justify-between relative h-[140px]">
                   <div className="absolute top-5 right-5">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button className="hover:bg-primary p-0 bg-transparent left-[-16px] absolute bottom-[50px]">
-                          <Ellipsis className="w-5 h-5" />
+          
+                        <Button className="hover:bg-primary p-0 bg-transparent left-[-16px] absolute bottom-[-26px]">
+                          <Trash2 className="w-5 h-5" />
                         </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="bg-black text-white border border-secondary w-24 rounded-sm">
-                        <DropdownMenuGroup>
-                          <DropdownMenuItem className="flex items-center space-x-2 mb-3">
-                            <Pencil className="h-4 w-4" />
-                            <span>Edit</span>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="flex items-center space-x-2">
-                            <Trash2 className="h-4 w-4" />
-                            <span>Delete</span>
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                      
                   </div>
                   <h3 className="text-xl font-bold break-words flex-grow" style={{ maxWidth: '250px' }}>{workspace.title}</h3>
                   <p className="text-sm text-white mt-auto">
@@ -327,8 +313,8 @@ export const HomePage = () => {
                     key={workspace.id}
                     prefetch={false}
                   >
-                    <div className="absolute bottom-4 right-4">
-                      <ArrowRightIcon className="w-5 h-5" />  
+                    <div className="absolute bottom-3 right-2 ">
+                      <ArrowRightIcon className="w-9 h-9 hover:bg-[#e0857d] rounded-lg p-2" />  
                     </div>
                   </Link>
                   </div>
