@@ -20,25 +20,30 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const workspaceId = searchParams.get("workspaceId");
 
-    let flashcardsQuery;
+    let flashcardQuery;
     if (workspaceId) {
-      flashcardsQuery = db
+      flashcardQuery = db
         .collection("flashcards")
         .where("createdBy", "==", userId)
         .where("workspaces", "array-contains", workspaceId);
     } else {
-      flashcardsQuery = db
+      flashcardQuery = db
+        .collection("users")
+        .doc(userId)
         .collection("flashcards")
         .where("createdBy", "==", userId);
     }
-
-    const flashcardsSnapshot = await flashcardsQuery.get();
-    const flashcardData = flashcardsSnapshot.docs.map((doc) => ({
+    const flashcards = await db
+      .collection("users")
+      .doc(userId)
+      .collection("flashcards")
+      .get();
+    const flashcardData = flashcards.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
 
-    return NextResponse.json({ flashcards: flashcardData });
+    return NextResponse.json({ flashcards: flashcardData, flashcardTitle: flashcardData.title });
   } catch (error) {
     console.error("Error fetching flashcards: ", error);
     return NextResponse.json(

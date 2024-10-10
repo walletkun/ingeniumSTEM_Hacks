@@ -1,7 +1,8 @@
 'use client'
 import Link from "next/link"
+
 import { useState, useEffect } from "react"
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -31,16 +32,19 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from '@/firebase'
 
 export const Flashcards = () => {
-    const authInstance = getAuth();
     const [difficulty, setDifficulty] = useState(3)
     const [cardAmount, setCardAmount] = useState(20)
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const [flashcardsTitle, setFlashcardsTitle] = useState("")
     const [flashcardTopic, setFlashcardTopic] = useState("")
-    const [flashcardSets, setFlashcardSets] = useState([])
+    const [userFlashcardSets, setUserFlashcardSets] = useState([])
+    const [workspaceFlashcardSets, setWorkspaceFlashcardSets] = useState([])
     const [error, setError] = useState(null)
+    const router = useRouter()
 
+
+    const authInstance = getAuth();
     const searchParams = useSearchParams()
     const workspaceId = searchParams.get('workspaceId')
 
@@ -65,17 +69,36 @@ export const Flashcards = () => {
         setError(null);
         try {
             const idToken = await currentUser.getIdToken();
-            const url = workspaceId ? `/api/getFlashcards?workspaceId=${workspaceId}` : '/api/getFlashcards';
-            const response = await fetch(url, {
+            
+            // Fetch user's personal flashcard sets
+            const userResponse = await fetch('/api/getFlashcards', {
                 headers: {
                     'Authorization': `Bearer ${idToken}`
                 }
             });
-            if (!response.ok) {
-                throw new Error('Failed to fetch flashcards');
+            
+            if (!userResponse.ok) {
+                throw new Error('Failed to fetch user flashcards');
             }
-            const data = await response.json();
-            setFlashcardSets(data.flashcards);
+            const userData = await userResponse.json();
+            setUserFlashcardSets(userData.flashcards);
+
+            // Fetch workspace flashcard sets if workspaceId is present
+            if (workspaceId) {
+                const workspaceResponse = await fetch(`/api/getFlashcards?workspaceId=${workspaceId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`
+                    }
+                });
+                
+                if (!workspaceResponse.ok) {
+                    throw new Error('Failed to fetch workspace flashcards');
+                }
+                const workspaceData = await workspaceResponse.json();
+                setWorkspaceFlashcardSets(workspaceData.flashcards);
+            } else {
+                setWorkspaceFlashcardSets([]);
+            }
         } catch (error) {
             console.error('Error fetching flashcards: ', error);
             setError('Failed to load flashcards. Please try again later.');
@@ -83,6 +106,26 @@ export const Flashcards = () => {
             setLoading(false);
         }
     }
+
+    const navigateToFlashcardSet = (setId, isWorkspaceSet) => {
+        if (isWorkspaceSet && workspaceId) {
+            router.push(`/flashcards/${workspaceId}/${setId}`)
+        } else {
+            router.push(`/flashcards/${setId}`)
+        }
+    }
+
+
+
+    if (loading) {
+        return <div className="flex justify-center items-center h-screen">Loading...</div>
+    }
+
+    if (error) {
+        return <div className="flex justify-center items-center h-screen text-red-500">{error}</div>
+    }
+
+
 
     const createFlashcardSet = async () => {
         if (!user) {
@@ -131,7 +174,6 @@ export const Flashcards = () => {
 
     return (
         <div className="flex flex-col min-h-screen bg-black text-gray-100 font-mono">
-            {/* Header remains the same */}
             <main className="flex-grow">
                 <div className="flex items-center justify-between p-8 mt-5">
                     <h1 className="text-3xl font-bold ml-4">
@@ -185,23 +227,58 @@ export const Flashcards = () => {
                         </DialogContent>
                     </Dialog>
                 </div>
+                {/*User's personal flashcard sets */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-8 rounded-lg">
-                    {flashcardSets.length > 0 ? (
-                        flashcardSets.map((set) => (
-                            <Card key={set.id} className="bg-[#222] hover:bg-[#333]">
+                    <h2 className="text-2xl font-bold ml-8 mb-4 inline-flex absolute">Personal Flashcard Sets</h2>
+                    {userFlashcardSets.length > 0 ? (
+                        userFlashcardSets.map((set) => (
+                            <Card key={set.id} className="bg-[#222] hover:bg-[#333]"
+                            onClick={() => navigateToFlashcardSet(set.id)}>
                                 <CardHeader>
                                     <CardTitle>{set.title || 'Untitled Set'}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <p>Cards: {set.flashcards ? set.flashcards.length : 'N/A'}</p>
                                     <p>Difficulty: {set.flashcardDifficulty || 'N/A'}/5</p>
+                                     <div className='absolute bottom-4 right-4'>
+                                    <ArrowRightIcon className="w-5 h-5"/>
+                                </div>
                                 </CardContent>
+                               
                             </Card>
                         ))
                     ) : (
                         <div className="col-span-3 text-center">No flashcard sets found. Create a new set to get started!</div>
                     )}
                 </div>
+
+                {/*Workspace flashcard sets */}
+                {workspaceId && (
+                    <div>
+                        <h2 className="text-2xl font-bold ml-8 mb-4">Workspace Flashcard Sets</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-8 rounded-lg">
+                            {workspaceFlashcardSets.length > 0 ? (
+                                workspaceFlashcardSets.map((set) => (
+                                    <Card key={set.id} className="bg-[#222] hover:bg-[#333]"
+                                    onClick={() => navigateToFlashcardSet(set.id, true)}>
+                                        <CardHeader>
+                                            <CardTitle>{set.title || 'Untitled Set'}</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p>Cards: {set.flashcards ? set.flashcards.length : 'N/A'}</p>
+                                            <p>Difficulty: {set.flashcardDifficulty || 'N/A'}/5</p>
+                                        </CardContent>
+                                        <div className='absolute bottom-4 right-4'>
+                                            <ArrowRightIcon className="w-5 h-5"/>
+                                        </div>
+                                    </Card>
+                                ))
+                            ) : (
+                                <div className="col-span-3 text-center">No workspace flashcard sets found. Create a new set in this workspace to get started!</div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </main>
         
         <footer className="bg-[#171221] py-6 px-6 text-[#c0c0c0] text-sm">
