@@ -22,7 +22,7 @@ const openaiClient = new OpenAI({
 // Initialize Pinecone
 const pinecone = new Pinecone({
   // For now hardcode apiKey.
-  apiKey: process.env.PINECONE_APIKEY
+  apiKey: ""
 });
 
 // Set index name for pinecone.

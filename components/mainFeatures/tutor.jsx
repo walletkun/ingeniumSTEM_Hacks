@@ -165,7 +165,7 @@ export const Tutor = ({ workspaceTitle }) => {
   return (
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
       {/*Saved Chats Sidebar */}
-      <div className="hidden w-[260px] flex-col bg-[#171221] p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
+      <div className="hidden w-[260px] flex-col bg-secondary p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
         <div className="flex items-center justify-center">
           <h3 className="text-lg font-semibold mb-[52px] ml-4">
             Chat Sessions
@@ -194,7 +194,7 @@ export const Tutor = ({ workspaceTitle }) => {
         <div className="flex items-center gap-1">
           <Link
             href="/homePage"
-            className="font-sans rounded-full bg-muted px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
             prefetch={false}
           >
             <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
@@ -202,7 +202,7 @@ export const Tutor = ({ workspaceTitle }) => {
           </Link>
           <Link
             href="/flashcards"
-            className="font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
             prefetch={false}
           >
             <Layers3 className="h-5 w-5 mr-2"/>
@@ -210,7 +210,7 @@ export const Tutor = ({ workspaceTitle }) => {
           </Link>
           <Link
             href="/helpPage"
-            className="font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
             prefetch={false}
           >
             <CircleHelp className="h-5 w-5 mr-2"/>
@@ -218,7 +218,7 @@ export const Tutor = ({ workspaceTitle }) => {
           </Link>
           <Link
             href="#"
-            className="font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+            className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
             prefetch={false}
           >
             <LogOut className="h-5 w-5 mr-2"/>

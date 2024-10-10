@@ -1,5 +1,6 @@
 'use client'
 import Link from "next/link"
+import { Input } from "../ui/input"
 import { useState, useEffect } from "react"
 import { useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
@@ -133,6 +134,45 @@ export const Flashcards = () => {
     return (
         <div className="flex flex-col min-h-screen bg-black text-gray-100 font-mono">
             {/* Header remains the same */}
+            <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
+                <Link href="/" className="text-2xl font-semibold" prefetch={false}>
+                CICERO
+                </Link>
+                <div className="flex items-center gap-1">
+                <Link
+                    href="/homePage"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                >
+                    <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
+                    Workspaces
+                </Link>
+                <Link
+                    href="/flashcards"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                >
+                    <Layers3 className="h-5 w-5 mr-2"/>
+                    Flashcards
+                </Link>
+                <Link
+                    href="/helpPage"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                >
+                    <CircleHelp className="h-5 w-5 mr-2"/>
+                    Help
+                </Link>
+                <Link
+                    href="#"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                >
+                    <LogOut className="h-5 w-5 mr-2"/>
+                    Log out
+                </Link>
+                </div>
+            </header>
             <main className="flex-grow">
                 <div className="flex items-center justify-between p-8 mt-5">
                     <h1 className="text-3xl font-bold ml-4">
@@ -140,7 +180,12 @@ export const Flashcards = () => {
                     </h1>
                     <Dialog>
                     <DialogTrigger asChild>
-                    <Button className="bg-[#ffd1dc] hover:bg-pink-400 text-black">Create New Set</Button>
+                    <motion.div 
+                        whileHover={{ scale: 1.1 }} 
+                        whileTap={{ scale: 0.9 }}  
+                    >
+                        <Button className="bg-primary hover:bg-primary text-black">Create New Set</Button>
+                    </motion.div>
                     </DialogTrigger>
                     <DialogContent className="bg-[#222] text-white">
                     <DialogHeader>
@@ -152,6 +197,7 @@ export const Flashcards = () => {
                             id="content"
                             placeholder="Enter a title"
                             className="bg-[#222] border-gray-600 mt-1"
+                            maxLength={40}
                         />
                         <Textarea
                             id="content"
@@ -181,22 +227,32 @@ export const Flashcards = () => {
                             className="mt-1"
                         />
                         </div>
-                        <Button className="w-full bg-primary hover:bg-pink-400 text-black">Generate</Button>
+                        <motion.div 
+                            whileHover={{ scale: 1.07 }} 
+                            whileTap={{ scale: 0.9 }}  
+                        >
+                            <Button className="w-full bg-primary hover:bg-primary text-black">Generate</Button>
+                        </motion.div>
                     </div>
                     </DialogContent>
                 </Dialog>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-8 rounded-lg">
                 {flashcardSets.map((set) => (
-                <Card key={set.id} className="bg-[#222] hover:bg-[#333]">
-                    <CardHeader>
-                    <CardTitle>{set.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                    <p>Cards: {set.cardCount}</p>
-                    <p>Difficulty: {set.difficulty}/5</p>
-                    </CardContent>
-                </Card>
+                <motion.div 
+                    whileHover={{ scale: 1.07 }} 
+                    whileTap={{ scale: 0.9 }}  
+                >
+                    <Card key={set.id} className="bg-[#222] hover:bg-primary">
+                        <CardHeader>
+                        <CardTitle>{set.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                        <p>Cards: {set.cardCount}</p>
+                        <p>Difficulty: {set.difficulty}/5</p>
+                        </CardContent>
+                    </Card>
+                </motion.div>
                 ))}
             </div>
         </main>
@@ -232,5 +288,7 @@ function CircleHelpIcon(props) {
             <circle cx="12" cy="12" r="10" />
             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />            
             <path d="M12 17h.01" />
-            </svg>)
+            </svg>
+        )
+    )
 }

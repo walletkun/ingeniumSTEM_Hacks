@@ -20,7 +20,7 @@ export default {
     		colors: {
     			border: '#2a2a2a',
     			input: '#2a2a2a',
-    			ring: '#aae4f7',
+    			ring: '#FF6F61',
     			background: '#000000',
     			foreground: '#ffffff',
     			primary: {
