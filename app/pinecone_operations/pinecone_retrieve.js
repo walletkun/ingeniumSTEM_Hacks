@@ -15,8 +15,7 @@ dotenv.config();
 // Initialize OpenAI configuration
 const openaiClient = new OpenAI({
   // For now put in apikey directly.
-  apiKey: ""
-  ,
+  apiKey: "",
   dangerouslyAllowBrowser: true,
 });
 
@@ -24,6 +23,7 @@ const openaiClient = new OpenAI({
 const pinecone = new Pinecone({
   // For now hardcode apiKey.
   apiKey: ""
+
 });
 
 // Set index name for pinecone.

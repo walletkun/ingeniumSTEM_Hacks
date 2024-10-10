@@ -112,7 +112,7 @@
 
     const navigateToFlashcardSet = (setId, isWorkspaceSet) => {
         if (isWorkspaceSet && workspaceId) {
-        router.push(`/flashcards/${workspaceId}/${setId}`);
+        router.push(`/flashcards/workspace/${workspaceId}/${setId}`);
         } else {
         router.push(`/flashcards/${setId}`);
         }

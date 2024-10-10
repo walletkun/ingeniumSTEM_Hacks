@@ -14,7 +14,7 @@ export default function Home() {
     {
       role: "system",
       content:
-        "Welcome to the College Tutor Chatbot! How can I help you today?",
+        `Welcome to your workspace ${workspaceTitle}!`,
     },
   ]);
   const [message, setMessage] = useState("");
