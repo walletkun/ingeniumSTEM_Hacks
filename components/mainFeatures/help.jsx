@@ -275,7 +275,7 @@ export const Help = () => {
                 </div>
             </div>
         </main>
-        <footer className="bg-[#171221] py-6 px-6 text-[#c0c0c0] text-sm">
+        <footer className="bg-[#222] py-6 px-6 text-[#c0c0c0] text-sm">
             <div className="mx-auto flex items-center justify-between">
                 <p>&copy; 2024 CICERO. All rights reserved.</p>
                 <nav className="flex items-center gap-4">

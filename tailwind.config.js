@@ -20,12 +20,12 @@ export default {
     		colors: {
     			border: '#2a2a2a',
     			input: '#2a2a2a',
-    			ring: '#ffd1dc',
+    			ring: '#aae4f7',
     			background: '#000000',
     			foreground: '#ffffff',
     			primary: {
-    				DEFAULT: '#ffd1dc',
-    				foreground: '#ffd1dc'
+    				DEFAULT: '#FF6F61',
+    				foreground: '#FF6F61'
     			},
     			secondary: {
     				DEFAULT: '#1a1a1a',

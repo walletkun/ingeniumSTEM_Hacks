@@ -48,7 +48,7 @@
   }
 
   body {
-    background-image: url('/images/PastedGraphic-8.png'); 
+    background-image: url('/images/PastedGraphic-1-1.png'); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -61,3 +61,6 @@
   }
 }
 
+.shadow-custom {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0px 10px rgba(0, 0, 0, 0.06);
+}

@@ -1,180 +1,197 @@
 "use client";
-import { Play } from "lucide-react";
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
+import { motion } from "framer-motion";
+import { CornerRightDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Component() {
   {
     /*Main Page */
   }
+
+  // "Take the Tour" scroll animation
+  const scrollToExplore = (event) => {
+    const targetElement = document.getElementById("target-section"); 
+    if (targetElement) {
+      const targetPosition =
+        targetElement.getBoundingClientRect().top + window.pageYOffset; 
+      const startPosition = window.pageYOffset; 
+      const distance = targetPosition - startPosition; 
+      const duration = 2000; 
+      let startTime = null;
+
+      const animation = (currentTime) => {
+        if (startTime === null) startTime = currentTime; 
+        const elapsed = currentTime - startTime; 
+        const progress = Math.min(elapsed / duration, 1); 
+        const ease = easeInOutCubic(progress); 
+
+        window.scrollTo(0, startPosition + distance * ease); 
+
+        if (progress < 1) {
+          requestAnimationFrame(animation); 
+        }
+      };
+
+      requestAnimationFrame(animation); 
+    }
+  };
+
+  const easeInOutCubic = (t) => {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; 
+  };
+
   return (
-    <div style={{
-      backgroundImage: "url('/images/PastedGraphic-8.png')", 
-      backgroundSize: "cover", 
-      backgroundPosition: "center", 
-      backgroundRepeat: "no-repeat", 
-      height: "100%",
-      width: "100%", 
-    }}
-    className="flex flex-col min-h-[100dvh] text-[#f0f0f0] font-mono">
-      {/*Navbar */}
-      <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black bg-opacity-20">
-        <Link href="/" className="text-2xl font-semibold" prefetch={false}>
-          CICERO
-        </Link>
-        <div className="flex items-center gap-4">
-          <Link
-            href="auth/login/email"
-            className="rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out"
-            prefetch={false}
-          >
-            Login
-          </Link>
-          <Link
-            href="auth/register"
-            className="rounded-full bg-white px-4 py-2 text-sm font-medium hover:bg-[#e0e0e0] text-black transition-colors duration-300 ease-in-out"
-            prefetch={false}
-          >
-            Sign Up
-          </Link>
-        </div>
-      </header>
-
+    <div className="flex flex-col min-h-[100dvh] text-[#f0f0f0] font-mono">
       {/*Hero Section */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-12">
-        <div className="text-center space-y-4 mt-8">
-          <h1 className="text-5xl font-medium mt-28 text-white text-wrap">
-            <TypeAnimation
-              sequence={["Revolutionize the way you learn.", 1000]}
-              wrapper="span"
-              speed={50}
-              style={{ fontSize: "1.3em", display: "inline-block" }}
-            />
-          </h1>
-          {/*<p className="text-[#c0c0c0]">
-            <TypeAnimation
-              sequence={[
-                '"Can you highlight the important parts of Chapter 1 from this textbook?"',
-                1000,
-                '"Hey Cicero, can we review for my Operating Systems final?"',
-                1000,
-                '"I need help practicing integrals, can you help?"',
-                1000,
-                '"Can you give me a concise summary of this PDF document?"',
-                1000,
-                '"Quiz me on South American history."',
-                1000,
-                '"Generate me flashcards on pages 4-7 from this PDF."',
-                1000,
-              ]}
-              wrapper="span"
-              speed={60}
-              style={{ fontSize: "1.3em", display: "inline-block" }}
-              repeat={Infinity}
-            />
-            </p>  */}
+      <div
+        style={{
+          backgroundImage: "url('/images/PastedGraphic-1-1.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="flex-1 flex flex-col min-h-[100dvh]"
+      >
+        {/*Navbar */}
+        <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-black bg-opacity-0">
+          <Link href="/" className="text-2xl font-semibold text-black" prefetch={false}>
+            CICERO
+          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="auth/login/email"
+              className="rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out"
+              prefetch={false}
+            >
+              Login
+            </Link>
+            <Link
+              href="auth/register"
+              className="rounded-full bg-white px-4 py-2 text-sm font-medium hover:bg-[#e0e0e0] text-black transition-colors duration-300 ease-in-out"
+              prefetch={false}
+            >
+              Sign Up
+            </Link>
+          </div>
+        </header>
 
-          <div className="mt-32 font-sans font-light">
-            <p className="text-white mt-5 mb-3 text-xl">
-              Meet <strong>CICERO</strong>. Your own AI-powered tutor. Upload materials, generate flashcards, {" "}
-              <br /> and perfect your studies—all in one place.
+        <main className="flex-1 flex flex-col items-center justify-center px-6 py-12">
+          <div className="text-center space-y-4 mt-8">
+            <h1 className="text-5xl font-medium mt-28 text-black text-wrap">
+              <TypeAnimation
+                sequence={["Revolutionize the way you learn.", 1000]}
+                wrapper="span"
+                speed={60}
+                style={{ fontSize: "1.3em", display: "inline-block" }}
+              />
+            </h1>
+
+            <div className="mt-32 font-sans font-light">
+              <p className="text-black mt-5 mb-3 text-xl">
+                Meet <strong>CICERO</strong>. Your own AI-powered tutor. Upload
+                materials, generate flashcards, <br /> and perfect your
+                studies—all in one place.
+              </p>
+            </div>
+
+            <div className="flex space-x-2 justify-center">
+              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                <Link
+                  href="auth/register"
+                  className=" mr-3 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-[#121212] hover:bg-white shadow-lg transition-colors duration-300 ease-in-out"
+                  prefetch={false}
+                >
+                  Try CICERO
+                  <ArrowRightUpIcon className="h-5 w-5" />
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                <Link
+                  href="#"
+                  className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-md font-medium text-[#ffffff] hover:bg-[#1a1a1a] shadow-lg ml-2 transition-colors duration-300 ease-in-out"
+                  prefetch={false}
+                >
+                  Learn About the Devs
+                  <RightArrowCircleIcon className="h-5 w-5" />
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* "Take the Tour" Button */}
+          <div className="mt-36">
+            <motion.div
+              initial={{
+                scale: 1,
+                borderRadius: "20%",
+              }}
+              whileHover={{
+                scale: [1, 1.2, 1, 1.2, 1, 1.2, 1],
+                borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+              }}
+              whileTap={{
+                scale: [1, 1],
+              }}
+              transition={{
+                duration: 4,
+                ease: "easeInOut",
+                repeatType: "loop",
+              }}
+            >
+              <Button
+                onClick={scrollToExplore}
+                className="mr-3 mt-6 inline-flex items-center gap-2 rounded-full bg-white hover:bg-white hover:bg-opacity-10 px-6 py-3 text-sm font-medium text-white bg-opacity-10"
+              >
+                Take the Tour
+                <CornerRightDown className="h-5 w-5" />
+              </Button>
+            </motion.div>
+          </div>
+        </main>
+      </div>
+
+      {/*Features Section */}
+
+      <div className="bg-white flex flex-col items-center h-96 min-h-screen">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-grow items-center justify-items-center">
+
+          <div className="flex flex-col justify-center">
+            <h1 id="target-section" className="text-5xl font-bold mb-4 text-secondary max-w-lg">
+              Learn your way, at your own pace.
+            </h1>
+            <p className="text-xl text-secondary font-sans font-light max-w-lg mt-6">  
+              Create custom workspaces with your own study materials. CICERO specializes and focuses only on what you tell it to.
             </p>
           </div>
 
-          <Link
-            href="auth/register"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-[#121212] hover:bg-[#e0e0e0] shadow-lg transition-colors duration-300 ease-in-out"
-            prefetch={false}
-          >
-            Try CICERO
-            <ArrowRightUpIcon className="h-5 w-5" />
-          </Link>
-          <Link
-            href="#"
-            className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-md font-medium text-[#ffffff] hover:bg-[#1a1a1a] shadow-lg ml-2 transition-colors duration-300 ease-in-out"
-            prefetch={false}
-          >
-            Learn about the developers
-            <RightArrowCircleIcon className="h-5 w-5" />
-          </Link>
-        </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-xl h-[650px] w-[600px] flex items-center justify-center">
 
-        {/*Video Preview Section */}
-        <div className="relative mt-40 w-full max-w-4xl">
-          <h2 className="text-2xl font-bold absolute top-[-40px] left-4 flex mb-4">
-            Video Preview{" "}
-          </h2>
-          <div className="border border-[#3f3f3f] rounded-lg overflow-hidden">
-            <div className="aspect-video">
-              <iframe
-                src=""
-                frameBorder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              />
             </div>
+        </div>
+        
+
+        {/*Footer Section */}
+        <footer className="bg-[#1a1a1a] py-6 px-6 text-[#c0c0c0] text-sm bg-opacity-50 w-full">
+          <div className="container max-w-7xl mx-auto flex items-center justify-between">
+            <p>&copy; 2024 CICERO. All rights reserved.</p>
+            <nav className="flex items-center gap-4">
+              <Link
+                href="#"
+                className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out"
+                prefetch={false}
+              >
+                About Us
+              </Link>
+            </nav>
           </div>
-        </div>
-
-        {/*Features Section */}
-        <div className="mt-28 mb-20 w-full max-w-6xl">
-          <h2 className="text-2xl font-bold mb-4 ml-5">Features</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-            <div className="flex flex-col items-center gap-2 bg-[#1a1a1a] rounded-lg p-6 shadow-lg">
-              <FileIcon className="h-8 w-8" />
-              <h3 className="text-lg font-medium">Upload PDFs</h3>
-              <p className="text-[#c0c0c0] text-center">
-                Easily upload your study materials and let CICERO analyze them.
-              </p>
-            </div>
-            <div className="flex flex-col items-center gap-2 bg-[#1a1a1a] rounded-lg p-6 shadow-lg">
-              <FilePenIcon className="h-8 w-8" />
-              <h3 className="text-lg font-medium">Create practice tests</h3>
-              <p className="text-[#c0c0c0] text-center">
-                Generate personalized practice tests to assess your knowledge.
-              </p>
-            </div>
-            <div className="flex flex-col items-center gap-2 bg-[#1a1a1a] rounded-lg p-6 shadow-lg">
-              <FlashcardsIcon className="h-8 w-8" />
-              <h3 className="text-lg font-medium">Generate flashcards</h3>
-              <p className="text-[#c0c0c0] text-center">
-                Automatically create flashcards from your study materials.
-              </p>
-            </div>
-            <div className="flex flex-col items-center gap-2 bg-[#1a1a1a] rounded-lg p-6 shadow-lg">
-              <TrophyIcon className="h-8 w-8" />
-              <h3 className="text-lg font-medium">Track progress</h3>
-              <p className="text-[#c0c0c0] text-center">
-                Earn achievements and monitor your learning progress.
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {/*Footer Section */}
-      <footer className="bg-[#1a1a1a] py-6 px-6 text-[#c0c0c0] text-sm bg-opacity-50">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between">
-          <p>&copy; 2024 CICERO. All rights reserved.</p>
-          <nav className="flex items-center gap-4">
-            <Link
-              href="#"
-              className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out"
-              prefetch={false}
-            >
-              About Us
-            </Link>
-          </nav>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }
 
-{
-  /*Icon Functions */
-}
 function ArrowRightUpIcon(props) {
   return (
     <svg
@@ -190,28 +207,6 @@ function ArrowRightUpIcon(props) {
         stroke-linecap="round"
         stroke-linejoin="round"
         d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-      />
-    </svg>
-  );
-}
-
-function FileIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="2"
-      stroke="currentColor"
-      class="size-6"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 
-          7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 
-          0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
       />
     </svg>
   );

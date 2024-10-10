@@ -22,8 +22,9 @@ import {
   SquareChartGanttIcon,
   Layers3,
   CircleHelp,
-  Send,
+  Ellipsis,
 } from "lucide-react";
+import { motion } from "framer-motion"
 
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -212,11 +213,16 @@ export const HomePage = () => {
           <h2 className="text-3xl font-bold mb-8 ml-2">Your Workspaces</h2>
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="bg-[#ffd1dc] hover:bg-pink-400 text-black rounded-full">
+              <motion.div 
+                whileHover={{ scale: 1.1 }} 
+                whileTap={{ scale: 0.9 }}  
+              >
+              <Button className="bg-primary hover:bg-primary text-black rounded-full">
                 Create New Workspace
               </Button>
+              </motion.div>
             </DialogTrigger>
-            <DialogContent className="bg-[#222] text-white">
+            <DialogContent className="bg-[#222] text-white border border-[#171221]">
               <DialogHeader>
                 <DialogTitle className="ml-3">Create New Workspace</DialogTitle>
               </DialogHeader>
@@ -224,22 +230,27 @@ export const HomePage = () => {
                 <Input
                   value={workspaceTitle}
                   onChange={(e) => setWorkspaceTitle(e.target.value)}
-                  maxLength={42}
+                  maxLength={40}
                   placeholder="Enter workspace title"
-                  className="bg-[#222] border-gray-600 mt-1"
+                  className="bg-muted border-gray-600 mt-1"
                 />
                 <Input
                   type="file"
                   onChange={handleFileChange}
-                  className="bg-[#222] border-gray-600 mt-1"
+                  className="bg-muted border-gray-600 mt-1"
                 />
+                <motion.div
+                  whileHover={{ scale: 1.03 }} 
+                  whileTap={{ scale: 0.9 }}  
+                >
                 <Button
                   onClick={handleCreateWorkspace}
-                  className="w-full bg-primary hover:bg-pink-400 text-black"
+                  className="w-full bg-primary hover:bg-primary text-black"
                   disabled={isCreating}
                 >
                   {isCreating ? "Creating..." : "Create Workspace"}
                 </Button>
+                </motion.div>
               </div>
             </DialogContent>
           </Dialog>
@@ -261,14 +272,21 @@ export const HomePage = () => {
                 chatUrl
               );
               return (  
+                <motion.div 
+                  whileHover={{ scale: 1.1 }} 
+                  whileTap={{ scale: 0.9 }}  
+                >
                 <Link 
                   href={chatUrl}
                   key={workspace.id}
-                  className="bg-[#222] rounded-lg p-6 hover:bg-[#333] transition-colors flex flex-col justify-between relative h-[140px]"
+                  className="bg-[#222] rounded-lg p-6 hover:bg-[#FF6F61] transition-colors flex flex-col justify-between relative h-[140px]"
                   prefetch={false}
                 >
-                  <h3 className="text-xl font-bold break-words flex-grow">{workspace.title}</h3>
-                  <p className="text-sm text-[#999] mt-auto">
+                  <div className="absolute top-4 right-4">
+                    <Ellipsis className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-xl font-bold break-words flex-grow" style={{ maxWidth: '250px' }}>{workspace.title}</h3>
+                  <p className="text-sm text-white mt-auto">
                     Created:{" "}
                     {new Date(workspace.createdAt).toLocaleDateString()}
                   </p>
@@ -276,13 +294,14 @@ export const HomePage = () => {
                     <ArrowRightIcon className="w-5 h-5" />  
                   </div>
                 </Link>
+                </motion.div>
               );
             })}
           </div>
         )}
       </main>
 
-      <footer className="bg-[#171221] py-6 px-6 text-[#c0c0c0] text-sm">
+      <footer className="bg-[#222] py-6 px-6 text-[#c0c0c0] text-sm">
         <div className="mx-auto flex items-center justify-between">
           <p>&copy; 2024 CICERO. All rights reserved.</p>
           <nav className="flex items-center gap-4">
