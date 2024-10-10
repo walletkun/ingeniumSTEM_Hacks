@@ -64,3 +64,37 @@
 .shadow-custom {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0px 10px rgba(0, 0, 0, 0.06);
 }
+
+.markdown-content {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.3em; }
+  h3 { font-size: 1.1em; }
+  
+  p {
+    margin-bottom: 1em;
+  }
+  
+  a {
+    color: #58a6ff;
+    text-decoration: underline;
+  }
+  
+  blockquote {
+    border-left: 3px solid #58a6ff;
+    padding-left: 1em;
+    margin-left: 0;
+    font-style: italic;
+  }
+
+  code {
+    background-color: #3a3a3a; 
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    color: #e6e6e6; 
+  }
+}
