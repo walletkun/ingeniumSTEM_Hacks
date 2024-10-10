@@ -7,6 +7,7 @@ dotenv.config();
 
 
 const openai = new OpenAI({apiKey: ""
+
 });
 
 
