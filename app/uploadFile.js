@@ -47,6 +47,7 @@ async function uploadFile(filename, userId, workspaceId) {
     //For venv use this command
     //const { stdout: llamaOutput, stderr: llamaError } = await execPromise(python3 "${llamaScriptPath}" "${tempFilePath}");
 
+    // For conda use this command:
     const { stdout: llamaOutput, stderr: llamaError } = await execPromise(
       llamaCommand
     );
