@@ -44,10 +44,12 @@ async function uploadFile(filename, userId, workspaceId) {
     const llamaCommand = `conda run -n ai-tutor python ${escapeShellArg(
       llamaScriptPath
     )} ${escapeShellArg(tempFilePath)}`;
+    //For venv use this command
+    //const { stdout: llamaOutput, stderr: llamaError } = await execPromise(python3 "${llamaScriptPath}" "${tempFilePath}");
+
     const { stdout: llamaOutput, stderr: llamaError } = await execPromise(
       llamaCommand
     );
-    console.timeEnd("LlamaModel Processing");
 
     if (llamaError) {
       console.error("LlamaModel Error:", llamaError);
@@ -71,6 +73,9 @@ async function uploadFile(filename, userId, workspaceId) {
     )} ${escapeShellArg(userId)} ${escapeShellArg(
       workspaceId
     )} ${escapeShellArg(documentId)} ${escapeShellArg(llamaOutput)}`;
+     //For venv use this command
+ //const { stdout: pineconeOutput, stderr: pineconeError } = await execPromise(python3 "${pineconeScriptPath}" "${userId}" "${workspaceId}" "${documentId}" '${llamaOutput}');    
+
 
     console.log("Executing Pinecone command:", pineconeCommand);
 

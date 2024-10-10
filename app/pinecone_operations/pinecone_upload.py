@@ -17,8 +17,8 @@ import sys
 import json
 
 # For now insert key in "", delete line when issue resolves.
-# client = OpenAI(api_key= os.getenv('OPENAI_APIKEY'))
-client = OpenAI(api_key="")
+client = OpenAI(api_key= os.getenv('OPENAI_APIKEY'))
+
 # Bring this code back in when issue resolves.
 # client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 

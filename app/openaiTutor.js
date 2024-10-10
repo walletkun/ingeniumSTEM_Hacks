@@ -18,14 +18,14 @@ class OpenAITutor {
   constructor(model = "gpt-4-turbo-preview") {
 
     // Remove This line later. Insert key into ""
-    const myApiKey = process.env.OPENAI_API_KEY;
+    const myApiKey = ""
     
     // Fetch API key from .env.
     // ADD BACK THIS LINE BACK IN WHEN WE FIX .env
     // const apiKey = process.env.OPENAI_API_KEY;
 
     // Create instance of OpenAI, passing in API key.
-    this.openai = new OpenAI({ apiKey: myApiKey });
+    this.openai = new OpenAI({ apiKey: myApiKey, dangerouslyAllowBrowser: true});
     // Passing in desired model.
     this.model = model;
   }

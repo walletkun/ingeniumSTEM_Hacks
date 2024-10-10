@@ -44,6 +44,9 @@ export const HomePage = () => {
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
 
+  //File processing
+  const [fileProcessingStatus, setFileProcessingStatus] = useState("");
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(authInstance, (currentUser) => {
       console.log(
@@ -99,7 +102,7 @@ export const HomePage = () => {
     try {
       setLoading(true);
       setError(null);
-
+      setFileProcessingStatus("Uploading file...");
       const token = await user.getIdToken();
 
       if (!workspaceTitle || !file) {
@@ -123,9 +126,13 @@ export const HomePage = () => {
         const errorData = await response.json();
         console.error("API Error:", errorData);
         setError(errorData.error);
+        setFileProcessingStatus("File upload failed");
       } else {
         const result = await response.json();
         console.log("Workspace created successfully:", result);
+        setFileProcessingStatus(
+          "File processed and workspace created successfully"
+        );
 
         setWorkspaces((prevWorkspaces) => [
           ...prevWorkspaces,
@@ -139,8 +146,10 @@ export const HomePage = () => {
     } catch (error) {
       console.error("API Error:", error);
       setError(error.message);
+      setFileProcessingStatus("File upload failed");
     } finally {
       setIsCreating(false);
+      setLoading(false);
     }
   };
 
@@ -250,6 +259,11 @@ export const HomePage = () => {
                 >
                   {isCreating ? "Creating..." : "Create Workspace"}
                 </Button>
+                {fileProcessingStatus && (
+                  <p className="text-sm text-gray-400 mt-2">
+                    {fileProcessingStatus}
+                  </p>
+                )}
                 </motion.div>
               </div>
             </DialogContent>

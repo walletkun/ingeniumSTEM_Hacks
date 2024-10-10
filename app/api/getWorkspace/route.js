@@ -34,10 +34,9 @@ export async function GET(req) {
 
     const snapshot = await workspaceRef.get();
 
-    console.log("Snapshot empty:", snapshot.empty);
-
     if (snapshot.empty) {
       console.log("No workspaces found for user:", userId);
+      console.log("Snapshot empty:", snapshot.empty);
       return NextResponse.json(
         { workspaces: [] },
         { status: 200 }

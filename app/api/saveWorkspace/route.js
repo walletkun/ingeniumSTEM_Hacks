@@ -51,12 +51,14 @@ export async function POST(req) {
     // Process the uploaded file
     const { parsedText, llamaOutput, pineconeOutput } = await uploadFile(filename, userId, workspaceRef.id);
 
+    const enhancedSystemMessage = `Welcome to your new workspace: ${title}! I've processed your uploaded document. 
+    Here's a summary: ${llamaOutput.summary}. How may I assist you?`;
     // Create initial conversation
     await workspaceRef.collection("conversations").doc("chat").set({
       messages: [
         {
           role: "system",
-          content: `Welcome to your new workspace: ${title}! I've processed your uploaded document. How may I assist you?`,
+          content: enhancedSystemMessage,
           timestamp: Date.now(),
         },
       ],
