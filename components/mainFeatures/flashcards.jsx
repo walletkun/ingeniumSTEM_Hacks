@@ -22,6 +22,7 @@ import {
     CircleHelp,
     Send,
 } from "lucide-react";
+import { motion } from "framer-motion"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
@@ -180,6 +181,7 @@ export const Flashcards = () => {
                         {workspaceId ? "Workspace Flashcards" : "Flashcard Hub"}
                     </h1>
                     <Dialog>
+<<<<<<< HEAD
                         <DialogTrigger asChild>
                             <Button className="bg-[#ffd1dc] hover:bg-pink-400 text-black">Create New Set</Button>
                         </DialogTrigger>
@@ -280,8 +282,71 @@ export const Flashcards = () => {
                     </div>
                 )}
             </main>
+=======
+                    <DialogTrigger asChild>
+                    <Button className="bg-[#ffd1dc] hover:bg-pink-400 text-black">Create New Set</Button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-[#222] text-white">
+                    <DialogHeader>
+                        <DialogTitle className="ml-3">Create New Flashcard Set</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                        <div>
+                        <Textarea
+                            id="content"
+                            placeholder="Enter a title"
+                            className="bg-[#222] border-gray-600 mt-1"
+                        />
+                        <Textarea
+                            id="content"
+                            placeholder="Give CICERO the topic or content for your flashcards..."
+                            className="bg-[#222] border-gray-600 mt-1"
+                        />
+                        </div>
+                        <div>
+                        <Label>Difficulty: {difficulty}</Label>
+                        <Slider
+                            min={1}
+                            max={5}
+                            step={1}
+                            value={[difficulty]}
+                            onValueChange={(value) => setDifficulty(value[0])}
+                            className="mt-1"
+                        />
+                        </div>
+                        <div>
+                        <Label>Number of Cards: {cardAmount}</Label>
+                        <Slider
+                            min={1}
+                            max={40}
+                            step={1}
+                            value={[cardAmount]}
+                            onValueChange={(value) => setCardAmount(value[0])}
+                            className="mt-1"
+                        />
+                        </div>
+                        <Button className="w-full bg-primary hover:bg-pink-400 text-black">Generate</Button>
+                    </div>
+                    </DialogContent>
+                </Dialog>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-8 rounded-lg">
+                {flashcardSets.map((set) => (
+                <Card key={set.id} className="bg-[#222] hover:bg-[#333]">
+                    <CardHeader>
+                    <CardTitle>{set.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                    <p>Cards: {set.cardCount}</p>
+                    <p>Difficulty: {set.difficulty}/5</p>
+                    </CardContent>
+                </Card>
+                ))}
+            </div>
+        </main>
+>>>>>>> 8284f934c03c392476d7b753ea1170853bf4081e
         
-        <footer className="bg-[#171221] py-6 px-6 text-[#c0c0c0] text-sm">
+        <footer className="bg-[#222] py-6 px-6 text-[#c0c0c0] text-sm">
             <div className="mx-auto flex items-center justify-between">
                 <p>&copy; 2024 CICERO. All rights reserved.</p>
                 <nav className="flex items-center gap-4">
@@ -313,5 +378,4 @@ function CircleHelpIcon(props) {
             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />            
             <path d="M12 17h.01" />
             </svg>)
-        )
 }
