@@ -31,6 +31,9 @@ If the request is vague or unclear but still related, try your best to provide a
 Consistent Subject Focus:
 Ensure that all flashcards remain strictly relevant to the selected subject. If the user asks for unrelated content, prompt them to provide a subject-related request.
 
+Expected Output:
+The front of the card should always be either a KEYWORD or short question. The back should be one sentence with less than 10 words. 
+
 Return in the following JSON format:
 {
    "flashcards": [
@@ -50,7 +53,7 @@ const FlashcardGenerator = async ({
   workspace_id,
 }) => {
   // Construct query string based on props.
-  const query = `Make a flashcard set of size ${flashcard_size} of difficulty ${flashcard_diff} on ${flashcard_topic}`;
+  const query = `Make a flashcard set of size ${flashcard_size} of difficulty ${flashcard_diff} out of 5, on ${flashcard_topic}`;
 
   let pineconeResults = "";
   //Adding aditional feature that we can allow user to input their own query.
