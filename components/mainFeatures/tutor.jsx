@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,35 +28,35 @@ import {
 } from "lucide-react";
 
 //Firebase used for client operation
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 
 export const Tutor = ({ workspaceTitle }) => {
-  const [messages, setMessages] = useState([
-    {
-      role: "system",
-      content: `Welcome to: ${workspaceTitle}! Shall we get started?`,
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState(null);
+  const [conversations, setConversations] = useState([]);
+  const [conversationId, setConversationId] = useState(null);
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const user = authInstance.currentUser;
+    const unsubscribe = onAuthStateChanged(authInstance, (user) => {
       if (user) {
         console.log("User is logged in:", user.uid);
         setUserId(user.uid);
       } else {
         console.log("User is not logged in");
+        router.push("/auth/login/email");
       }
-    };
+      setIsLoading(false);
+    });
 
-    fetchUserData();
-  }, [authInstance]);
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [authInstance, router]);
 
   useEffect(() => {
     console.log(
@@ -66,41 +67,130 @@ export const Tutor = ({ workspaceTitle }) => {
 
   const fetchChatHistory = useCallback(async () => {
     if (!userId || !workspaceTitle) return;
-  
+
     try {
       setIsLoading(true);
       const token = await authInstance.currentUser.getIdToken();
       const response = await fetch(
-        `/api/chats?title=${encodeURIComponent(workspaceTitle)}`,
+        `/api/chats?workspaceTitle=${encodeURIComponent(workspaceTitle)}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+
+      if (!response.ok) throw new Error("Failed to fetch conversations");
+
+      const data = await response.json();
+      setConversations(data.conversations);
+
+      // If no conversation is selected and we have conversations, select the most recent one
+      if (!conversationId && data.conversations.length > 0) {
+        const mostRecentConversation = data.conversations.reduce(
+          (prev, current) =>
+            prev.createdAt > current.createdAt ? prev : current
+        );
+        selectConversation(mostRecentConversation.id);
+      }
+
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching conversations:", error);
+      setIsLoading(false);
+    }
+  }, [userId, workspaceTitle, authInstance, conversationId]);
+
+  const selectConversation = useCallback(
+    async (selectedConversationId) => {
+      setConversationId(selectedConversationId);
+      try {
+        const token = await authInstance.currentUser.getIdToken();
+        const response = await fetch(
+          `/api/chats?title=${encodeURIComponent(
+            workspaceTitle
+          )}&conversationId=${selectedConversationId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok)
+          throw new Error("Failed to fetch conversation messages");
+
+        const data = await response.json();
+        setMessages(data.messages);
+      } catch (error) {
+        console.error("Error fetching conversation messages:", error);
+      }
+    },
+    [authInstance, workspaceTitle]
+  );
+
+  //Creating new conversation
   
-      if (!response.ok) throw new Error("Failed to fetch chat history");
-  
-      const chatHistory = await response.json();
-      console.log("Chat history received in Tutor component:", chatHistory);
-  
-      if (Array.isArray(chatHistory.messages)) {
-        setMessages(chatHistory.messages);
-      } else {
-        console.error("Unexpected chat history format:", chatHistory);
-        setMessages([]);
+  const createNewConversation = async () => {
+    try {
+      setIsLoading(true);
+      const token = await authInstance.currentUser.getIdToken();
+      const response = await fetch("/api/chats/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          message: `This is ${workspaceTitle}`,
+          workspaceTitle: workspaceTitle,
+          isNewConversation: true // Add this flag
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Network response was not ok: ${errorData.error}`);
+      }
+
+      const newConversationId = response.headers.get("X-Conversation-Id");
+      const newConversationTitle = response.headers.get("X-Conversation-Title");
+      if (newConversationId) {
+        const newConversation = {
+          id: newConversationId,
+          title: newConversationTitle || `New Chat ${Date.now()}`,
+          createdAt: new Date().toISOString(), // Fix: Use new Date().toISOString()
+        };
+
+        setConversations((prevConversations) => [
+          newConversation,
+          ...prevConversations,
+        ]);
+        setConversationId(newConversationId);
+
+        // Fetch messages for the new conversation
+        await selectConversation(newConversationId);
       }
     } catch (error) {
-      console.error("Error fetching chat history:", error);
-      setError("Failed to load chat history");
+      console.error("Error creating new conversation:", error);
+      // Consider adding user-facing error handling here
     } finally {
       setIsLoading(false);
     }
-  }, [userId, workspaceTitle, authInstance]);
+  };
 
+
+  const logOut = async () => {
+    try {
+      await signOut(authInstance);
+      console.log("User logged out successfully");
+      router.push("/auth/login/email");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
   useEffect(() => {
     if (userId && workspaceTitle) {
-      console.log("Fetching chat history for:", workspaceTitle);
       fetchChatHistory();
     }
   }, [userId, workspaceTitle, fetchChatHistory]);
@@ -112,7 +202,7 @@ export const Tutor = ({ workspaceTitle }) => {
 
   // sends message to openai on click
   const sendMessage = async () => {
-    if (!message.trim() || isLoading || !workspaceTitle) return;
+    if (!message.trim() || isLoading || !workspaceTitle || !conversationId) return;
     const userMessage = { role: "user", content: message };
     setMessage("");
     setIsLoading(true);
@@ -129,10 +219,19 @@ export const Tutor = ({ workspaceTitle }) => {
         body: JSON.stringify({
           message: userMessage.content,
           workspaceTitle: workspaceTitle,
+          conversationId: conversationId,
         }),
       });
 
-      if (!response.ok){  const errorData = await response.json();
+      // Extract the conversation ID from the response headers
+      const newConversationId = response.headers.get("X-Conversation-Id");
+      if (newConversationId) {
+        setConversationId(newConversationId);
+        console.log("New or existing conversation ID:", newConversationId);
+      }
+
+      if (!response.ok) {
+        const errorData = await response.json();
         console.error("Error response:", errorData);
         throw new Error(`Network response was not ok: ${errorData.error}`);
       }
@@ -166,23 +265,35 @@ export const Tutor = ({ workspaceTitle }) => {
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
       {/*Saved Chats Sidebar */}
       <div className="hidden w-[260px] flex-col bg-secondary p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
-        <div className="flex items-center justify-center">
-          <h3 className="text-lg font-semibold mb-[52px] ml-4">
-            Chat Sessions
-          </h3>
+        <div className="flex items-center justify-center mb-4">
+          <h3 className="text-lg font-semibold">Chat Sessions</h3>
           <Button
+            onClick={createNewConversation}
             size="icon"
             variant="ghost"
-            className="rounded-full hover:bg-primary mb-[50px] ml-3"
+            className="rounded-full hover:bg-primary ml-3"
           >
             <PlusIcon className="h-5 w-5" />
             <span className="sr-only">Create New Chat</span>
           </Button>
         </div>
+        <ScrollArea className="flex-1">
+          {conversations.map((conversation) => (
+            <Button
+              key={conversation.id}
+              onClick={() => selectConversation(conversation.id)}
+              className={`w-full text-left mb-2 ${
+                conversationId === conversation.id
+                  ? "bg-primary text-black"
+                  : ""
+              }`}
+            >
+              {conversation.title}
+            </Button>
+          ))}
+        </ScrollArea>
       </div>
-
       <div className="flex flex-1 flex-col">
-
         {/*Chat Screen Navbar */}
         <header className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 bg-[#202020]">
           <h3 className="text-sm font-semibold flex ml-3 items-center leading-none">
@@ -191,43 +302,45 @@ export const Tutor = ({ workspaceTitle }) => {
               {workspaceTitle}
             </span>
           </h3>
-        <div className="flex items-center gap-1">
-          <Link
-            href="/homePage"
-            className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-            prefetch={false}
-          >
-            <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
-            Workspaces
-          </Link>
-          <Link
-            href="/flashcards"
-            className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-            prefetch={false}
-          >
-            <Layers3 className="h-5 w-5 mr-2"/>
-            Flashcards
-          </Link>
-          <Link
-            href="/helpPage"
-            className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-            prefetch={false}
-          >
-            <CircleHelp className="h-5 w-5 mr-2"/>
-            Help
-          </Link>
-          <Link
-            href="#"
-            className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-            prefetch={false}
-          >
-            <LogOut className="h-5 w-5 mr-2"/>
-            Log out
-          </Link>
-        </div>
-      </header>
-
-        
+          <div className="flex items-center gap-1">
+            <Link
+              href="/homePage"
+              className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+              prefetch={false}
+            >
+              <SquareChartGanttIcon className="h-5 w-5 mr-2" />
+              Workspaces
+            </Link>
+            <Link
+              href="/flashcards"
+              className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+              prefetch={false}
+            >
+              <Layers3 className="h-5 w-5 mr-2" />
+              Flashcards
+            </Link>
+            <Link
+              href="/helpPage"
+              className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+              prefetch={false}
+            >
+              <CircleHelp className="h-5 w-5 mr-2" />
+              Help
+            </Link>
+            <Link
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                logOut();
+              }}
+              className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+              prefetch={false}
+            >
+              <LogOut className="h-5 w-5 mr-2" />
+              Log out
+            </Link>
+          </div>
+        </header>
 
         {/*Main Chat Screen */}
         <div className="flex-1 overflow-auto p-4 md:p-6 bg-[#202020]">
@@ -260,7 +373,6 @@ export const Tutor = ({ workspaceTitle }) => {
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Type your message..."
               disabled={isLoading}
-              maxLength={21}
               className="min-h-[48px] rounded-full resize-none p-4 shadow-sm pr-16 bg-muted"
             />
             <Button
@@ -270,7 +382,7 @@ export const Tutor = ({ workspaceTitle }) => {
               size="icon"
               className="absolute w-10 h-10 top-1 right-3 bg-muted hover:bg-slate-900 rounded-3xl"
             >
-              <Send className="mr-2 ml-2 h-5 w-5"/>
+              <Send className="mr-2 ml-2 h-5 w-5" />
             </Button>
           </div>
         </div>

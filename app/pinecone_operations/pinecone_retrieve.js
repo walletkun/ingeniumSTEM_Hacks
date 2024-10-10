@@ -5,11 +5,9 @@
   Searches pinecone database for most similar vectors and returns result as array of objects.
 */ 
 // Required modules
-import dotenv from 'dotenv';
 import OpenAI from 'openai';
 import { Pinecone } from '@pinecone-database/pinecone';
 
-dotenv.config();
 
 
 // Initialize OpenAI configuration
@@ -22,7 +20,7 @@ const openaiClient = new OpenAI({
 // Initialize Pinecone
 const pinecone = new Pinecone({
   // For now hardcode apiKey.
-  apiKey: ""
+  apiKey: "",
 
 });
 

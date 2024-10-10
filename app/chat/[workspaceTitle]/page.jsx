@@ -17,6 +17,7 @@ export default function ChatPage(){
   }
 
   const workspaceTitle = decodeURIComponent(params.workspaceTitle);
+  
   console.log('Decoded workspaceTitle:', workspaceTitle);
 
   return <Tutor workspaceTitle={workspaceTitle} />;
