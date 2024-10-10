@@ -113,11 +113,11 @@ export default function FlashcardSet() {
             </h2>
             <p className="mt-2">
               {showAnswer
-                ? currentCard.answer ||
-                  currentCard.front ||
-                  "No answer available"
-                : currentCard.back ||
+                ? currentCard.back ||
                   currentCard.back ||
+                  "No answer available"
+                : currentCard.front ||
+                  currentCard.front ||
                   "No question available"}
             </p>
           </div>

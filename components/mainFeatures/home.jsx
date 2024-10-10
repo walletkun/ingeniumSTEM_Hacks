@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 //Components
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +30,7 @@ import {
 import { motion } from "framer-motion"
 
 import { useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebase";
 import { Link1Icon } from "@radix-ui/react-icons";
 import { DropdownMenu } from "../ui/dropdown-menu";
@@ -52,6 +53,9 @@ export const HomePage = () => {
   //File processing
   const [fileProcessingStatus, setFileProcessingStatus] = useState("");
 
+
+  //Router
+  const router = useRouter();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(authInstance, (currentUser) => {
       console.log(
@@ -158,6 +162,16 @@ export const HomePage = () => {
     }
   };
 
+  const logOut = async () => {
+    try{
+      await signOut(authInstance);
+      console.log("User logged out successfully");
+      router.push("/auth/login/email");
+    }catch(error){
+      console.error("Error logging out:", error);
+    }
+  }
+
   const handleCreateWorkspace = () => {
     console.log("Creating workspace...");
     createWorkspace();
@@ -213,6 +227,10 @@ export const HomePage = () => {
           </Link>
           <Link
             href="#"
+            onClick={(e)=>{
+              e.preventDefault();
+              logOut();
+            }}
             className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
             prefetch={false}
           >
