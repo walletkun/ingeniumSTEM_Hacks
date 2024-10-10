@@ -6,7 +6,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-const openai = new OpenAI({apiKey: ""});
+const openai = new OpenAI({apiKey: ""
+});
 
 
 const systemPrompt = `Your role is to act as a friendly and highly effective AI tutor, with two primary functions: delivering outstanding communication and providing exceptional teaching on the selected subject. Follow these guidelines:

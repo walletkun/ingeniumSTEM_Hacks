@@ -61,7 +61,9 @@ export async function POST(req) {
     console.log("Flashcards:", generatedFlashcards);
 
     return NextResponse.json(
-      { flashcardId: flashcardRef.id, 
+      { flashcardId: flashcardRef.id,
+        flashcardTitle: flashcardsTitle,
+        flashcardDifficulty: flashcardDifficulty, 
         flashcards: generatedFlashcards },
       { status: 200 }
     );
