@@ -2,6 +2,7 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { LoadingAnimation } from "./LoadingAnimation"
 import {
     ArrowRightIcon,
     SearchX,

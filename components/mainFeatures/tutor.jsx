@@ -1,8 +1,8 @@
 "use client";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,10 @@ export const Tutor = ({ workspaceTitle }) => {
   const [conversationId, setConversationId] = useState(null);
   const [isCreatingConversation, setIsCreatingConversation] = useState(false);
   const [isAiResponding, setIsAiResponding] = useState(false);
+  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
+  const [streamedResponse, setStreamedResponse] = useState("");
+  const [displayedResponse, setDisplayedResponse] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
   const router = useRouter();
@@ -53,31 +57,40 @@ export const Tutor = ({ workspaceTitle }) => {
   }, [authInstance, router]);
 
   useEffect(() => {
-    console.log("Tutor component rendered with workspaceTitle:", workspaceTitle);
+    console.log(
+      "Tutor component rendered with workspaceTitle:",
+      workspaceTitle
+    );
   }, [workspaceTitle]);
 
-  const selectConversation = useCallback(async (selectedConversationId) => {
-    console.log("Selecting conversation:", selectedConversationId);
-    setConversationId(selectedConversationId);
-    try {
-      const token = await authInstance.currentUser.getIdToken();
-      const response = await fetch(
-        `/api/chats?title=${encodeURIComponent(workspaceTitle)}&conversationId=${selectedConversationId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  const selectConversation = useCallback(
+    async (selectedConversationId) => {
+      console.log("Selecting conversation:", selectedConversationId);
+      setConversationId(selectedConversationId);
+      try {
+        const token = await authInstance.currentUser.getIdToken();
+        const response = await fetch(
+          `/api/chats?title=${encodeURIComponent(
+            workspaceTitle
+          )}&conversationId=${selectedConversationId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      if (!response.ok) throw new Error("Failed to fetch conversation messages");
+        if (!response.ok)
+          throw new Error("Failed to fetch conversation messages");
 
-      const data = await response.json();
-      setMessages(data.messages);
-    } catch (error) {
-      console.error("Error fetching conversation messages:", error);
-    }
-  }, [authInstance, workspaceTitle]);
+        const data = await response.json();
+        setMessages(data.messages);
+      } catch (error) {
+        console.error("Error fetching conversation messages:", error);
+      }
+    },
+    [authInstance, workspaceTitle]
+  );
 
   const createNewConversation = useCallback(async () => {
     if (isCreatingConversation) {
@@ -96,9 +109,8 @@ export const Tutor = ({ workspaceTitle }) => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          message: `I am CICERO. Welcome to ${workspaceTitle}. How can I help you today?`,
           workspaceTitle: workspaceTitle,
-          isNewConversation: true 
+          isNewConversation: true,
         }),
       });
 
@@ -116,7 +128,7 @@ export const Tutor = ({ workspaceTitle }) => {
           createdAt: new Date().toISOString(),
         };
 
-        setConversations(prev => [newConversation, ...prev]);
+        setConversations((prev) => [newConversation, ...prev]);
         setConversationId(newConversationId);
         await selectConversation(newConversationId);
       }
@@ -126,7 +138,12 @@ export const Tutor = ({ workspaceTitle }) => {
       setIsLoading(false);
       setIsCreatingConversation(false);
     }
-  }, [authInstance, workspaceTitle, selectConversation, isCreatingConversation]);
+  }, [
+    authInstance,
+    workspaceTitle,
+    selectConversation,
+    isCreatingConversation,
+  ]);
 
   const fetchChatHistory = useCallback(async () => {
     if (!userId || !workspaceTitle) return;
@@ -165,7 +182,14 @@ export const Tutor = ({ workspaceTitle }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [userId, workspaceTitle, authInstance, conversationId, selectConversation, createNewConversation]);
+  }, [
+    userId,
+    workspaceTitle,
+    authInstance,
+    conversationId,
+    selectConversation,
+    createNewConversation,
+  ]);
 
   useEffect(() => {
     if (userId && workspaceTitle) {
@@ -185,15 +209,41 @@ export const Tutor = ({ workspaceTitle }) => {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, displayedResponse]);
+
+  useEffect(() => {
+    let timeoutId;
+    if (isAiResponding && streamedResponse.length > displayedResponse.length) {
+      setIsTyping(true);
+      timeoutId = setTimeout(() => {
+        setDisplayedResponse(
+          streamedResponse.slice(0, displayedResponse.length + 1)
+        );
+      }, 20);
+    } else if (streamedResponse.length === displayedResponse.length) {
+      setIsTyping(false);
+      // Add this line to ensure the message persists
+      setMessages((prevMessages) =>
+        prevMessages.map((msg, index) =>
+          index === prevMessages.length - 1 && msg.role === "system"
+            ? { ...msg, content: streamedResponse }
+            : msg
+        )
+      );
+    }
+    return () => clearTimeout(timeoutId);
+  }, [isAiResponding, streamedResponse, displayedResponse]);
 
   const sendMessage = async () => {
-    if (!message.trim() || isLoading || !workspaceTitle || !conversationId) return;
+    if (!message.trim() || isLoading || !workspaceTitle || !conversationId)
+      return;
     const userMessage = { role: "user", content: message };
     setMessage("");
     setIsLoading(true);
-    setIsAiResponding(true);
+    setIsWaitingForResponse(true);
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+    setStreamedResponse("");
+    setDisplayedResponse("");
 
     try {
       const token = await authInstance.currentUser.getIdToken();
@@ -212,100 +262,90 @@ export const Tutor = ({ workspaceTitle }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response:", errorData);
         throw new Error(`Network response was not ok: ${errorData.error}`);
       }
 
+      setIsWaitingForResponse(false);
+      setIsAiResponding(true);
+      setIsTyping(true);
+
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let result = "";
-
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        result += decoder.decode(value, { stream: true });
+        const chunk = decoder.decode(value, { stream: true });
+        setStreamedResponse((prev) => prev + chunk);
       }
 
       setMessages((prevMessages) => [
         ...prevMessages,
-        { role: "system", content: result },
+        { role: "system", content: streamedResponse },
       ]);
     } catch (error) {
       console.error("Error sending message:", error);
     } finally {
       setIsLoading(false);
       setIsAiResponding(false);
+      setIsTyping(false);
+      setIsWaitingForResponse(false);
+      setDisplayedResponse(streamedResponse);
     }
   };
 
-  // update chat history based on the user id and their workspace title
-  useEffect(() => {
-    fetchChatHistory();
-  }, [userId, workspaceTitle]);
-
-
-  // handle "enter" key click
   useEffect(() => {
     const handleKeyPress = (event) => {
-      // Check if the key is "Enter" and no modifiers (like Shift) are pressed
-      if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault(); // Prevent default Enter key behavior
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
         sendMessage();
       }
     };
-  
-    // Add the event listener to the input or text area specifically
-    const inputElement = document.getElementById('inputField'); // Or the id of your input
+
+    const inputElement = document.getElementById("inputField");
     if (inputElement) {
-      inputElement.addEventListener('keydown', handleKeyPress);
+      inputElement.addEventListener("keydown", handleKeyPress);
     }
-  
-    // Clean up the event listener on unmount
+
     return () => {
       if (inputElement) {
-        inputElement.removeEventListener('keydown', handleKeyPress);
+        inputElement.removeEventListener("keydown", handleKeyPress);
       }
     };
-  }, [sendMessage]); 
-
+  }, [sendMessage]);
 
   return (
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
       <div className="hidden w-[260px] flex-col bg-secondary p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
-  <div className="flex items-center justify-between mb-4">
-    <h3 className="text-lg font-semibold">Chat Sessions</h3>
-    <Button
-      onClick={createNewConversation}
-      size="icon"
-      variant="ghost"
-      className="rounded-lg hover:bg-primary hover:text-black"
-    >
-      <PlusIcon className="h-5 w-5" />
-      <span className="sr-only">Create New Chat</span>
-    </Button>
-  </div>
-  <ScrollArea className="flex-1">
-    {conversations.map((conversation) => (
-      <div
-        key={conversation.id}
-        className={`w-full mb-2 rounded-lg`}
-      >
-        <Button
-          onClick={() => selectConversation(conversation.id)}
-          className={`w-full justify-start p-2 h-auto rounded-sm ${
-            conversationId === conversation.id
-              ? "bg-muted text-white"
-              : "bg-secondary hover:bg-muted"
-          }`}
-          variant="ghost"
-        >
-          <span className="truncate">{conversation.title}</span>
-        </Button>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold">Chat Sessions</h3>
+          <Button
+            onClick={createNewConversation}
+            size="icon"
+            variant="ghost"
+            className="rounded-lg hover:bg-primary hover:text-black"
+          >
+            <PlusIcon className="h-5 w-5" />
+            <span className="sr-only">Create New Chat</span>
+          </Button>
+        </div>
+        <ScrollArea className="flex-1">
+          {conversations.map((conversation) => (
+            <div key={conversation.id} className={`w-full mb-2 rounded-lg`}>
+              <Button
+                onClick={() => selectConversation(conversation.id)}
+                className={`w-full justify-start p-2 h-auto rounded-sm ${
+                  conversationId === conversation.id
+                    ? "bg-muted text-white"
+                    : "bg-secondary hover:bg-muted"
+                }`}
+                variant="ghost"
+              >
+                <span className="truncate">{conversation.title}</span>
+              </Button>
+            </div>
+          ))}
+        </ScrollArea>
       </div>
-    ))}
-  </ScrollArea>
-</div>
-
 
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 bg-[#202020]">
@@ -316,62 +356,50 @@ export const Tutor = ({ workspaceTitle }) => {
             </span>
           </h3>
           <div className="flex items-center gap-1">
-          <motion.div 
-            whileHover={{ scale: 1.07 }}
-            whileTap={{ scale: 0.9 }}  
-          > 
-            <Link
-              href="/homePage"
-              className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-              prefetch={false}
-            >
-              <SquareChartGanttIcon className="h-5 w-5 mr-2" />
-              Workspaces
-            </Link>
-          </motion.div>
-          <motion.div 
-            whileHover={{ scale: 1.07 }}
-            whileTap={{ scale: 0.9 }}  
-          > 
-            <Link
-              href="/flashcards"
-              className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-              prefetch={false}
-            >
-              <Layers3 className="h-5 w-5 mr-2" />
-              Flashcards
-            </Link>
-          </motion.div>
-          <motion.div 
-            whileHover={{ scale: 1.07 }}
-            whileTap={{ scale: 0.9 }}  
-          > 
-            <Link
-              href="/helpPage"
-              className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-              prefetch={false}
-            >
-              <CircleHelp className="h-5 w-5 mr-2" />
-              Help
-            </Link>
-          </motion.div>
-          <motion.div 
-            whileHover={{ scale: 1.07 }}
-            whileTap={{ scale: 0.9 }}  
-          > 
-            <Link
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                logOut();
-              }}
-              className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-              prefetch={false}
-            >
-              <LogOut className="h-5 w-5 mr-2" />
-              Log out
-            </Link>
-          </motion.div>
+            <motion.div whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.9 }}>
+              <Link
+                href="/homePage"
+                className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+              >
+                <SquareChartGanttIcon className="h-5 w-5 mr-2" />
+                Workspaces
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.9 }}>
+              <Link
+                href="/flashcards"
+                className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+              >
+                <Layers3 className="h-5 w-5 mr-2" />
+                Flashcards
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.9 }}>
+              <Link
+                href="/helpPage"
+                className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+              >
+                <CircleHelp className="h-5 w-5 mr-2" />
+                Help
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.9 }}>
+              <Link
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  logOut();
+                }}
+                className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                prefetch={false}
+              >
+                <LogOut className="h-5 w-5 mr-2" />
+                Log out
+              </Link>
+            </motion.div>
           </div>
         </header>
 
@@ -390,11 +418,11 @@ export const Tutor = ({ workspaceTitle }) => {
                   }`}
                 >
                   {message.role === "system" ? (
-                    <ReactMarkdown 
+                    <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
-                        code({node, inline, className, children, ...props}) {
-                          const match = /language-(\w+)/.exec(className || '')
+                        code({ node, inline, className, children, ...props }) {
+                          const match = /language-(\w+)/.exec(className || "");
                           return !inline && match ? (
                             <SyntaxHighlighter
                               style={vscDarkPlus}
@@ -402,26 +430,34 @@ export const Tutor = ({ workspaceTitle }) => {
                               PreTag="div"
                               {...props}
                             >
-                              {String(children).replace(/\n$/, '')}
+                              {String(children).replace(/\n$/, "")}
                             </SyntaxHighlighter>
                           ) : (
-                            <code 
-                              className={`${inline ? 'bg-[#3a3a3a] text-[#e6e6e6] px-1 rounded' : ''} ${className}`} 
+                            <code
+                              className={`${
+                                inline
+                                  ? "bg-[#3a3a3a] text-[#e6e6e6] px-1 rounded"
+                                  : ""
+                              } ${className}`}
                               {...props}
                             >
                               {children}
                             </code>
-                          )
+                          );
                         },
-                        ul({node, ...props}) {
-                          return <ul className="list-disc pl-4 my-2" {...props} />
+                        ul({ node, ...props }) {
+                          return (
+                            <ul className="list-disc pl-4 my-2" {...props} />
+                          );
                         },
-                        ol({node, ...props}) {
-                          return <ol className="list-decimal pl-4 my-2" {...props} />
+                        ol({ node, ...props }) {
+                          return (
+                            <ol className="list-decimal pl-4 my-2" {...props} />
+                          );
                         },
-                        li({node, ...props}) {
-                          return <li className="my-1" {...props} />
-                        }
+                        li({ node, ...props }) {
+                          return <li className="my-1" {...props} />;
+                        },
                       }}
                       className="markdown-content"
                     >
@@ -433,9 +469,77 @@ export const Tutor = ({ workspaceTitle }) => {
                 </div>
               </div>
             ))}
+            {isWaitingForResponse && (
+              <div className="flex justify-start">
+                <div className="p-3 text-white rounded-3xl mt-2 mb-2 px-5 bg-muted">
+                  <TypingIndicator />
+                </div>
+              </div>
+            )}
             {isAiResponding && (
               <div className="flex justify-start">
-                <TypingIndicator />
+                <div className="p-3 text-white rounded-3xl mt-2 mb-2 px-5 bg-muted">
+                  <div className="relative">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        code({ node, inline, className, children, ...props }) {
+                          const match = /language-(\w+)/.exec(className || "");
+                          return !inline && match ? (
+                            <SyntaxHighlighter
+                              style={vscDarkPlus}
+                              language={match[1]}
+                              PreTag="div"
+                              {...props}
+                            >
+                              {String(children).replace(/\n$/, "")}
+                            </SyntaxHighlighter>
+                          ) : (
+                            <code
+                              className={`${
+                                inline
+                                  ? "bg-[#3a3a3a] text-[#e6e6e6] px-1 rounded"
+                                  : ""
+                              } ${className}`}
+                              {...props}
+                            >
+                              {children}
+                            </code>
+                          );
+                        },
+                        ul({ node, ...props }) {
+                          return (
+                            <ul className="list-disc pl-4 my-2" {...props} />
+                          );
+                        },
+                        ol({ node, ...props }) {
+                          return (
+                            <ol className="list-decimal pl-4 my-2" {...props} />
+                          );
+                        },
+                        li({ node, ...props }) {
+                          return <li className="my-1" {...props} />;
+                        },
+                      }}
+                      className="markdown-content"
+                    >
+                      {displayedResponse}
+                    </ReactMarkdown>
+                    {isTyping && (
+                      <span
+                        className="animate-pulse"
+                        style={{
+                          position: "absolute",
+                          bottom: 0,
+                          right: "-10px",
+                          lineHeight: "1.2em",
+                        }}
+                      >
+                        |
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
             <div ref={messagesEndRef} />
@@ -445,13 +549,9 @@ export const Tutor = ({ workspaceTitle }) => {
         <div className="sticky bottom-0 bg-[#202020] px-4 py-0 md:px-6">
           <div className="relative mb-7">
             <Input
+              id="inputField"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !isLoading) {
-                  sendMessage();
-                }
-              }}
               placeholder="Type your message..."
               disabled={isLoading}
               className="min-h-[48px] rounded-full resize-none p-4 shadow-sm pr-16 bg-muted"

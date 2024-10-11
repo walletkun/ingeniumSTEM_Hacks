@@ -9,7 +9,7 @@ export const LoadingAnimation = () => {
           rotate: [0, 0, 270, 270, 0],
           borderRadius: ["20%", "20%", "50%", "50%", "20%"],
         }}
-        transition={{ duration: 10, repeat: Infinity }}
+        transition={{ duration: 5, repeat: Infinity, repeatType: 'loop' }}
         className="w-16 h-16 bg-primary"
       />
     </div>

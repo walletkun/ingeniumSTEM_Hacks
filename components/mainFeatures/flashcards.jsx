@@ -43,7 +43,10 @@ export const Flashcards = () => {
   const [userFlashcardSets, setUserFlashcardSets] = useState([]);
   const [workspaceFlashcardSets, setWorkspaceFlashcardSets] = useState([]);
   const [error, setError] = useState(null);
-  const [showContent, setShowContent] = useState(false);
+  const [isContentReady, setIsContentReady] = useState(false);
+  const [isCreatingSet, setIsCreatingSet] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
 
   const router = useRouter();
 
@@ -58,15 +61,11 @@ export const Flashcards = () => {
         currentUser ? currentUser.uid : "not logged in"
       );
       setUser(currentUser);
+      setIsContentReady(false);
       if (currentUser) {
         fetchFlashcards(currentUser);
       } else {
-        setTimeout(() => {
-          setLoading(false);
-          setTimeout(() => {
-            setShowContent(true), 1000;
-          }, 3000);
-        });
+        setLoading(false);
       }
     });
     return () => unsubscribe();
@@ -114,12 +113,10 @@ export const Flashcards = () => {
       console.error("Error fetching flashcards: ", error);
       setError("Failed to load flashcards. Please try again later.");
     } finally {
+      setLoading(false);
       setTimeout(() => {
-        setLoading(false);
-        setTimeout(() => {
-          setShowContent(true), 1000;
-        }, 3000);
-      });
+        setIsContentReady(true);
+      }, 1000);
     }
   };
 
@@ -130,10 +127,6 @@ export const Flashcards = () => {
       router.push(`/flashcards/${setId}`);
     }
   };
-
-  if (loading) {
-    return <LoadingAnimation />;
-  }
 
   if (error) {
     return (
@@ -148,6 +141,7 @@ export const Flashcards = () => {
       console.error("User not logged in");
       return;
     }
+    setIsCreatingSet(true);
     try {
       const idToken = await user.getIdToken();
       const response = await fetch("/api/saveFlashcards", {
@@ -174,9 +168,12 @@ export const Flashcards = () => {
       setFlashcardTopic("");
       setCardAmount(20);
       setDifficulty(3);
+      setIsDialogOpen(false);
     } catch (error) {
       console.error("Error saving flashcards: ", error);
       setError("Failed to create flashcard set. Please try again.");
+    } finally {
+      setIsCreatingSet(false);
     }
   };
 
@@ -190,14 +187,6 @@ export const Flashcards = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
-      </div>
-    );
-  }
-
   if (error) {
     return (
       <div className="flex justify-center items-center h-screen text-red-500">
@@ -207,16 +196,26 @@ export const Flashcards = () => {
   }
 
   return (
-    <AnimatePresence>
-      {showContent && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
-          className="flex flex-col min-h-screen bg-black text-gray-100 font-mono"
-        >
-          <div className="flex flex-col min-h-screen bg-black text-gray-100 font-mono">
+    <div className="flex flex-col min-h-screen bg-black text-gray-100 font-mono">
+      <AnimatePresence mode="wait">
+        {!isContentReady ? (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex-grow flex items-center justify-center"
+          >
+            <LoadingAnimation />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col min-h-screen"
+          >
             <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
               <Link
                 href="/"
@@ -266,13 +265,14 @@ export const Flashcards = () => {
                 <h1 className="text-3xl font-bold ml-4">
                   {workspaceId ? "Workspace Flashcards" : "Flashcard Hub"}
                 </h1>
-                <Dialog>
+                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <Button className="bg-primary hover:bg-primary text-black">
+                      <Button className="bg-primary hover:bg-primary text-black"
+                      onClick={() => {setIsDialogOpen(true)}}>
                         Create New Set
                       </Button>
                     </motion.div>
@@ -328,8 +328,16 @@ export const Flashcards = () => {
                         <Button
                           className="w-full bg-primary hover:bg-primary text-black"
                           onClick={createFlashcardSet}
+                          disabled={isCreatingSet}
                         >
-                          Generate
+                          {isCreatingSet ? (
+                            <div className="flex items-center justify-center">
+                              <div className="w-5 h-5 border-t-2 border-b-2 border-black rounded-full animate-spin mr-2"></div>
+                              Creating...
+                            </div>
+                          ) : (
+                            "Generate"
+                          )}
                         </Button>
                       </motion.div>
                     </div>
@@ -338,15 +346,14 @@ export const Flashcards = () => {
               </div>
               {/*User's personal flashcard sets */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-8 rounded-lg">
-                {/* <h2 className="text-2xl font-bold ml-8 mb-4 inline-flex aboslu">Personal Flashcard Sets</h2> */}
                 {userFlashcardSets.length > 0 ? (
                   userFlashcardSets.map((set) => (
                     <motion.div
+                      key={set.id}
                       whileHover={{ scale: 1.07 }}
                       whileTap={{ scale: 0.9 }}
                     >
                       <Card
-                        key={set.id}
                         className="bg-[#222] hover:bg-primary"
                         onClick={() => navigateToFlashcardSet(set.id)}
                       >
@@ -359,9 +366,7 @@ export const Flashcards = () => {
                             {set.flashcards ? set.flashcards.length : "N/A"}
                           </p>
                           <p>Difficulty: {difficulty || "N/A"}/5</p>
-                          <div className="absolute bottom-4 right-4">
-                            <ArrowRightIcon className="w-5 h-5" />
-                          </div>
+                          <div className="absolute bottom-4 right-4"></div>
                         </CardContent>
                       </Card>
                     </motion.div>
@@ -407,9 +412,7 @@ export const Flashcards = () => {
                               onClick={() =>
                                 navigateToFlashcardSet(set.id, true)
                               }
-                            >
-                              <ArrowRightIcon className="w-5 h-5" />
-                            </div>
+                            ></div>
                           </Card>
                         </motion.div>
                       ))
@@ -423,8 +426,7 @@ export const Flashcards = () => {
                 </div>
               )}
             </main>
-
-            <footer className="bg-[#222] py-6 px-6 text-[#c0c0c0] text-sm">
+            <footer className="bg-[#222] py-6 px-6 text-[#c0c0c0] text-sm mt-auto">
               <div className="mx-auto flex items-center justify-between">
                 <p>&copy; 2024 CICERO. All rights reserved.</p>
                 <nav className="flex items-center gap-4">
@@ -438,10 +440,10 @@ export const Flashcards = () => {
                 </nav>
               </div>
             </footer>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
