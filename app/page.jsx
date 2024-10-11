@@ -56,24 +56,39 @@ export default function Component() {
       >
         {/*Navbar */}
         <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-black bg-opacity-0">
-          <Link href="/" className="text-2xl font-semibold text-black" prefetch={false}>
-            CICERO
-          </Link>
+          <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+          > 
+            <Link href="/" className="text-2xl font-semibold text-black" prefetch={false}>
+              CICERO
+            </Link>
+          </motion.div>
           <div className="flex items-center gap-4">
-            <Link
-              href="auth/login/email"
-              className="rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out"
-              prefetch={false}
+            <motion.div 
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.9 }}  
+            > 
+              <Link
+                href="auth/login/email"
+                className="rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out"
+                prefetch={false}
+              >
+                Login
+              </Link>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.9 }}  
             >
-              Login
-            </Link>
-            <Link
-              href="auth/register"
-              className="rounded-full bg-white px-4 py-2 text-sm font-medium hover:bg-[#e0e0e0] text-black transition-colors duration-300 ease-in-out"
-              prefetch={false}
-            >
-              Sign Up
-            </Link>
+              <Link
+                href="auth/register"
+                className="rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-colors duration-300 ease-in-out"
+                prefetch={false}
+              >
+                Sign Up
+              </Link>
+            </motion.div>
           </div>
         </header>
 
@@ -107,6 +122,7 @@ export default function Component() {
                   <ArrowRightUpIcon className="h-5 w-5" />
                 </Link>
               </motion.div>
+              {/*
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                 <Link
                   href="#"
@@ -117,6 +133,7 @@ export default function Component() {
                   <RightArrowCircleIcon className="h-5 w-5" />
                 </Link>
               </motion.div>
+              */} 
             </div>
           </div>
 
@@ -151,14 +168,13 @@ export default function Component() {
           </div>
         </main>
       </div>
-
-      {/*Features Section */}
-
-      <div className="bg-white flex flex-col items-center h-96 min-h-screen">
+      
+      
+      {/*First Features Section */}
+      <div id="target-section" className="bg-white flex flex-col items-center h-96 min-h-screen">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-grow items-center justify-items-center">
-
           <div className="flex flex-col justify-center">
-            <h1 id="target-section" className="text-5xl font-bold mb-4 text-secondary max-w-lg">
+            <h1 className="text-5xl font-bold mb-4 text-secondary max-w-lg">
               Learn your way, at your own pace.
             </h1>
             <p className="text-xl text-secondary font-sans font-light max-w-lg mt-6">  
@@ -166,24 +182,36 @@ export default function Component() {
             </p>
           </div>
 
-            <div className="bg-gray-50 p-6 rounded-xl shadow-xl h-[650px] w-[600px] flex items-center justify-center">
+            <div className="bg-gray-50 p-6 rounded-xl shadow-xl h-[550px] w-[600px] flex items-center justify-center">
 
-            </div>
+            </div> 
+          </div>
         </div>
+
+        {/*Second Features Section */}
+        <div className="bg-[#AEEBDF] flex flex-col items-center h-96 min-h-screen">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-grow items-center justify-items-center">
+            <div className="bg-white p-6 rounded-xl shadow-xl h-[550px] w-[600px] flex items-center justify-center">
+              {/* Empty div */}
+            </div> 
+            <div className="flex flex-col justify-center items-end">
+              <h1 id="target-section-2" className="text-5xl font-bold mb-4 text-secondary max-w-lg">
+                Prompt. Generate. Study.
+              </h1>
+              <p className="text-xl text-secondary font-sans font-light max-w-lg mt-6">  
+                Create AI-generated flashcards for any subject. Test your understanding faster and more efficiently than ever.
+              </p>
+            </div>
+          </div>
+        
         
 
         {/*Footer Section */}
-        <footer className="bg-[#1a1a1a] py-6 px-6 text-[#c0c0c0] text-sm bg-opacity-50 w-full">
+        <footer className="bg-[#1a1a1a] py-6 px-6 text-black text-sm bg-opacity-20 w-full">
           <div className="container max-w-7xl mx-auto flex items-center justify-between">
             <p>&copy; 2024 CICERO. All rights reserved.</p>
             <nav className="flex items-center gap-4">
-              <Link
-                href="#"
-                className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out"
-                prefetch={false}
-              >
-                About Us
-              </Link>
+              
             </nav>
           </div>
         </footer>

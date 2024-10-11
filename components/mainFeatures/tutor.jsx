@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
+import { motion } from "framer-motion";
 import {
   AppWindow,
   LogOut,
@@ -271,38 +272,41 @@ export const Tutor = ({ workspaceTitle }) => {
   return (
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
       <div className="hidden w-[260px] flex-col bg-secondary p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
-        <div className="flex items-center justify-center mb-4">
-          <h3 className="text-lg font-semibold">Chat Sessions</h3>
-          <Button
-            onClick={() => {
-              if (!isCreatingConversation) {
-                createNewConversation();
-              }
-            }}
-            size="icon"
-            variant="ghost"
-            className="rounded-full hover:bg-primary ml-3"
-          >
-            <PlusIcon className="h-5 w-5" />
-            <span className="sr-only">Create New Chat</span>
-          </Button>
-        </div>
-        <ScrollArea className="flex-1">
-          {conversations.map((conversation) => (
-            <Button
-              key={conversation.id}
-              onClick={() => selectConversation(conversation.id)}
-              className={`w-full text-left mb-2 ${
-                conversationId === conversation.id
-                  ? "bg-primary text-black"
-                  : ""
-              }`}
-            >
-              {conversation.title}
-            </Button>
-          ))}
-        </ScrollArea>
+  <div className="flex items-center justify-between mb-4">
+    <h3 className="text-lg font-semibold">Chat Sessions</h3>
+    <Button
+      onClick={createNewConversation}
+      size="icon"
+      variant="ghost"
+      className="rounded-lg hover:bg-primary hover:text-black"
+    >
+      <PlusIcon className="h-5 w-5" />
+      <span className="sr-only">Create New Chat</span>
+    </Button>
+  </div>
+  <ScrollArea className="flex-1">
+    {conversations.map((conversation) => (
+      <div
+        key={conversation.id}
+        className={`w-full mb-2 rounded-lg`}
+      >
+        <Button
+          onClick={() => selectConversation(conversation.id)}
+          className={`w-full justify-start p-2 h-auto rounded-sm ${
+            conversationId === conversation.id
+              ? "bg-muted text-white"
+              : "bg-secondary hover:bg-muted"
+          }`}
+          variant="ghost"
+        >
+          <span className="truncate">{conversation.title}</span>
+        </Button>
       </div>
+    ))}
+  </ScrollArea>
+</div>
+
+
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 bg-[#202020]">
           <h3 className="text-sm font-semibold flex ml-3 items-center leading-none">
@@ -312,6 +316,10 @@ export const Tutor = ({ workspaceTitle }) => {
             </span>
           </h3>
           <div className="flex items-center gap-1">
+          <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+          > 
             <Link
               href="/homePage"
               className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
@@ -320,6 +328,11 @@ export const Tutor = ({ workspaceTitle }) => {
               <SquareChartGanttIcon className="h-5 w-5 mr-2" />
               Workspaces
             </Link>
+          </motion.div>
+          <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+          > 
             <Link
               href="/flashcards"
               className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
@@ -328,6 +341,11 @@ export const Tutor = ({ workspaceTitle }) => {
               <Layers3 className="h-5 w-5 mr-2" />
               Flashcards
             </Link>
+          </motion.div>
+          <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+          > 
             <Link
               href="/helpPage"
               className="mr-2 font-sans rounded-full bg-muted px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
@@ -336,6 +354,11 @@ export const Tutor = ({ workspaceTitle }) => {
               <CircleHelp className="h-5 w-5 mr-2" />
               Help
             </Link>
+          </motion.div>
+          <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+          > 
             <Link
               href="#"
               onClick={(e) => {
@@ -348,6 +371,7 @@ export const Tutor = ({ workspaceTitle }) => {
               <LogOut className="h-5 w-5 mr-2" />
               Log out
             </Link>
+          </motion.div>
           </div>
         </header>
 

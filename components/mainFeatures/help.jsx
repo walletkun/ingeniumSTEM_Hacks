@@ -12,15 +12,36 @@ import {
     CircleHelp,
     Send,
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+
+const logOut = async () => {
+    try {
+        await signOut(authInstance);
+        console.log("User logged out successfully");
+        router.push("/auth/login/email");
+        } catch (error) {
+        console.error("Error logging out:", error);
+        }
+    };
 
 export const Help = () => {
     return (
     <div className="flex min-h-screen flex-col bg-background text-foreground font-mono">
         <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
+            <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+            > 
             <Link href="/" className="text-2xl font-semibold" prefetch={false}>
-            CICERO
+                CICERO
             </Link>
+            </motion.div>
             <div className="flex items-center gap-1">
+            <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+            > 
             <Link
                 href="/homePage"
                 className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
@@ -29,6 +50,11 @@ export const Help = () => {
                 <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
                 Workspaces
             </Link>
+            </motion.div>
+            <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+            > 
             <Link
                 href="/flashcards"
                 className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
@@ -37,6 +63,11 @@ export const Help = () => {
                 <Layers3 className="h-5 w-5 mr-2"/>
                 Flashcards
             </Link>
+            </motion.div>
+            <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+            > 
             <Link
                 href="/helpPage"
                 className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
@@ -45,14 +76,24 @@ export const Help = () => {
                 <CircleHelp className="h-5 w-5 mr-2"/>
                 Help
             </Link>
+            </motion.div>
+            <motion.div 
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.9 }}  
+            > 
             <Link
                 href="#"
+                onClick={(e) => {
+                    e.preventDefault();
+                    logOut();
+                }}
                 className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
                 prefetch={false}
             >
                 <LogOut className="h-5 w-5 mr-2"/>
                 Log out
             </Link>
+            </motion.div>
             </div>
         </header>
         <main className="flex-1 px-4 py-8 sm:px-6 md:px-8 font-mono">
@@ -113,9 +154,9 @@ export const Help = () => {
                     <div>
                     <h3 className="text-lg font-semibold">How to Upload Documents</h3>
                         <p className="mt-2 text-muted-foreground">
-                            On the lower right of your workspace, there is a dropzone where you can drag and drop your study materials.
-                            Once the file loads, click "Upload" and within moments CICERO will analyze your materials and add it to its knowledge
-                            base. As of right now, CICERO can only accept PDF documents.
+                            When creating a workspace from the home tab, you can drag and drop your study materials.
+                            Once the file loads, click "Create New Workspace" and within moments CICERO will analyze your materials and add it to 
+                            its knowledge base. As of right now, CICERO can only accept PDF documents.
                         </p>
                     </div>
                 </li>
@@ -172,7 +213,7 @@ export const Help = () => {
                     <div>
                     <h3 className="text-lg font-semibold">Where to Find Flashcards</h3>
                     <p className="mt-2 text-muted-foreground">
-                        From your workspace, you can navigate to the <span className="font-bold text-white"> Flashcards </span> tab to 
+                        From your home page, you can navigate to the <span className="font-bold text-white"> Flashcards </span> tab to 
                         open the flashcards hub. From here, you can see your saved flashcard sets and the option to generate more.
                     </p>
                     </div>
@@ -184,50 +225,9 @@ export const Help = () => {
                     <div>
                     <h3 className="text-lg font-semibold">Generating Flashcards</h3>
                     <p className="mt-2 text-muted-foreground">
-                        When creating a new set, CICERO will <span className="font-bold text-white">only </span> use the knowledge of the 
-                        current workspace you're in. You can specify the content of the flashcards - (Ex: "Generate flashcards for all the
-                        keywords from Chapter 8"). You can also adjust the difficulty and the amount of flashcards to generate.
-                    </p>
-                    </div>
-                </li>
-                </ul>
-            </section>
-            <section>
-                <h2 className="text-2xl font-bold">Practice Tests</h2>
-                <ul className="mt-4 space-y-4">
-                <li className="flex items-start gap-4">
-                    <div className="flex-shrink-0 rounded-full bg-primary px-2 py-1 text-sm font-semibold text-black">
-                    1
-                    </div>
-                    <div>
-                    <h3 className="text-lg font-semibold">Where to Find Practice Tests</h3>
-                    <p className="mt-2 text-muted-foreground">
-                        From your workspace, you can navigate to the <span className="font-bold text-white"> Practice Tests </span> tab to 
-                        open the testing hub. From here, you can see your saved practice tests and the option to create more.
-                    </p>
-                    </div>
-                </li>
-                <li className="flex items-start gap-4">
-                    <div className="flex-shrink-0 rounded-full bg-primary px-2 py-1 text-sm font-semibold text-black">
-                    2
-                    </div>
-                    <div>
-                    <h3 className="text-lg font-semibold">Creating Pratice Tests</h3>
-                    <p className="mt-2 text-muted-foreground">
-                        Similar to flashcards, CICERO will <span className="font-bold text-white">only </span> use the knowledge of the 
-                        current workspace you're in. You can specify the content of the tests - (Ex: "Test me on integration from section 4.3").
-                    </p>
-                    </div>
-                </li>
-                <li className="flex items-start gap-4">
-                    <div className="flex-shrink-0 rounded-full bg-primary px-2 py-1 text-sm font-semibold text-black">
-                    2
-                    </div>
-                    <div>
-                    <h3 className="text-lg font-semibold">Test Settings</h3>
-                    <p className="mt-2 text-muted-foreground">
-                        You can select a difficulty for your tests and the amount of questions you want. You can also choose to have
-                        multiple choice, short answers, or both.
+                        When creating a new set, you can specify the content of the flashcards - (Ex: "Create a set of all the
+                        the most important concepts of String Theory"). You can also adjust the difficulty and the amount of 
+                        flashcards to generate.
                     </p>
                     </div>
                 </li>
@@ -279,9 +279,7 @@ export const Help = () => {
             <div className="mx-auto flex items-center justify-between">
                 <p>&copy; 2024 CICERO. All rights reserved.</p>
                 <nav className="flex items-center gap-4">
-                    <Link href="#" className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out" prefetch={false}>
-                    About Us
-                    </Link>
+                    
                 </nav>
             </div>
         </footer>
