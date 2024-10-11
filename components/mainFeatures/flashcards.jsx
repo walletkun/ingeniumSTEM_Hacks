@@ -20,7 +20,7 @@
     SquareChartGanttIcon,
     Layers3,
     CircleHelp,
-    Send,
+    Trash2,
     } from "lucide-react";
     import { motion } from "framer-motion";
     import { Label } from "@/components/ui/label";
@@ -29,8 +29,9 @@
     import FlashcardGenerator from "@/app/flashcard";
 
     //firebase imports
-    import { getAuth, onAuthStateChanged } from "firebase/auth";
+    import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
     import { auth } from "@/firebase";
+
 
     export const Flashcards = () => {
     const [difficulty, setDifficulty] = useState(3);
@@ -47,6 +48,17 @@
     const authInstance = getAuth();
     const searchParams = useSearchParams();
     const workspaceId = searchParams.get("workspaceId");
+    
+
+    const logOut = async () => {
+        try {
+            await signOut(authInstance);
+            console.log("User logged out successfully");
+            router.push("/auth/login/email");
+            } catch (error) {
+            console.error("Error logging out:", error);
+            }
+        };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(authInstance, (currentUser) => {
@@ -189,43 +201,72 @@
 
     return (
         <div className="flex flex-col min-h-screen bg-black text-gray-100 font-mono">
-        <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
-            <Link href="/" className="text-2xl font-semibold" prefetch={false}>
-            CICERO
-            </Link>
-            <div className="flex items-center gap-1">
-            <Link
-                href="/homePage"
-                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-                prefetch={false}
-            >
-                <SquareChartGanttIcon className="h-5 w-5 mr-2" />
-                Workspaces
-            </Link>
-            <Link
-                href="/flashcards"
-                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-                prefetch={false}
-            >
-                <Layers3 className="h-5 w-5 mr-2" />
-                Flashcards
-            </Link>
-            <Link
-                href="/helpPage"
-                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-                prefetch={false}
-            >
-                <CircleHelp className="h-5 w-5 mr-2" />
-                Help
-            </Link>
-            <Link
-                href="#"
-                className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-                prefetch={false}
-            >
-                <LogOut className="h-5 w-5 mr-2" />
-                Log out
-            </Link>
+            <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
+                <motion.div 
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.9 }}  
+                > 
+                <Link href="/" className="text-2xl font-semibold" prefetch={false}>
+                    CICERO
+                </Link>
+                </motion.div>
+                <div className="flex items-center gap-1">
+                <motion.div 
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.9 }}  
+                > 
+                <Link
+                    href="/homePage"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                >
+                    <SquareChartGanttIcon className="h-5 w-5 mr-2"/>
+                    Workspaces
+                </Link>
+                </motion.div>
+                <motion.div 
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.9 }}  
+                > 
+                <Link
+                    href="/flashcards"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                >
+                    <Layers3 className="h-5 w-5 mr-2"/>
+                    Flashcards
+                </Link>
+                </motion.div>
+                <motion.div 
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.9 }}  
+                > 
+                <Link
+                    href="/helpPage"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                >
+                    <CircleHelp className="h-5 w-5 mr-2"/>
+                    Help
+                </Link>
+                </motion.div>
+                <motion.div 
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.9 }}  
+                > 
+                <Link
+                    href="#"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        logOut();
+                    }}
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                >
+                    <LogOut className="h-5 w-5 mr-2"/>
+                    Log out
+                </Link>
+                </motion.div>
             </div>
         </header>
         <main className="flex-grow">
@@ -300,31 +341,39 @@
                 </DialogContent>
             </Dialog>
             </div>
+
             {/*User's personal flashcard sets */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-8 rounded-lg">
-            {/* <h2 className="text-2xl font-bold ml-8 mb-4 inline-flex aboslu">Personal Flashcard Sets</h2> */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 md:px-8">
             {userFlashcardSets.length > 0 ? (
                 userFlashcardSets.map((set) => (
                 <motion.div
                     whileHover={{ scale: 1.07 }}
                     whileTap={{ scale: 0.9 }}
+                    key={set.id}
                 >
-                    <Card
-                        key={set.id}
-                        className="bg-[#222] hover:bg-primary"
+                    <div className="bg-[#222] rounded-lg p-6 hover:bg-primary transition-colors flex flex-col justify-between relative h-[140px]">
+                    <div className="absolute top-6 right-2">
+                        <Button className="hover:bg-[#e0857d] bg-transparent left-[-36px] absolute bottom-[-21px] rounded-lg p-2">
+                            <Trash2 className="w-5 h-5" />
+                        </Button>
+                    </div>
+                    <h3 className="text-xl font-bold break-words flex-grow" style={{ maxWidth: '250px' }}>
+                        {set.title || "Untitled Set"}
+                    </h3>
+                    <p>Cards: {set.flashcards ? set.flashcards.length : "N/A"}</p>
+                    <p>Difficulty: {set.flashcardDifficulty || "N/A"}/5</p>
+
+                    {/* Navigation Button for ArrowRightIcon */}
+                    <div className="absolute bottom-3 right-2">
+                        <Button
                         onClick={() => navigateToFlashcardSet(set.id)}
-                    >
-                        <CardHeader>
-                        <CardTitle>{set.title || "Untitled Set"}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                        <p>Cards: {set.flashcards ? set.flashcards.length : "N/A"}</p>
-                        <p>Difficulty: {set.flashcardDifficulty || "N/A"}/5</p>
-                        <div className="absolute bottom-4 right-4">
-                            <ArrowRightIcon className="w-5 h-5" />
-                        </div>
-                        </CardContent>
-                    </Card>
+                        className="hover:bg-[#e0857d] rounded-lg p-2 bg-inherit"
+                        prefetch={false}
+                        >
+                        <ArrowRightIcon className="w-5 h-5" />
+                        </Button>
+                    </div>
+                    </div>
                 </motion.div>
                 ))
             ) : (
@@ -334,17 +383,17 @@
             )}
             </div>
 
+
             {/*Workspace flashcard sets */}
             {workspaceId && (
             <div>
                 <h2 className="text-2xl font-bold ml-8 mb-4">
                 Your Workspace Sets
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-8 rounded-lg">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-12 rounded-lg">
                 {workspaceFlashcardSets.length > 0 ? (
                     workspaceFlashcardSets.map((set) => (
                     <motion.div
-                        key={set.id}
                         whileHover={{ scale: 1.07 }}
                         whileTap={{ scale: 0.9 }}
                     >
@@ -362,10 +411,11 @@
                             <p>Difficulty: {set.flashcardDifficulty || "N/A"}/5</p>
                         </CardContent>
                         <div 
-                            className="absolute bottom-4 right-4 cursor-pointer"
-                            onClick={() => navigateToFlashcardSet(set.id, true)}
+                            key={set.id}
+                            className="absolute bottom-4 right-4"
+                            onClick={() => navigateToFlashcardSet(set.id, true)}    
                         >
-                            <ArrowRightIcon className="w-5 h-5" />
+                            <ArrowRightIcon className="w-3 h-3" />
                         </div>
                         </Card>
                     </motion.div>
@@ -385,13 +435,7 @@
             <div className="mx-auto flex items-center justify-between">
             <p>&copy; 2024 CICERO. All rights reserved.</p>
             <nav className="flex items-center gap-4">
-                <Link
-                href="#"
-                className="hover:text-[#f0f0f0] transition-colors duration-300 ease-in-out"
-                prefetch={false}
-                >
-                About Us
-                </Link>
+                
             </nav>
             </div>
         </footer>
