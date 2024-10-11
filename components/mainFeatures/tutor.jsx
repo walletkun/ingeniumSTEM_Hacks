@@ -1,4 +1,8 @@
 "use client";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -228,6 +232,40 @@ export const Tutor = ({ workspaceTitle }) => {
     }
   };
 
+<<<<<<< HEAD
+=======
+  // update chat history based on the user id and their workspace title
+  useEffect(() => {
+    fetchChatHistory();
+  }, [userId, workspaceTitle]);
+
+
+  // handle "enter" key click
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      // Check if the key is "Enter" and no modifiers (like Shift) are pressed
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault(); // Prevent default Enter key behavior
+        sendMessage();
+      }
+    };
+  
+    // Add the event listener to the input or text area specifically
+    const inputElement = document.getElementById('inputField'); // Or the id of your input
+    if (inputElement) {
+      inputElement.addEventListener('keydown', handleKeyPress);
+    }
+  
+    // Clean up the event listener on unmount
+    return () => {
+      if (inputElement) {
+        inputElement.removeEventListener('keydown', handleKeyPress);
+      }
+    };
+  }, [sendMessage]); 
+
+
+>>>>>>> e6d33712ac49b6268065a9a6146f7cb2622fa159
   return (
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
       <div className="hidden w-[260px] flex-col bg-secondary p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
@@ -325,7 +363,47 @@ export const Tutor = ({ workspaceTitle }) => {
                     message.role === "system" ? "bg-muted" : "bg-secondary"
                   }`}
                 >
-                  <p>{message.content || "Start conversation..."}</p>
+                  {message.role === "system" ? (
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        code({node, inline, className, children, ...props}) {
+                          const match = /language-(\w+)/.exec(className || '')
+                          return !inline && match ? (
+                            <SyntaxHighlighter
+                              style={vscDarkPlus}
+                              language={match[1]}
+                              PreTag="div"
+                              {...props}
+                            >
+                              {String(children).replace(/\n$/, '')}
+                            </SyntaxHighlighter>
+                          ) : (
+                            <code 
+                              className={`${inline ? 'bg-[#3a3a3a] text-[#e6e6e6] px-1 rounded' : ''} ${className}`} 
+                              {...props}
+                            >
+                              {children}
+                            </code>
+                          )
+                        },
+                        ul({node, ...props}) {
+                          return <ul className="list-disc pl-4 my-2" {...props} />
+                        },
+                        ol({node, ...props}) {
+                          return <ol className="list-decimal pl-4 my-2" {...props} />
+                        },
+                        li({node, ...props}) {
+                          return <li className="my-1" {...props} />
+                        }
+                      }}
+                      className="markdown-content"
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  ) : (
+                    <p>{message.content || "Start conversation..."}</p>
+                  )}
                 </div>
               </div>
             ))}
@@ -338,6 +416,11 @@ export const Tutor = ({ workspaceTitle }) => {
             <Input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !isLoading) {
+                  sendMessage();
+                }
+              }}
               placeholder="Type your message..."
               disabled={isLoading}
               className="min-h-[48px] rounded-full resize-none p-4 shadow-sm pr-16 bg-muted"
