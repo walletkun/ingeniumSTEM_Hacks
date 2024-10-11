@@ -315,7 +315,7 @@ export const HomePage = () => {
         </div>
 
         {workspaces.length === 0 ? (
-          <div className="flex flex-col items-center justify-center mt-40   ">
+          <div className="flex flex-col items-center justify-center mt-40">
             <SearchX className="h-10 w-10 mb-5" />
             <h1 className="text-2xl font-bold">Looks empty in here...</h1>
           </div>

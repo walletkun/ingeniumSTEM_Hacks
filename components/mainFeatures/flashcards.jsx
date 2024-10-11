@@ -15,7 +15,6 @@
     import {
     ArrowRightIcon,
     SearchX,
-    AppWindow,
     LogOut,
     SquareChartGanttIcon,
     Layers3,
@@ -342,10 +341,15 @@
             </Dialog>
             </div>
 
-            {/*User's personal flashcard sets */}
+            {/* User's personal flashcard sets */}
+            {userFlashcardSets.length === 0 ? (
+            <div className="flex flex-col items-center justify-center mt-40">
+                <SearchX className="h-10 w-10 mb-5" />
+                <h1 className="text-2xl font-bold">Looks empty in here...</h1>
+            </div>
+            ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 md:px-8">
-            {userFlashcardSets.length > 0 ? (
-                userFlashcardSets.map((set) => (
+                {userFlashcardSets.map((set) => (
                 <motion.div
                     whileHover={{ scale: 1.07 }}
                     whileTap={{ scale: 0.9 }}
@@ -354,7 +358,7 @@
                     <div className="bg-[#222] rounded-lg p-6 hover:bg-primary transition-colors flex flex-col justify-between relative h-[140px]">
                     <div className="absolute top-6 right-2">
                         <Button className="hover:bg-[#e0857d] bg-transparent left-[-36px] absolute bottom-[-21px] rounded-lg p-2">
-                            <Trash2 className="w-5 h-5" />
+                        <Trash2 className="w-5 h-5" />
                         </Button>
                     </div>
                     <h3 className="text-xl font-bold break-words flex-grow" style={{ maxWidth: '250px' }}>
@@ -362,7 +366,6 @@
                     </h3>
                     <p>Cards: {set.flashcards ? set.flashcards.length : "N/A"}</p>
                     <p>Difficulty: {set.flashcardDifficulty || "N/A"}/5</p>
-
                     {/* Navigation Button for ArrowRightIcon */}
                     <div className="absolute bottom-3 right-2">
                         <Button
@@ -375,13 +378,9 @@
                     </div>
                     </div>
                 </motion.div>
-                ))
-            ) : (
-                <div className="col-span-3 text-center">
-                No flashcard sets found. Create a new set to get started!
-                </div>
-            )}
+                ))}
             </div>
+            )}
 
 
             {/*Workspace flashcard sets */}
