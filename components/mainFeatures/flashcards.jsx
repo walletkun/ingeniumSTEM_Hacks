@@ -344,13 +344,12 @@
                 {workspaceFlashcardSets.length > 0 ? (
                     workspaceFlashcardSets.map((set) => (
                     <motion.div
+                        key={set.id}
                         whileHover={{ scale: 1.07 }}
                         whileTap={{ scale: 0.9 }}
                     >
                         <Card
-                        key={set.id}
-                        className="bg-[#222] hover:bg-primary"
-                        onClick={() => navigateToFlashcardSet(set.id, true)}
+                        className="bg-[#222] hover:bg-primary relative"
                         >
                         <CardHeader>
                             <CardTitle>{set.title || "Untitled Set"}</CardTitle>
@@ -362,7 +361,10 @@
                             </p>
                             <p>Difficulty: {set.flashcardDifficulty || "N/A"}/5</p>
                         </CardContent>
-                        <div className="absolute bottom-4 right-4">
+                        <div 
+                            className="absolute bottom-4 right-4 cursor-pointer"
+                            onClick={() => navigateToFlashcardSet(set.id, true)}
+                        >
                             <ArrowRightIcon className="w-5 h-5" />
                         </div>
                         </Card>

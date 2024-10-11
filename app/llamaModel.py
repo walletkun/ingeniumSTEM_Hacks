@@ -2,14 +2,14 @@ import json
 import sys
 import os
 from groq import Groq
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 
 # Load environment variables
-# api_key = os.getenv('GROQ_API_KEY')
+api_key = os.getenv('GROQ_API_KEY')
 
 # Initialize Groq client with API key
-client = Groq(api_key="")
+client = Groq(api_key=api_key)
 
 # Chunk class definition
 class Chunk:
