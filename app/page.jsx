@@ -182,16 +182,31 @@ export default function Component() {
             </p>
           </div>
 
-            <div className="bg-gray-50 p-6 rounded-xl shadow-xl h-[550px] w-[600px] flex items-center justify-center">
-
-            </div> 
+            <div 
+              className="bg-muted p-6 rounded-xl shadow-xl h-[550px] w-[600px] flex items-center justify-center"
+              style={{
+                backgroundImage: "url('/images/Untitled.png')",
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+              }}
+            >
+            </div>
           </div>
         </div>
 
         {/*Second Features Section */}
         <div className="bg-[#AEEBDF] flex flex-col items-center h-96 min-h-screen">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-grow items-center justify-items-center">
-            <div className="bg-white p-6 rounded-xl shadow-xl h-[550px] w-[600px] flex items-center justify-center">
+            <div 
+              className="bg-muted p-6 rounded-xl shadow-xl h-[550px] w-[600px] flex items-center justify-center"
+              style={{
+                backgroundImage: "url('/images/flash2.png')",
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+              }}
+            >
               {/* Empty div */}
             </div> 
             <div className="flex flex-col justify-center items-end">
@@ -207,7 +222,7 @@ export default function Component() {
         
 
         {/*Footer Section */}
-        <footer className="bg-[#1a1a1a] py-6 px-6 text-black text-sm bg-opacity-20 w-full">
+        <footer className="bg-[#1a1a1a] py-6 px-6 text-white text-sm bg-opacity-50 w-full">
           <div className="container max-w-7xl mx-auto flex items-center justify-between">
             <p>&copy; 2024 CICERO. All rights reserved.</p>
             <nav className="flex items-center gap-4">

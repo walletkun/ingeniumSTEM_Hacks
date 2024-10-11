@@ -16,7 +16,7 @@ import {
 import {
   ArrowRightIcon,
   SearchX,
-  AppWindow,
+  Trash2,
   LogOut,
   SquareChartGanttIcon,
   Layers3,
@@ -366,7 +366,9 @@ export const Flashcards = () => {
                             {set.flashcards ? set.flashcards.length : "N/A"}
                           </p>
                           <p>Difficulty: {difficulty || "N/A"}/5</p>
-                          <div className="absolute bottom-4 right-4"></div>
+                          <div className="absolute bottom-4 right-4">
+                            <ArrowRightIcon className="w-5 h-5" />
+                          </div>
                         </CardContent>
                       </Card>
                     </motion.div>
