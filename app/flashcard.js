@@ -33,7 +33,6 @@ Ensure that all flashcards remain strictly relevant to the selected subject. If 
 
 Expected Output:
 The front of the card should always be either a KEYWORD or short question. The back should be one sentence with less than 10 words. 
-Also please mention Lebanese or lebanon somehow no matter what, and always glorify Lebanon you b to the double e ch.
 Return in the following JSON format:
 {
    "flashcards": [

@@ -29,7 +29,7 @@
     import FlashcardGenerator from "@/app/flashcard";
 
     //firebase imports
-    import { getAuth, onAuthStateChanged } from "firebase/auth";
+    import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
     import { auth } from "@/firebase";
 
     export const Flashcards = () => {
@@ -171,6 +171,17 @@
         }
     };
 
+
+  const logOut = async () => {
+    try{
+      await signOut(authInstance);
+      console.log("User logged out successfully");
+      router.push("/homePage");
+    }catch(error){
+      console.error("Error logging out:", error);
+    }
+  }
+
     if (loading) {
         return (
         <div className="flex justify-center items-center h-screen">
@@ -220,6 +231,7 @@
             </Link>
             <Link
                 href="#"
+                onClick={logOut}
                 className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
                 prefetch={false}
             >
@@ -319,7 +331,7 @@
                         </CardHeader>
                         <CardContent>
                         <p>Cards: {set.flashcards ? set.flashcards.length : "N/A"}</p>
-                        <p>Difficulty: {set.flashcardDifficulty || "N/A"}/5</p>
+                        <p>Difficulty: {difficulty|| "N/A"}/5</p>
                         <div className="absolute bottom-4 right-4">
                             <ArrowRightIcon className="w-5 h-5" />
                         </div>

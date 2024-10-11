@@ -166,7 +166,7 @@ export const HomePage = () => {
     try{
       await signOut(authInstance);
       console.log("User logged out successfully");
-      router.push("/auth/login/email");
+      router.push("/homePage");
     }catch(error){
       console.error("Error logging out:", error);
     }

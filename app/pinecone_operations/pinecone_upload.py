@@ -31,7 +31,7 @@ pinecone_env = os.getenv('PINECONE_ENVIRONMENT')
 openai_api_key = os.getenv('OPENAI_APIKEY')
 
 # Initialize Pinecone client and openAI for embedding.
-pc = Pinecone(api_key="")
+pc = Pinecone(api_key=pinecone_api_key)
 
 # Define Pinecone index name.
 index_name = "ai-tutor-index" 
