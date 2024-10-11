@@ -20,7 +20,8 @@ const openaiClient = new OpenAI({
 // Initialize Pinecone
 const pinecone = new Pinecone({
   // For now hardcode apiKey.
-  apiKey: "",
+  apiKey: ""
+,
 
 });
 

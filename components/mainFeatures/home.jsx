@@ -368,7 +368,6 @@ export const HomePage = () => {
         <div className="mx-auto flex items-center justify-between">
           <p>&copy; 2024 CICERO. All rights reserved.</p>
           <nav className="flex items-center gap-4">
-            
           </nav>
         </div>
       </footer>

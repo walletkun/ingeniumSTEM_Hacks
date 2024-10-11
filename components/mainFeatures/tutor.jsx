@@ -7,22 +7,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import {
-  DropdownMenu,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import {
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-} from "../ui/dropdown-menu";
 import {
   AppWindow,
   LogOut,
@@ -32,7 +19,6 @@ import {
   Send,
 } from "lucide-react";
 
-//Firebase used for client operation
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 
@@ -43,6 +29,7 @@ export const Tutor = ({ workspaceTitle }) => {
   const [userId, setUserId] = useState(null);
   const [conversations, setConversations] = useState([]);
   const [conversationId, setConversationId] = useState(null);
+  const [isCreatingConversation, setIsCreatingConversation] = useState(false);
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
   const router = useRouter();
@@ -59,20 +46,89 @@ export const Tutor = ({ workspaceTitle }) => {
       setIsLoading(false);
     });
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, [authInstance, router]);
 
   useEffect(() => {
-    console.log(
-      "Tutor component rendered with workspaceTitle:",
-      workspaceTitle
-    );
+    console.log("Tutor component rendered with workspaceTitle:", workspaceTitle);
   }, [workspaceTitle]);
+
+  const selectConversation = useCallback(async (selectedConversationId) => {
+    console.log("Selecting conversation:", selectedConversationId);
+    setConversationId(selectedConversationId);
+    try {
+      const token = await authInstance.currentUser.getIdToken();
+      const response = await fetch(
+        `/api/chats?title=${encodeURIComponent(workspaceTitle)}&conversationId=${selectedConversationId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to fetch conversation messages");
+
+      const data = await response.json();
+      setMessages(data.messages);
+    } catch (error) {
+      console.error("Error fetching conversation messages:", error);
+    }
+  }, [authInstance, workspaceTitle]);
+
+  const createNewConversation = useCallback(async () => {
+    if (isCreatingConversation) {
+      console.log("Already creating a conversation, skipping");
+      return;
+    }
+    setIsCreatingConversation(true);
+    console.log("Creating new conversation");
+    try {
+      setIsLoading(true);
+      const token = await authInstance.currentUser.getIdToken();
+      const response = await fetch("/api/chats/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          message: `I am CICERO. Welcome to ${workspaceTitle}. How can I help you today?`,
+          workspaceTitle: workspaceTitle,
+          isNewConversation: true 
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Network response was not ok: ${errorData.error}`);
+      }
+
+      const newConversationId = response.headers.get("X-Conversation-Id");
+      const newConversationTitle = response.headers.get("X-Conversation-Title");
+      if (newConversationId) {
+        const newConversation = {
+          id: newConversationId,
+          title: newConversationTitle || `New Chat ${Date.now()}`,
+          createdAt: new Date().toISOString(),
+        };
+
+        setConversations(prev => [newConversation, ...prev]);
+        setConversationId(newConversationId);
+        await selectConversation(newConversationId);
+      }
+    } catch (error) {
+      console.error("Error creating new conversation:", error);
+    } finally {
+      setIsLoading(false);
+      setIsCreatingConversation(false);
+    }
+  }, [authInstance, workspaceTitle, selectConversation, isCreatingConversation]);
 
   const fetchChatHistory = useCallback(async () => {
     if (!userId || !workspaceTitle) return;
 
+    console.log("Fetching chat history");
     try {
       setIsLoading(true);
       const token = await authInstance.currentUser.getIdToken();
@@ -88,102 +144,31 @@ export const Tutor = ({ workspaceTitle }) => {
       if (!response.ok) throw new Error("Failed to fetch conversations");
 
       const data = await response.json();
-      setConversations(data.conversations);
+      console.log("Fetched conversations:", data.conversations);
 
-      // If no conversation is selected and we have conversations, select the most recent one
-      if (!conversationId && data.conversations.length > 0) {
-        const mostRecentConversation = data.conversations.reduce(
-          (prev, current) =>
-            prev.createdAt > current.createdAt ? prev : current
-        );
+      setConversations(data.conversations || []);
+
+      if (data.conversations.length === 0) {
+        console.log("No conversations found, creating a new one");
+        await createNewConversation();
+      } else if (!conversationId) {
+        console.log("Selecting most recent conversation");
+        const mostRecentConversation = data.conversations[0];
         selectConversation(mostRecentConversation.id);
       }
-
-      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching conversations:", error);
-      setIsLoading(false);
-    }
-  }, [userId, workspaceTitle, authInstance, conversationId]);
-
-  const selectConversation = useCallback(
-    async (selectedConversationId) => {
-      setConversationId(selectedConversationId);
-      try {
-        const token = await authInstance.currentUser.getIdToken();
-        const response = await fetch(
-          `/api/chats?title=${encodeURIComponent(
-            workspaceTitle
-          )}&conversationId=${selectedConversationId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok)
-          throw new Error("Failed to fetch conversation messages");
-
-        const data = await response.json();
-        setMessages(data.messages);
-      } catch (error) {
-        console.error("Error fetching conversation messages:", error);
-      }
-    },
-    [authInstance, workspaceTitle]
-  );
-
-  //Creating new conversation
-  
-  const createNewConversation = async () => {
-    try {
-      setIsLoading(true);
-      const token = await authInstance.currentUser.getIdToken();
-      const response = await fetch("/api/chats/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          message: `This is ${workspaceTitle}`,
-          workspaceTitle: workspaceTitle,
-          isNewConversation: true // Add this flag
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Network response was not ok: ${errorData.error}`);
-      }
-
-      const newConversationId = response.headers.get("X-Conversation-Id");
-      const newConversationTitle = response.headers.get("X-Conversation-Title");
-      if (newConversationId) {
-        const newConversation = {
-          id: newConversationId,
-          title: newConversationTitle || `New Chat ${Date.now()}`,
-          createdAt: new Date().toISOString(), // Fix: Use new Date().toISOString()
-        };
-
-        setConversations((prevConversations) => [
-          newConversation,
-          ...prevConversations,
-        ]);
-        setConversationId(newConversationId);
-
-        // Fetch messages for the new conversation
-        await selectConversation(newConversationId);
-      }
-    } catch (error) {
-      console.error("Error creating new conversation:", error);
-      // Consider adding user-facing error handling here
+      setConversations([]);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [userId, workspaceTitle, authInstance, conversationId, selectConversation, createNewConversation]);
 
+  useEffect(() => {
+    if (userId && workspaceTitle) {
+      fetchChatHistory();
+    }
+  }, [userId, workspaceTitle, fetchChatHistory]);
 
   const logOut = async () => {
     try {
@@ -194,18 +179,11 @@ export const Tutor = ({ workspaceTitle }) => {
       console.error("Error logging out:", error);
     }
   };
-  useEffect(() => {
-    if (userId && workspaceTitle) {
-      fetchChatHistory();
-    }
-  }, [userId, workspaceTitle, fetchChatHistory]);
 
-  // automatically scroll to the most recent message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // sends message to openai on click
   const sendMessage = async () => {
     if (!message.trim() || isLoading || !workspaceTitle || !conversationId) return;
     const userMessage = { role: "user", content: message };
@@ -228,18 +206,12 @@ export const Tutor = ({ workspaceTitle }) => {
         }),
       });
 
-      // Extract the conversation ID from the response headers
-      const newConversationId = response.headers.get("X-Conversation-Id");
-      if (newConversationId) {
-        setConversationId(newConversationId);
-        console.log("New or existing conversation ID:", newConversationId);
-      }
-
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error response:", errorData);
         throw new Error(`Network response was not ok: ${errorData.error}`);
       }
+
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let result = "";
@@ -256,9 +228,9 @@ export const Tutor = ({ workspaceTitle }) => {
       ]);
     } catch (error) {
       console.error("Error sending message:", error);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   // update chat history based on the user id and their workspace title
@@ -294,7 +266,6 @@ export const Tutor = ({ workspaceTitle }) => {
 
   return (
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
-      {/*Saved Chats Sidebar */}
       <div className="hidden w-[260px] flex-col bg-secondary p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
   <div className="flex items-center justify-between mb-4">
     <h3 className="text-lg font-semibold">Chat Sessions</h3>
@@ -332,7 +303,6 @@ export const Tutor = ({ workspaceTitle }) => {
 
 
       <div className="flex flex-1 flex-col">
-        {/*Chat Screen Navbar */}
         <header className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 bg-[#202020]">
           <h3 className="text-sm font-semibold flex ml-3 items-center leading-none">
             Workspace:{" "}
@@ -400,7 +370,6 @@ export const Tutor = ({ workspaceTitle }) => {
           </div>
         </header>
 
-        {/*Main Chat Screen */}
         <div className="flex-1 overflow-auto p-4 md:p-6 bg-[#202020]">
           <ScrollArea>
             {messages.map((message, index) => (
@@ -463,7 +432,6 @@ export const Tutor = ({ workspaceTitle }) => {
           </ScrollArea>
         </div>
 
-        {/*Textfield */}
         <div className="sticky bottom-0 bg-[#202020] px-4 py-0 md:px-6">
           <div className="relative mb-7">
             <Input
@@ -494,29 +462,6 @@ export const Tutor = ({ workspaceTitle }) => {
   );
 };
 
-{
-  /*Icon Functions */
-}
-function MenuIcon(props) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25"
-      />
-    </svg>
-  );
-}
-
 function PlusIcon(props) {
   return (
     <svg
@@ -533,26 +478,6 @@ function PlusIcon(props) {
     >
       <path d="M5 12h14" />
       <path d="M12 5v14" />
-    </svg>
-  );
-}
-
-function SendIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m22 2-7 20-4-9-9-4Z" />
-      <path d="M22 2 11 13" />
     </svg>
   );
 }
