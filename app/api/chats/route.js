@@ -81,7 +81,11 @@ export async function GET(req) {
         createdAt: doc.data().createdAt
       }));
 
-      console.log("Retrieved", conversations.length, "conversations");
+      console.log("Retrieved", conversations.length, "conversations for workspace:", workspaceTitle);
+      // Log the IDs of the first few conversations (up to 5) for debugging
+      conversations.slice(0, 5).forEach((conv, index) => {
+        console.log(`Conversation ${index + 1} ID:`, conv.id);
+      });
 
       return NextResponse.json({ conversations });
     }

@@ -18,6 +18,8 @@ import {
   Send,
 } from "lucide-react";
 
+import TypingIndicator from "./TypingIndicator";
+
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 
@@ -29,6 +31,7 @@ export const Tutor = ({ workspaceTitle }) => {
   const [conversations, setConversations] = useState([]);
   const [conversationId, setConversationId] = useState(null);
   const [isCreatingConversation, setIsCreatingConversation] = useState(false);
+  const [isAiResponding, setIsAiResponding] = useState(false);
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
   const router = useRouter();
@@ -188,6 +191,7 @@ export const Tutor = ({ workspaceTitle }) => {
     const userMessage = { role: "user", content: message };
     setMessage("");
     setIsLoading(true);
+    setIsAiResponding(true);
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
     try {
@@ -229,11 +233,10 @@ export const Tutor = ({ workspaceTitle }) => {
       console.error("Error sending message:", error);
     } finally {
       setIsLoading(false);
+      setIsAiResponding(false);
     }
   };
 
-<<<<<<< HEAD
-=======
   // update chat history based on the user id and their workspace title
   useEffect(() => {
     fetchChatHistory();
@@ -265,7 +268,6 @@ export const Tutor = ({ workspaceTitle }) => {
   }, [sendMessage]); 
 
 
->>>>>>> e6d33712ac49b6268065a9a6146f7cb2622fa159
   return (
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
       <div className="hidden w-[260px] flex-col bg-secondary p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
@@ -407,6 +409,11 @@ export const Tutor = ({ workspaceTitle }) => {
                 </div>
               </div>
             ))}
+            {isAiResponding && (
+              <div className="flex justify-start">
+                <TypingIndicator />
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </ScrollArea>
         </div>

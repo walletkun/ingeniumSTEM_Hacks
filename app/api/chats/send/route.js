@@ -21,7 +21,7 @@ export async function POST(req) {
   try {
     const { message, workspaceTitle, conversationId, isNewConversation } =
       await req.json();
-    console.log("Received conversationId:", conversationId);
+    console.log("Received request:", message, workspaceTitle, conversationId, isNewConversation);
     const authHeader = req.headers.get("authorization");
     const token =
       authHeader && authHeader.startsWith("Bearer ")
@@ -67,10 +67,24 @@ export async function POST(req) {
 
     // Get the workspace id that we're in
     const workspaceId = workspaceSnapshot.docs[0].id;
-
+    
     //Refernce to the conversation document
     let conversationRef;
-    if (conversationId) {
+    let isActuallyNewConversation = false;
+
+    if (isNewConversation) {
+      // Always create a new conversation when isNewConversation is true
+      conversationRef = db
+        .collection("users")
+        .doc(userId)
+        .collection("workspaces")
+        .doc(workspaceId)
+        .collection("conversations")
+        .doc();
+      isActuallyNewConversation = true;
+      console.log("Creating new conversation:", conversationRef.id);
+    } else if (conversationId) {
+      // Use existing conversation if conversationId is provided
       conversationRef = db
         .collection("users")
         .doc(userId)
@@ -80,20 +94,12 @@ export async function POST(req) {
         .doc(conversationId);
       console.log("Using existing conversation:", conversationId);
     } else {
-      conversationRef = db
-        .collection("users")
-        .doc(userId)
-        .collection("workspaces")
-        .doc(workspaceId)
-        .collection("conversations")
-        .doc();
-      console.log("Using existing conversation:", conversationId);
+      // If neither isNewConversation nor conversationId is provided, return an error
+      return NextResponse.json({ error: "Must provide conversationId or set isNewConversation to true" }, { status: 400 });
     }
 
-    //Get the current conversation or create it if it does not exist
-    const conversationDoc = await conversationRef.get();
     let messages = [];
-    if (isNewConversation) {
+    if (isActuallyNewConversation) {
       const welcomeMessage = {
         role: "system",
         content: `Welcome to: ${workspaceTitle}! Shall we get started?`,
@@ -105,22 +111,24 @@ export async function POST(req) {
         createdAt: Date.now(),
         messages: messages,
       });
-      console.log("Creating new conversation");
     } else {
       const conversationDoc = await conversationRef.get();
       if (conversationDoc.exists) {
         messages = conversationDoc.data().messages || [];
+      } else {
+        return NextResponse.json({ error: "Conversation not found" }, { status: 404 });
       }
-      if (message) {
-        const userMessage = {
-          role: "user",
-          content: message,
-          timestamp: Date.now(),
-        };
-        messages.push(userMessage);
-      }
-      console.log("Using existing conversation:", conversationId);
     }
+
+    if (message) {
+      const userMessage = {
+        role: "user",
+        content: message,
+        timestamp: Date.now(),
+      };
+      messages.push(userMessage);
+    }
+
 
     //Update the conversation document
     await conversationRef.set({ messages }, { merge: true });

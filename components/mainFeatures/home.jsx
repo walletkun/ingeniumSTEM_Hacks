@@ -27,7 +27,7 @@ import {
   Pencil,
   Trash2,
 } from "lucide-react";
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -54,6 +54,9 @@ export const HomePage = () => {
   const [fileProcessingStatus, setFileProcessingStatus] = useState("");
 
 
+  const [showContent, setShowContent] = useState(false);
+
+
   //Router
   const router = useRouter();
   useEffect(() => {
@@ -63,7 +66,11 @@ export const HomePage = () => {
         currentUser ? currentUser.uid : "not logged in"
       );
       setUser(currentUser);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+        // Additional delay before showing content
+        setTimeout(() => setShowContent(true), 3000);
+      }, 3000); 
     });
     return () => unsubscribe();
   }, [authInstance]);
@@ -183,7 +190,19 @@ export const HomePage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen bg-black">
+        <motion.div
+          animate={{
+            scale: [1, 2, 2, 1, 1],
+            rotate: [0, 0, 270, 270, 0],
+            borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+          }}
+          transition={{ duration: 3, repeat: Infinity }}
+          className="w-16 h-16 bg-primary"
+        />
+      </div>
+    );
   }
 
   if (error) {
@@ -195,6 +214,15 @@ export const HomePage = () => {
   }
 
   return (
+  <AnimatePresence>
+    {showContent && (
+        <motion.div 
+        initial={{ opacity: 0.5 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col min-h-screen bg-black text-[#f0f0f0] font-mono"
+      >
     <div className="flex flex-col min-h-screen bg-black text-[#f0f0f0] font-mono">
       <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
         <Link href="/" className="text-2xl font-semibold" prefetch={false}>
@@ -282,11 +310,11 @@ export const HomePage = () => {
                 >
                   {isCreating ? "Creating..." : "Create Workspace"}
                 </Button>
-                {fileProcessingStatus && (
+                {/* {fileProcessingStatus && (
                   <p className="text-sm text-gray-400 mt-2">
                     {fileProcessingStatus}
                   </p>
-                )}
+                )} */}
                 </motion.div>
               </div>
             </DialogContent>
@@ -358,5 +386,8 @@ export const HomePage = () => {
         </div>
       </footer>
     </div>
+    </motion.div>
+  )}
+    </AnimatePresence>
   );
 };
