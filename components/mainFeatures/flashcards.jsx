@@ -16,7 +16,7 @@ import {
 import {
   ArrowRightIcon,
   SearchX,
-  AppWindow,
+  Trash2,
   LogOut,
   SquareChartGanttIcon,
   Layers3,
