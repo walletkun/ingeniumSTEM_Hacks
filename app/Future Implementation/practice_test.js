@@ -7,8 +7,8 @@
     Gets JSON format test from openAI and returns JSON.
 */
 // React module and pinecone/openAI imports in ES module format.
-import { queryPinecone } from './pinecone_operations/pinecone_retrieve.js';
-import OpenAITutor from './openaiTutor.js';
+import { queryPinecone } from '../pinecone_operations/pinecone_retrieve.js';
+import OpenAITutor from '../openaiTutor.js';
 
 // Constant string 'systemMessage' for practice test generation in openAI.
 const systemMessage = `

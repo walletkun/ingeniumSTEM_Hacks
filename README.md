@@ -1,5 +1,5 @@
 # **Cicero**
-## *The AI Tutor Redifining Learning and Revolutionizing the Way You Learn*
+## *The AI Tutor Redifining Education and Revolutionizing the Way You Learn*
 
 ## A Brief Overview
 
@@ -14,25 +14,23 @@ Their activities and information are stored in Firebase to ensure data consisten
 
 Cicero empowers learners by combining the strengths of multiple AI models, creating a truly adaptive and contextually aware learning environment.
 
-This Project was developed for the Ingenium STEM Hackathon of 2024 
-[Devpost Hackathon Link](https://ingenium-stem-2.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open).
-Ingenium Summer Hacks 2.0 challenged participants to create innovative and impactful projects leveraging AI to address various aspects of social good.
+## Ingenium STEM Hackathon
+
+This Project was developed for the [Ingenium STEM Hackathon of 2024 ](https://ingenium-stem-2.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open).
+Ingenium Summer Hacks 2.0 challenged participants to create innovative and impactful projects leveraging AI to address various aspects of social good. 
+Personalized tutoring can lead to better learning outcomes, however many cannot afford its costs. 
 We believe that using artificial intelligence to make education more accessible and personalized can empower learners of all backgrounds, enabling them to reach their full potential. Our AI tutor aims to bridge the gap between learners and educational resources, providing tailored guidance and interactive learning experiences.
 
 ## About The Developers:
 
-**Mohammad Najm** is a software engineer with a passion for leveraging technology to create innovative solutions. With interests in artificial intelligence and software development, Mohammad has worked on various projects aimed at improving accessibility and enhancing user experiences. He continues to explore new technologies and expand his skills, focusing on building impactful tools that address real-world challenges.
-[Mohammad LinkedIn](www.linkedin.com/in/Mohammad-Najm)
-[Mohammad Github] (https://github.com/Mnajm6201)
+**Mohammad Najm** is a software engineer with a passion for leveraging technology to create innovative solutions. With interests in artificial intelligence and software development, Mohammad has worked on various projects aimed at improving accessibility and enhancing user experiences. He continues to explore new technologies and expand his skills, focusing on building impactful tools that address real-world challenges. View
+[Mohammad's LinkedIn](www.linkedin.com/in/Mohammad-Najm) and his 
+[Github](https://github.com/Mnajm6201)
 
-**Fei Lin** is a software engineer specializing in full stack development with a focus on integrating artificial intelligence into dynamic, scalable systems. With experience in both front-end and back-end technologies, Fei is dedicated to building seamless, intelligent solutions that address real-world challenges. Currently, Fei is expanding his skills and aiming to secure a software engineering internship for the upcoming summer to further develop his expertise and contribute to innovative projects.
-[Fei LinkedIn] (https://www.linkedin.com/in/fei-lincs/)
-[Fei Github] (https://github.com/walletkun)
+**Fei Lin** is a software engineer specializing in full stack development with a focus on integrating artificial intelligence into dynamic, scalable systems. With experience in both front-end and back-end technologies, Fei is dedicated to building seamless, intelligent solutions that address real-world challenges. Currently, Fei is expanding his skills and aiming to secure a software engineering internship for the upcoming summer to further develop his expertise and contribute to innovative projects. View his [LinkedIn](https://www.linkedin.com/in/fei-lincs/) and his [Github](https://github.com/walletkun)
 
 
-**Adam Sadov** is a software engineer with a strong foundation in data science, blending programming expertise with analytical skills to develop data-driven solutions. With experience in software development and data analysis, Adam is passionate about using technology to derive insights and build scalable applications. Continuously expanding his knowledge in both fields, Adam is focused on creating impactful software that leverages data to solve complex problems.
-[Adam LinkedIn](https://www.linkedin.com/in/adam-sadov-b23b61204/)
-[Adam Github] (https://github.com/dabrownies)
+**Adam Sadov** is a software engineer with a strong foundation in data science, blending programming expertise with analytical skills to develop data-driven solutions. With experience in software development and data analysis, Adam is passionate about using technology to derive insights and build scalable applications. Continuously expanding his knowledge in both fields, Adam is focused on creating impactful software that leverages data to solve complex problems. View [Adam's LinkedIn](https://www.linkedin.com/in/adam-sadov-b23b61204/) and his    [Github](https://github.com/dabrownies)
 
 ## Technologies Used
 - **JavaScript**: For building the front end and back end of the application.
@@ -119,7 +117,11 @@ To run the Cicero project, you'll need API keys for **Firebase**, **Pinecone**, 
 touch .env
 nano .env
 ```
-
+## 4. Groq Llama Key
+1. Go to the [Groq platform](https://groq.com/).
+2. Click on 'Developers' the 'start building'
+3. API Keys then create API keys 
+4. Enter a display name and copy the given key.
 Then insert keys into the relevant fields of the .env using the format below:
 
 NEXT_PUBLIC_FIREBASE_API_KEY="Your Firebase API key"
@@ -135,6 +137,9 @@ FIREBASE_PRIVATE_KEY="Your Firebase Private Key"
 FIREBASE_DATABASE_URL="Your Firebase Database URL"
 PINECONE_APIKEY="Your Pinecone API key"
 OPENAI_APIKEY="Your OpenAI API key"
+GROQ_API_KEY=
+
+**WARNING: You may have to insert OpenAI keys directly in code in app/openaiTutor.js, and OpenAI keys and Pinecone key in app/pinecone_operations/pinecone_upload and app/pinecone_operations/pinecone_retrieve. Unfortunately we would not able to find a consistent solution to this issue.
 
 *Creating and Filling Firebase Admin SDK JSON File*
 ```bash 
@@ -189,7 +194,16 @@ Improve front end interface
 And imrpove user interaction.
 This is our 'alpha version', we hope to improve it with our 'beta' and hopefully host the software for real world use.
 
+## Open Source License
 
+
+Copyright <2024> <Mohammad Najm, Fei Lin, Adam Sadov>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 
