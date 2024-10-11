@@ -19,6 +19,8 @@ import {
   Send,
 } from "lucide-react";
 
+import TypingIndicator from "./TypingIndicator";
+
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 
@@ -30,6 +32,7 @@ export const Tutor = ({ workspaceTitle }) => {
   const [conversations, setConversations] = useState([]);
   const [conversationId, setConversationId] = useState(null);
   const [isCreatingConversation, setIsCreatingConversation] = useState(false);
+  const [isAiResponding, setIsAiResponding] = useState(false);
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
   const router = useRouter();
@@ -189,6 +192,7 @@ export const Tutor = ({ workspaceTitle }) => {
     const userMessage = { role: "user", content: message };
     setMessage("");
     setIsLoading(true);
+    setIsAiResponding(true);
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
     try {
@@ -230,6 +234,7 @@ export const Tutor = ({ workspaceTitle }) => {
       console.error("Error sending message:", error);
     } finally {
       setIsLoading(false);
+      setIsAiResponding(false);
     }
   };
 
@@ -428,6 +433,11 @@ export const Tutor = ({ workspaceTitle }) => {
                 </div>
               </div>
             ))}
+            {isAiResponding && (
+              <div className="flex justify-start">
+                <TypingIndicator />
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </ScrollArea>
         </div>
