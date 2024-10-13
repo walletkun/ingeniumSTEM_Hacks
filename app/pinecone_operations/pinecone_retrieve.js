@@ -15,6 +15,7 @@ const openaiClient = new OpenAI({
   // For now put in apikey directly.
   apiKey: ""
 
+
 ,
   dangerouslyAllowBrowser: true,
 });
@@ -23,6 +24,7 @@ const openaiClient = new OpenAI({
 const pinecone = new Pinecone({
   // For now hardcode apiKey.
   apiKey: ""
+
 
 
 ,

@@ -1,6 +1,7 @@
 "use client";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Loader2 } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -9,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   AppWindow,
   LogOut,
@@ -234,7 +235,7 @@ export const Tutor = ({ workspaceTitle }) => {
     return () => clearTimeout(timeoutId);
   }, [isAiResponding, streamedResponse, displayedResponse]);
 
-  const sendMessage = async () => {
+  const sendMessage = useCallback(async () => {
     if (!message.trim() || isLoading || !workspaceTitle || !conversationId)
       return;
     const userMessage = { role: "user", content: message };
@@ -291,7 +292,14 @@ export const Tutor = ({ workspaceTitle }) => {
       setIsWaitingForResponse(false);
       setDisplayedResponse(streamedResponse);
     }
-  };
+  }, [
+    message,
+    isLoading,
+    workspaceTitle,
+    conversationId,
+    authInstance.currentUser,
+    streamedResponse,
+  ]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -315,6 +323,31 @@ export const Tutor = ({ workspaceTitle }) => {
 
   return (
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
+      <AnimatePresence>
+        {isCreatingConversation && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="bg-secondary p-8 rounded-lg shadow-lg text-white flex flex-col items-center"
+            >
+              <Loader2 className="h-12 w-12 animate-spin mb-4" />
+              <p className="text-xl font-semibold">
+                Creating new conversation...
+              </p>
+              <p className="mt-2 text-sm text-gray-300">
+                This may take a few moments
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="hidden w-[260px] flex-col bg-secondary p-4 md:flex shadow-[4px_0_10px_rgba(0,0,0,0.5)] relative z-50">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold">Chat Sessions</h3>
@@ -323,14 +356,25 @@ export const Tutor = ({ workspaceTitle }) => {
             size="icon"
             variant="ghost"
             className="rounded-lg hover:bg-primary hover:text-black"
+            disabled={isCreatingConversation}
           >
-            <PlusIcon className="h-5 w-5" />
+            {isCreatingConversation ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <PlusIcon className="h-5 w-5" />
+            )}
             <span className="sr-only">Create New Chat</span>
           </Button>
         </div>
         <ScrollArea className="flex-1">
           {conversations.map((conversation) => (
-            <div key={conversation.id} className={`w-full mb-2 rounded-lg`}>
+            <motion.div
+              key={conversation.id}
+              className={`w-full mb-2 rounded-lg`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
               <Button
                 onClick={() => selectConversation(conversation.id)}
                 className={`w-full justify-start p-2 h-auto rounded-sm ${
@@ -342,7 +386,7 @@ export const Tutor = ({ workspaceTitle }) => {
               >
                 <span className="truncate">{conversation.title}</span>
               </Button>
-            </div>
+            </motion.div>
           ))}
         </ScrollArea>
       </div>

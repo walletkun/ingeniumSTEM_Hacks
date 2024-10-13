@@ -215,7 +215,7 @@ export const HomePage = () => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-          >
+            className='flex-grow flex items-center justify-center'>
             <LoadingAnimation />
           </motion.div>
         ) : (
@@ -224,6 +224,7 @@ export const HomePage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
+            className="flex flex-col flex-grow"
           >
             <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
               <motion.div
@@ -403,7 +404,7 @@ export const HomePage = () => {
               )}
             </main>
 
-            <footer className="bg-[#222] py-6 px-6 text-[#c0c0c0] text-sm ">
+            <footer className="bg-[#222] py-6 px-6 text-[#c0c0c0] text-sm mt-auto ">
               <div className="mx-auto flex items-center justify-between">
                 <p>&copy; 2024 CICERO. All rights reserved.</p>
                 <nav className="flex items-center gap-4"></nav>
