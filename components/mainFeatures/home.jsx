@@ -28,7 +28,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebase";
@@ -56,6 +56,8 @@ export const HomePage = () => {
   const [isContentReady, setIsContentReady] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isCreatingWorkspace, setIsCreatingWorkspace] = useState(false);
+
+  const router = useRouter();
 
   const logOut = async () => {
     try {
@@ -202,9 +204,6 @@ export const HomePage = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!user) {
-    return <div>Please log in to view your workspaces.</div>;
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-[#f0f0f0] font-mono">

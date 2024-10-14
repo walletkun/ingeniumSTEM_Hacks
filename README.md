@@ -137,7 +137,7 @@ FIREBASE_PRIVATE_KEY="Your Firebase Private Key"
 FIREBASE_DATABASE_URL="Your Firebase Database URL"
 PINECONE_APIKEY="Your Pinecone API key"
 OPENAI_APIKEY="Your OpenAI API key"
-GROQ_API_KEY=
+GROQ_API_KEY="Your GROQ API key"
 
 **WARNING: You may have to insert OpenAI keys directly in code in app/openaiTutor.js, and OpenAI keys and Pinecone key in app/pinecone_operations/pinecone_upload and app/pinecone_operations/pinecone_retrieve. Unfortunately we would not able to find a consistent solution to this issue.
 

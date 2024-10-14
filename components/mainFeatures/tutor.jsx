@@ -1,10 +1,8 @@
-"use client";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Loader2 } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -12,12 +10,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  AppWindow,
   LogOut,
   SquareChartGanttIcon,
   Layers3,
   CircleHelp,
   Send,
+  Loader2,
 } from "lucide-react";
 
 import TypingIndicator from "./TypingIndicator";
@@ -27,23 +25,28 @@ import { auth } from "@/firebase";
 
 export const Tutor = ({ workspaceTitle }) => {
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("");
+  const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState(null);
   const [conversations, setConversations] = useState([]);
   const [conversationId, setConversationId] = useState(null);
   const [isCreatingConversation, setIsCreatingConversation] = useState(false);
-  const [isAiResponding, setIsAiResponding] = useState(false);
-  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
-  const [streamedResponse, setStreamedResponse] = useState("");
+  const [isAiThinking, setIsAiThinking] = useState(false);
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [displayedResponse, setDisplayedResponse] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  const [responseBuffer, setResponseBuffer] = useState("");
+  const [aiResponse, setAiResponse] = useState({
+    content: "",
+    isComplete: false,
+  });
   const authInstance = getAuth();
   const messagesEndRef = useRef(null);
   const router = useRouter();
 
   useEffect(() => {
+    let isMounted = true;
     const unsubscribe = onAuthStateChanged(authInstance, (user) => {
+      if (!isMounted) return;
       if (user) {
         console.log("User is logged in:", user.uid);
         setUserId(user.uid);
@@ -54,15 +57,12 @@ export const Tutor = ({ workspaceTitle }) => {
       setIsLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => {
+      isMounted = false;
+      unsubscribe();
+      console.log("Tutor component unmounted");
+    };
   }, [authInstance, router]);
-
-  useEffect(() => {
-    console.log(
-      "Tutor component rendered with workspaceTitle:",
-      workspaceTitle
-    );
-  }, [workspaceTitle]);
 
   const selectConversation = useCallback(
     async (selectedConversationId) => {
@@ -210,41 +210,20 @@ export const Tutor = ({ workspaceTitle }) => {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, displayedResponse]);
-
-  useEffect(() => {
-    let timeoutId;
-    if (isAiResponding && streamedResponse.length > displayedResponse.length) {
-      setIsTyping(true);
-      timeoutId = setTimeout(() => {
-        setDisplayedResponse(
-          streamedResponse.slice(0, displayedResponse.length + 1)
-        );
-      }, 20);
-    } else if (streamedResponse.length === displayedResponse.length) {
-      setIsTyping(false);
-      // Add this line to ensure the message persists
-      setMessages((prevMessages) =>
-        prevMessages.map((msg, index) =>
-          index === prevMessages.length - 1 && msg.role === "system"
-            ? { ...msg, content: streamedResponse }
-            : msg
-        )
-      );
-    }
-    return () => clearTimeout(timeoutId);
-  }, [isAiResponding, streamedResponse, displayedResponse]);
+  }, [messages, aiResponse]);
 
   const sendMessage = useCallback(async () => {
-    if (!message.trim() || isLoading || !workspaceTitle || !conversationId)
+    if (!inputMessage.trim() || isLoading || !workspaceTitle || !conversationId)
       return;
-    const userMessage = { role: "user", content: message };
-    setMessage("");
+    const userMessage = { role: "user", content: inputMessage };
+    setInputMessage("");
     setIsLoading(true);
-    setIsWaitingForResponse(true);
+    setIsAiThinking(true);
     setMessages((prevMessages) => [...prevMessages, userMessage]);
-    setStreamedResponse("");
+    setAiResponse({ content: "", isComplete: false });
     setDisplayedResponse("");
+    setResponseBuffer("");
+    setIsTypingComplete(false);
 
     try {
       const token = await authInstance.currentUser.getIdToken();
@@ -266,40 +245,60 @@ export const Tutor = ({ workspaceTitle }) => {
         throw new Error(`Network response was not ok: ${errorData.error}`);
       }
 
-      setIsWaitingForResponse(false);
-      setIsAiResponding(true);
-      setIsTyping(true);
-
+      setIsAiThinking(false);
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
+
+      let fullResponse = "";
+      let typingResponse = "";
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
         const chunk = decoder.decode(value, { stream: true });
-        setStreamedResponse((prev) => prev + chunk);
+        fullResponse += chunk;
+        typingResponse += chunk;
+        setResponseBuffer(fullResponse);
       }
-
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: "system", content: streamedResponse },
-      ]);
+      setAiResponse((prev) => ({ content: fullResponse, isComplete: true }));
     } catch (error) {
       console.error("Error sending message:", error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          role: "system",
+          content:
+            "An error occurred while processing your request. Please try again.",
+        },
+      ]);
     } finally {
       setIsLoading(false);
-      setIsAiResponding(false);
-      setIsTyping(false);
-      setIsWaitingForResponse(false);
-      setDisplayedResponse(streamedResponse);
+      setIsAiThinking(false);
     }
-  }, [
-    message,
-    isLoading,
-    workspaceTitle,
-    conversationId,
-    authInstance.currentUser,
-    streamedResponse,
-  ]);
+  }, [inputMessage, isLoading, workspaceTitle, conversationId, authInstance]);
+
+  useEffect(() => {
+    let typingInterval;
+    if (responseBuffer && !isTypingComplete) {
+      typingInterval = setInterval(() => {
+        if (responseBuffer.length > displayedResponse.length) {
+          const nextChar = responseBuffer[displayedResponse.length];
+          setDisplayedResponse((prev) => prev + nextChar);
+        } else {
+          setIsTypingComplete(true);
+          clearInterval(typingInterval);
+
+          //Add the complete message to the messages array
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { role: "system", content: responseBuffer },
+          ]);
+        }
+      }, 5);
+    }
+    return () => {
+      if (typingInterval) clearInterval(typingInterval);
+    };
+  }, [responseBuffer, displayedResponse, isTypingComplete]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -320,6 +319,116 @@ export const Tutor = ({ workspaceTitle }) => {
       }
     };
   }, [sendMessage]);
+
+  const renderMessage = (message, index) => (
+    <div
+      key={index}
+      className={`flex ${
+        message.role === "system" ? "justify-start" : "justify-end"
+      }`}
+    >
+      <div
+        className={`p-3 text-white rounded-3xl mt-2 mb-2 px-5 ${
+          message.role === "system" ? "bg-muted" : "bg-secondary"
+        }`}
+      >
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            code({ node, inline, className, children, ...props }) {
+              const match = /language-(\w+)/.exec(className || "");
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  style={vscDarkPlus}
+                  language={match[1]}
+                  PreTag="div"
+                  {...props}
+                >
+                  {String(children).replace(/\n$/, "")}
+                </SyntaxHighlighter>
+              ) : (
+                <code
+                  className={`${
+                    inline ? "bg-[#3a3a3a] text-[#e6e6e6] px-1 rounded" : ""
+                  } ${className}`}
+                  {...props}
+                >
+                  {children}
+                </code>
+              );
+            },
+            ul({ node, ...props }) {
+              return <ul className="list-disc pl-4 my-2" {...props} />;
+            },
+            ol({ node, ...props }) {
+              return <ol className="list-decimal pl-4 my-2" {...props} />;
+            },
+            li({ node, ...props }) {
+              return <li className="my-1" {...props} />;
+            },
+          }}
+          className="markdown-content"
+        >
+          {message.content}
+        </ReactMarkdown>
+      </div>
+    </div>
+  );
+
+  const renderMarkdownWithCursor = (content) => {
+    return (
+      <div className="flex items-baseline">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            code({ node, inline, className, children, ...props }) {
+              const match = /language-(\w+)/.exec(className || "");
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  style={vscDarkPlus}
+                  language={match[1]}
+                  PreTag="div"
+                  {...props}
+                >
+                  {String(children).replace(/\n$/, "")}
+                </SyntaxHighlighter>
+              ) : (
+                <code
+                  className={`${
+                    inline ? "bg-[#3a3a3a] text-[#e6e6e6] px-1 rounded" : ""
+                  } ${className}`}
+                  {...props}
+                >
+                  {children}
+                </code>
+              );
+            },
+            ul({ node, ...props }) {
+              return <ul className="list-disc pl-4 my-2" {...props} />;
+            },
+            ol({ node, ...props }) {
+              return <ol className="list-decimal pl-4 my-2" {...props} />;
+            },
+            li({ node, ...props }) {
+              return <li className="my-1" {...props} />;
+            },
+          }}
+          className="markdown-content inline leading-normal"
+        >
+          {content}
+        </ReactMarkdown>
+        {!isTypingComplete && (
+          <span className="inline-block animate-pulse text-lg leading-none align-baseline ml-1">|</span>
+        )}
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    console.log("Response buffer updated:", responseBuffer);
+    console.log("Displayed response updated:", displayedResponse);
+    console.log("Is typing complete:", isTypingComplete);
+  }, [responseBuffer, displayedResponse, isTypingComplete]);
 
   return (
     <div className="flex min-h-screen w-full bg-[#202020] text-white">
@@ -449,153 +558,30 @@ export const Tutor = ({ workspaceTitle }) => {
 
         <div className="flex-1 overflow-auto p-4 md:p-6 bg-[#202020]">
           <ScrollArea>
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${
-                  message.role === "system" ? "justify-start" : "justify-end"
-                }`}
-              >
-                <div
-                  className={`p-3 text-white rounded-3xl mt-2 mb-2 px-5 ${
-                    message.role === "system" ? "bg-muted" : "bg-secondary"
-                  }`}
-                >
-                  {message.role === "system" ? (
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        code({ node, inline, className, children, ...props }) {
-                          const match = /language-(\w+)/.exec(className || "");
-                          return !inline && match ? (
-                            <SyntaxHighlighter
-                              style={vscDarkPlus}
-                              language={match[1]}
-                              PreTag="div"
-                              {...props}
-                            >
-                              {String(children).replace(/\n$/, "")}
-                            </SyntaxHighlighter>
-                          ) : (
-                            <code
-                              className={`${
-                                inline
-                                  ? "bg-[#3a3a3a] text-[#e6e6e6] px-1 rounded"
-                                  : ""
-                              } ${className}`}
-                              {...props}
-                            >
-                              {children}
-                            </code>
-                          );
-                        },
-                        ul({ node, ...props }) {
-                          return (
-                            <ul className="list-disc pl-4 my-2" {...props} />
-                          );
-                        },
-                        ol({ node, ...props }) {
-                          return (
-                            <ol className="list-decimal pl-4 my-2" {...props} />
-                          );
-                        },
-                        li({ node, ...props }) {
-                          return <li className="my-1" {...props} />;
-                        },
-                      }}
-                      className="markdown-content"
-                    >
-                      {message.content}
-                    </ReactMarkdown>
-                  ) : (
-                    <p>{message.content || "Start conversation..."}</p>
-                  )}
-                </div>
-              </div>
-            ))}
-            {isWaitingForResponse && (
+            {messages.map((message, index) => renderMessage(message, index))}
+            {isAiThinking && (
               <div className="flex justify-start">
                 <div className="p-3 text-white rounded-3xl mt-2 mb-2 px-5 bg-muted">
                   <TypingIndicator />
                 </div>
               </div>
             )}
-            {isAiResponding && (
+            {!isTypingComplete && responseBuffer && (
               <div className="flex justify-start">
                 <div className="p-3 text-white rounded-3xl mt-2 mb-2 px-5 bg-muted">
-                  <div className="relative">
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        code({ node, inline, className, children, ...props }) {
-                          const match = /language-(\w+)/.exec(className || "");
-                          return !inline && match ? (
-                            <SyntaxHighlighter
-                              style={vscDarkPlus}
-                              language={match[1]}
-                              PreTag="div"
-                              {...props}
-                            >
-                              {String(children).replace(/\n$/, "")}
-                            </SyntaxHighlighter>
-                          ) : (
-                            <code
-                              className={`${
-                                inline
-                                  ? "bg-[#3a3a3a] text-[#e6e6e6] px-1 rounded"
-                                  : ""
-                              } ${className}`}
-                              {...props}
-                            >
-                              {children}
-                            </code>
-                          );
-                        },
-                        ul({ node, ...props }) {
-                          return (
-                            <ul className="list-disc pl-4 my-2" {...props} />
-                          );
-                        },
-                        ol({ node, ...props }) {
-                          return (
-                            <ol className="list-decimal pl-4 my-2" {...props} />
-                          );
-                        },
-                        li({ node, ...props }) {
-                          return <li className="my-1" {...props} />;
-                        },
-                      }}
-                      className="markdown-content"
-                    >
-                      {displayedResponse}
-                    </ReactMarkdown>
-                    {isTyping && (
-                      <span
-                        className="animate-pulse"
-                        style={{
-                          position: "absolute",
-                          bottom: 0,
-                          right: "-10px",
-                          lineHeight: "1.2em",
-                        }}
-                      >
-                        |
-                      </span>
-                    )}
-                  </div>
+                  {renderMarkdownWithCursor(displayedResponse)}
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </ScrollArea>
         </div>
-
         <div className="sticky bottom-0 bg-[#202020] px-4 py-0 md:px-6">
           <div className="relative mb-7">
             <Input
               id="inputField"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Type your message..."
               disabled={isLoading}
               className="min-h-[48px] rounded-full resize-none p-4 shadow-sm pr-16 bg-muted"
