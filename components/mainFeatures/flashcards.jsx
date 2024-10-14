@@ -217,47 +217,75 @@ export const Flashcards = () => {
             className="flex flex-col flex-grow"
           >
             <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black]">
-              <Link
-                href="/"
-                className="text-2xl font-semibold"
-                prefetch={false}
+              <motion.div
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.9 }}
               >
-                CICERO
-              </Link>
+                <Link
+                  href="/"
+                  className="text-2xl font-semibold"
+                  prefetch={false}
+                >
+                  CICERO
+                </Link>
+              </motion.div>
               <div className="flex items-center gap-1">
-                <Link
-                  href="/homePage"
-                  className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-                  prefetch={false}
+                <motion.div
+                  whileHover={{ scale: 1.07 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <SquareChartGanttIcon className="h-5 w-5 mr-2" />
-                  Workspaces
-                </Link>
-                <Link
-                  href="/flashcards"
-                  className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-                  prefetch={false}
+                  <Link
+                    href="/homePage"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-normal text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                  >
+                    <SquareChartGanttIcon className="h-5 w-5 mr-2" />
+                    Workspaces
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.07 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <Layers3 className="h-5 w-5 mr-2" />
-                  Flashcards
-                </Link>
-                <Link
-                  href="/helpPage"
-                  className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-                  prefetch={false}
+                  <Link
+                    href="/flashcards"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                  >
+                    <Layers3 className="h-5 w-5 mr-2" />
+                    Flashcards
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.07 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <CircleHelp className="h-5 w-5 mr-2" />
-                  Help
-                </Link>
-                <Link
-                  href="#"
-                  onClick={logOut}
-                  className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
-                  prefetch={false}
+                  <Link
+                    href="/helpPage"
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                  >
+                    <CircleHelp className="h-5 w-5 mr-2" />
+                    Help
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.07 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <LogOut className="h-5 w-5 mr-2" />
-                  Log out
-                </Link>
+                  <Link
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      logOut();
+                    }}
+                    className="font-sans rounded-full bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors duration-300 ease-in-out flex items-center space-x-2"
+                    prefetch={false}
+                  >
+                    <LogOut className="h-5 w-5 mr-2" />
+                    Log out
+                  </Link>
+                </motion.div>
               </div>
             </header>
             <main className="flex-grow">
@@ -345,40 +373,53 @@ export const Flashcards = () => {
                 </Dialog>
               </div>
               {/*User's personal flashcard sets */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-8 rounded-lg">
-                {userFlashcardSets.length > 0 ? (
-                  userFlashcardSets.map((set) => (
-                    <motion.div
-                      key={set.id}
-                      whileHover={{ scale: 1.07 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Card
-                        className="bg-[#222] hover:bg-primary"
-                        onClick={() => navigateToFlashcardSet(set.id)}
+              {userFlashcardSets.length === 0 ? (
+                <div className="flex flex-col items-center justify-center mt-40">
+                  <SearchX className="h-10 w-10 mb-5" />
+                  <h1 className="text-2xl font-bold">Looks empty in here...</h1>
+                </div>
+              ) : (
+                <div className="p-4 sm:p-6 md:p-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+                    {userFlashcardSets.map((set) => (
+                      <motion.div
+                        key={set.id}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-                        <CardHeader>
-                          <CardTitle>{set.title || "Untitled Set"}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p>
-                            Cards:{" "}
-                            {set.flashcards ? set.flashcards.length : "N/A"}
-                          </p>
-                          <p>Difficulty: {difficulty || "N/A"}/5</p>
-                          <div className="absolute bottom-4 right-4">
-                            <ArrowRightIcon className="w-5 h-5" />
+                        <div className="bg-[#222] rounded-lg p-6 hover:bg-primary transition-colors flex flex-col justify-between relative h-[140px]">
+                          <div className="absolute top-5 right-5">
+                            <Button className="hover:bg-[#e0857d] bg-transparent left-[-23px] absolute bottom-[-26px] rounded-lg p-2">
+                              <Trash2 className="w-5 h-5" />
+                            </Button>
                           </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))
-                ) : (
-                  <div className="col-span-3 text-center">
-                    No flashcard sets found. Create a new set to get started!
+                          <h3
+                            className="text-xl font-bold break-words flex-grow"
+                            style={{ maxWidth: "250px" }}
+                          >
+                            {set.title}
+                          </h3>
+                          <p className="text-sm text-white mt-auto">
+                            Cards: {set.flashcards ? set.flashcards.length : "N/A"}
+                          </p>
+                          <p className="text-sm text-white mt-auto">
+                            Difficulty: {difficulty || "N/A"}/5
+                          </p>
+                          <div className="absolute bottom-1 right-2">
+                            <Button
+                              onClick={() => navigateToFlashcardSet(set.id)}
+                              prefetch={false}
+                              className="p-0 bg-transparent hover:bg-transparent"
+                            >
+                              <ArrowRightIcon className="w-9 h-9 hover:bg-[#e0857d] rounded-lg p-2" />
+                            </Button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
-                )}
-              </div>
+                </div>
+              )}
 
               {/*Workspace flashcard sets */}
               {workspaceId && (

@@ -199,7 +199,7 @@ export default function Component() {
         <div className="bg-[#AEEBDF] flex flex-col items-center h-96 min-h-screen">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-grow items-center justify-items-center">
             <div 
-              className="bg-muted p-6 rounded-xl shadow-xl h-[550px] w-[600px] flex items-center justify-center"
+              className="bg-mutedq p-6 rounded-xl shadow-xl h-[550px] w-[600px] flex items-center justify-center"
               style={{
                 backgroundImage: "url('/images/flash2.png')",
                 backgroundSize: 'contain',
